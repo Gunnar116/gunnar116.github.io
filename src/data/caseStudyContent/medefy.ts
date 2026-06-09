@@ -32,6 +32,13 @@ export const medefyCaseStudy: CaseStudyContent = {
     'Cross-platform product design',
   ],
 
+  externalLinks: [
+    {
+      label: 'View app on App Store',
+      href: 'https://apps.apple.com/us/app/medefy-benefits-app/id1469105142',
+    },
+  ],
+
   heroVisual: 'medefy',
   heroImage: {
     src: '/work/medefy/raw/triptych.png',

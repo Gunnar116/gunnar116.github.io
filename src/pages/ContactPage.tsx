@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Section } from '../components/layout/Section'
 import { Container } from '../components/layout/Container'
 import { Portrait } from '../components/Portrait'
@@ -116,16 +117,50 @@ export function ContactPage() {
         </Container>
       </Section>
 
-      {/* Sign-off */}
-      <Section tone="cream" spacing="snug" className="border-t border-border">
+      {/* Closing CTA */}
+      <section className="border-t border-border pt-16 pb-16 sm:pt-20 sm:pb-20">
         <Container>
           <Reveal>
-            <p className="text-[16px] sm:text-[17px] leading-[1.6] text-muted">
-              Looking forward to hearing from you.
-            </p>
+            <div className="rounded-3xl border border-accent/25 bg-accent-soft px-7 py-9 sm:px-10 sm:py-12">
+              <span aria-hidden className="block h-[2px] w-8 rounded-full bg-accent" />
+              <span className="eyebrow mt-5 block">Next step</span>
+              <h2 className="mt-3 text-[1.75rem] sm:text-[2.125rem] font-semibold tracking-[-0.02em] leading-[1.15] text-ink">
+                Have a product problem worth untangling?
+              </h2>
+              <p className="mt-4 max-w-xl text-[16px] sm:text-[17px] leading-[1.6] text-muted">
+                I’m always interested in thoughtful teams, messy workflows, and products that need
+                more clarity. Send a note and I’ll get back to you.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <a
+                  href="mailto:grmconcepts@gmail.com"
+                  className="btn-primary group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium motion-safe:hover:-translate-y-[1px]"
+                >
+                  Email me
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                  >
+                    →
+                  </span>
+                </a>
+                <Link
+                  to="/"
+                  className="hover-pill focus-ring group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
+                >
+                  View selected work
+                  <span
+                    aria-hidden
+                    className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
+                  >
+                    →
+                  </span>
+                </Link>
+              </div>
+            </div>
           </Reveal>
         </Container>
-      </Section>
+      </section>
     </main>
   )
 }

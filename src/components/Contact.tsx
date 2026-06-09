@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Section } from './layout/Section'
 import { Container } from './layout/Container'
 import { Reveal } from './Reveal'
@@ -19,11 +20,11 @@ export function Contact() {
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-7 sm:gap-y-4">
-            <a
-              href="mailto:grmconcepts@gmail.com"
+            <Link
+              to="/contact"
               className="btn-primary group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium motion-safe:hover:-translate-y-[1px]"
             >
-              grmconcepts@gmail.com
+              Get in touch
               <svg
                 className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
                 width="14"
@@ -40,7 +41,7 @@ export function Contact() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </a>
+            </Link>
 
             <a
               href="https://www.linkedin.com/in/gunnarmorgan"
