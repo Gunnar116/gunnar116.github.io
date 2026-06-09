@@ -17,10 +17,7 @@ export function Hero() {
 
             <h1 className="mt-5 text-[2.6rem] sm:text-[3.5rem] lg:text-[4.25rem] leading-[1.05] tracking-[-0.025em] font-semibold text-ink">
               Clear, scalable experiences for{' '}
-              <span className="underline decoration-2 decoration-accent underline-offset-[8px]">
-                complex products
-              </span>
-              .
+              <span className="accent-underline">complex products</span>.
             </h1>
 
             <p className="mt-7 max-w-2xl text-[18px] sm:text-[19px] leading-[1.55] text-body">

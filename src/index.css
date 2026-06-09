@@ -249,3 +249,30 @@
     .hover-fill:hover { background-color: var(--color-accent-soft); }
   }
 }
+
+/* ── Editorial accent underline (hero phrase highlight) ──────────
+   A thin accent rule sitting just below the baseline, drawn with a
+   background gradient so it wraps cleanly across lines. Slightly offset
+   from the text so it reads as a deliberate mark rather than a link
+   underline. Draws in once on load when motion is allowed; static
+   otherwise. Uses the existing --color-accent token. */
+@layer utilities {
+  .accent-underline {
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 0.07em;
+    padding-bottom: 0.1em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .accent-underline {
+      animation: accentDraw 620ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+    }
+    @keyframes accentDraw {
+      from { background-size: 0% 0.07em; }
+      to { background-size: 100% 0.07em; }
+    }
+  }
+}

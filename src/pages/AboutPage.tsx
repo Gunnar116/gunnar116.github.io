@@ -210,7 +210,9 @@ export function AboutPage() {
               </div>
 
               <ol className="col-span-12 lg:col-span-8 lg:col-start-5">
-                {JOURNEY.map((j) => (
+                {JOURNEY.map((j) => {
+                  const isCurrent = j.period.includes('Present')
+                  return (
                   <li
                     key={j.company}
                     className="group grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-[136px_1fr]"
@@ -223,7 +225,11 @@ export function AboutPage() {
                     <div className="relative border-l border-border pb-10 pl-6 last:pb-0 sm:pl-7">
                       <span
                         aria-hidden
-                        className="absolute left-0 top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-accent bg-cream transition-colors duration-300 group-hover:bg-accent"
+                        className={`absolute left-0 top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-accent transition-colors duration-300 ${
+                          isCurrent
+                            ? 'bg-accent ring-4 ring-accent-soft'
+                            : 'bg-cream group-hover:bg-accent'
+                        }`}
                       />
                       <h3 className="text-[1.0625rem] sm:text-[1.125rem] font-semibold tracking-[-0.01em] leading-[1.3] text-ink transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-0.5">
                         {j.company}
@@ -252,7 +258,8 @@ export function AboutPage() {
                       )}
                     </div>
                   </li>
-                ))}
+                  )
+                })}
               </ol>
             </div>
           </Reveal>
@@ -268,7 +275,7 @@ export function AboutPage() {
               {VALUES.map((v) => (
                 <article
                   key={v.index}
-                  className="group rounded-2xl border border-border bg-surface px-6 py-7 sm:px-7 sm:py-8 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-border-strong hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.28)]"
+                  className="group rounded-2xl border border-border bg-surface px-6 py-7 sm:px-7 sm:py-8 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.28)]"
                 >
                   <div className="flex items-center gap-2 text-[12px] font-semibold tabular-nums tracking-[0.14em] text-accent-strong">
                     {v.index}
