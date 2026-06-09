@@ -146,11 +146,11 @@ export type CaseStudyContent = {
     }
   }>
 
-  /** Optional confidentiality / NDA banner shown near the top */
-  confidentialityNote?: string
-
-  /** Optional quiet context notice shown near the top (after hero, before overview). Rendered as a subtle card, not a banner. */
+  /** Optional quiet context notice shown high in the header (right under the
+   *  subtitle, above the fold). Rendered as a subtle card, not a banner. */
   notice?: string
+  /** Optional bold lead-in label for the notice. Defaults to "About this case study." */
+  noticeLabel?: string
 
   /** Optional external action links (e.g. "View live website"), rendered in the case study header */
   externalLinks?: Array<{

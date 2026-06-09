@@ -44,7 +44,8 @@ export const truopsPlatformCaseStudy: CaseStudyContent = {
     alt: 'Editorial TruOps dashboard mockup showing the CIS executive view inside a polished product frame',
   },
 
-  confidentialityNote:
+  noticeLabel: 'Confidentiality.',
+  notice:
     'This case study reflects real product work for a high-security enterprise SaaS platform. Some details, screens, and implementation specifics have been abstracted or omitted to protect confidentiality.',
 
   overview:

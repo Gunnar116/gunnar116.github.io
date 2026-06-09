@@ -41,8 +41,9 @@ export const fortressA2VCaseStudy: CaseStudyContent = {
     label: 'PRODUCT SCREEN',
   },
 
-  confidentialityNote:
-    'This case study reflects enterprise cybersecurity product work. Some details, data, and implementation specifics have been abstracted to protect confidentiality.',
+  noticeLabel: 'Confidentiality.',
+  notice:
+    'This case study reflects real product work for a cybersecurity and vendor-risk platform. Some details, screens, and implementation specifics have been abstracted or omitted to protect confidentiality.',
 
   overview:
     'Fortress A2V is a high-security enterprise platform where vendors and security teams access, manage, and understand the cybersecurity information that connects them — documentation, attestations, risk signals, and the asset-to-vendor relationships that frame all of it. The redesign focused on making that surface more usable, navigable, consistent, and scalable, without weakening the security and compliance context it had to operate inside. The goal was not to lighten the platform — it was to make a serious tool feel like one a serious operator could actually move through quickly.',

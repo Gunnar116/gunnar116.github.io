@@ -9,7 +9,6 @@ import { CaseStudyDecisions } from '../components/casestudy/CaseStudyDecisions'
 import { CaseStudyChapters } from '../components/casestudy/CaseStudyChapters'
 import { CaseStudyCTA } from '../components/casestudy/CaseStudyCTA'
 import { CaseStudyNext } from '../components/casestudy/CaseStudyNext'
-import { ConfidentialityNote } from '../components/casestudy/ConfidentialityNote'
 
 export function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -42,10 +41,6 @@ export function CaseStudyPage() {
           imagePair={content.heroImagePair}
         />
       )}
-      {content.confidentialityNote && (
-        <ConfidentialityNote note={content.confidentialityNote} />
-      )}
-
       {content.overview && (
         <CaseStudySection heading="Project overview" eyebrow="Overview">
           <p>{content.overview}</p>

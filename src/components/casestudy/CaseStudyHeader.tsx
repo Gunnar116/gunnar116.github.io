@@ -19,7 +19,9 @@ export function CaseStudyHeader({ content }: Props) {
             {content.subtitle}
           </p>
 
-          {content.notice && <CaseStudyNotice text={content.notice} />}
+          {content.notice && (
+            <CaseStudyNotice text={content.notice} label={content.noticeLabel} />
+          )}
 
           {content.externalLinks && content.externalLinks.length > 0 && (
             <div className="mt-7 flex flex-wrap items-center gap-3">
