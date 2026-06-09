@@ -58,7 +58,7 @@ export function Nav() {
               </a>
             </li>
             <li>
-              <Link to="/#contact" className="transition-colors hover:text-ink">
+              <Link to="/contact" className="transition-colors hover:text-ink">
                 Contact
               </Link>
             </li>

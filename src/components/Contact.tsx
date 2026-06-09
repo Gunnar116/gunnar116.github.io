@@ -20,10 +20,10 @@ export function Contact() {
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-7 sm:gap-y-4">
             <a
-              href="mailto:hello@grmconcepts.com"
+              href="mailto:grmconcepts@gmail.com"
               className="focus-ring group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[14px] font-medium text-cream transition-[transform,background-color] duration-200 hover:bg-charcoal motion-safe:hover:-translate-y-[1px]"
             >
-              hello@grmconcepts.com
+              grmconcepts@gmail.com
               <svg
                 className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
                 width="14"

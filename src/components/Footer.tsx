@@ -17,7 +17,7 @@ export function Footer() {
               LinkedIn
             </a>
             <a
-              href="mailto:hello@grmconcepts.com"
+              href="mailto:grmconcepts@gmail.com"
               className="hover-pill focus-ring transition-colors hover:text-ink"
             >
               Email

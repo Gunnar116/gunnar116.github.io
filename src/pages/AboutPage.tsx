@@ -178,7 +178,7 @@ export function AboutPage() {
                   <span aria-hidden className="text-[11px] transition-colors group-hover:text-accent">↗</span>
                 </a>
                 <a
-                  href="mailto:hello@grmconcepts.com"
+                  href="mailto:grmconcepts@gmail.com"
                   className="hover-pill focus-ring inline-flex items-center text-muted transition-colors hover:text-ink"
                 >
                   Email me
@@ -361,7 +361,7 @@ export function AboutPage() {
               <span aria-hidden className="text-[11px]">↗</span>
             </a>
             <a
-              href="mailto:hello@grmconcepts.com"
+              href="mailto:grmconcepts@gmail.com"
               className="inline-flex items-center gap-1.5 rounded-full border border-cream/30 px-5 py-2.5 text-[14px] font-medium text-cream transition-colors hover:border-cream/60 hover:bg-cream/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
             >
               Email me
