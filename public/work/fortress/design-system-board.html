@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortress A2V — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #F4F7F9;
+  --surface:      #FFFFFF;
+  --border:       #E8EDF0;
+  --border-soft:  #F0F2F5;
+  --ink:          #1A1A1A;
+  --ink-soft:     #003E5F;
+  --muted:        #777777;
+  --muted-soft:   #AAAAAA;
+  --muted-faint:  #C0C0C0;
+  --hairline:     #F2F2F2;
+
+  --primary-darkest: #003E5F;
+  --primary-dark:    #004E72;
+  --primary-main:    #006585;
+  --primary-mid:     #276984;
+  --primary-light:   #5A93A8;
+
+  --secondary-deep: #00607A;
+  --secondary-dark: #0097A7;
+  --secondary-main: #00BCD4;
+  --secondary-light:#4DD0E1;
+  --secondary-pale: #B2EBF2;
+
+  --success-dark:  #1E6B23;
+  --success-main:  #2E7D32;
+  --success-mid:   #4CAF50;
+  --success-light: #A5D6A7;
+  --info-dark:     #0D47A1;
+  --info-main:     #2196F3;
+  --info-mid:      #64B5F6;
+  --info-light:    #BBDEFB;
+  --warning-dark:  #E65100;
+  --warning-main:  #ED6C02;
+  --warning-mid:   #FF9800;
+  --warning-light: #FFCC80;
+  --error-dark:    #B71C1C;
+  --error-main:    #E53935;
+  --error-mid:     #EF5350;
+  --error-light:   #FFCDD2;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.board {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+
+/* Tile primitives */
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px 12px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.lbl {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--primary-main);
+  margin-bottom: 8px;
+}
+.divider-h { height: 1px; background: var(--hairline); margin: 10px 0; }
+
+/* ────────── Layout ────────── */
+.t-brand   { grid-column: 1 / span 4; }
+.t-color   { grid-column: 5 / span 8; }
+.t-type    { grid-column: 1 / span 12; }
+.t-btn     { grid-column: 1 / span 12; }
+.t-badge   { grid-column: 1 / span 4; }
+.t-form    { grid-column: 5 / span 4; }
+.t-ind     { grid-column: 9 / span 4; }
+
+/* ────────── Brand — real Logos.png ────────── */
+.brand-wrap {
+  flex: 1;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+.brand-clip {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1526 / 860;
+  overflow: hidden;
+}
+.brand-clip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ────────── Color System — larger swatches + tooltips that don't clip ─── */
+/* The color tile drops its overflow:hidden so the hover tooltip can extend
+   above the swatch row even when it's taller than the swatch's parent. */
+.tile.t-color { overflow: visible; }
+.t-color .color-grid,
+.t-color .fan,
+.t-color .fan-row { overflow: visible; }
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px 12px;
+  flex: 1;
+}
+/* Bottom row uses the same 4-column track as the top row so Info / Warning /
+   Error sit directly under Primary / Secondary / Neutral. The 4th column
+   stays empty (where Success is in the top row). */
+.color-grid.row-2 {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 4px;
+}
+.fan {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.fan .head {
+  font-size: 11px; font-weight: 600; color: #333; letter-spacing: -0.005em;
+  height: 16px;
+}
+.fan-row {
+  position: relative;
+  height: 64px;
+}
+.fan-swatch {
+  position: absolute; top: 0;
+  width: 40px; height: 64px; border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 140ms ease, z-index 0s;
+  cursor: default;
+}
+.fan-swatch.light { border: 1px solid #D8D8D8; }
+.fan-swatch:hover {
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+  z-index: 30 !important;
+}
+.fan-swatch[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 40;
+  letter-spacing: 0.02em;
+  /* keep tooltip within the leftmost board edge: clamp via min translate */
+  max-width: 220px;
+}
+.fan-swatch[data-tip]::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #111;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 40;
+}
+.fan-swatch:hover::before,
+.fan-swatch:hover::after { opacity: 1; }
+/* For the very first swatch in a fan (left edge), bias the tooltip right so
+   its left side doesn't get cut off by the fan column / tile boundary. */
+.fan-swatch:first-child[data-tip]:hover::before {
+  left: 0;
+  transform: translateX(0);
+}
+.fan-swatch:first-child[data-tip]:hover::after {
+  left: 18px;
+  transform: translateX(-50%);
+}
+
+/* ────────── Typography — full-width, 2-col Display + Body ────────── */
+.type-cols {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 28px;
+  flex: 1;
+}
+.type-col .sub {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--muted-soft); margin-bottom: 8px;
+}
+.type-row {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 5px 0; border-bottom: 1px solid var(--hairline);
+}
+.type-row:last-child { border-bottom: 0; }
+.type-row .tag {
+  font-size: 9.5px; color: var(--muted-faint); font-weight: 500;
+  width: 64px; flex-shrink: 0;
+}
+.type-row .sample {
+  color: var(--primary-darkest); flex: 1; min-width: 0;
+  line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.type-row .px {
+  font-size: 9.5px; color: #DDDDDD; flex-shrink: 0; font-weight: 500;
+  font-feature-settings: "tnum";
+}
+
+/* ────────── Buttons — single row, 3 groups ────────── */
+.btn-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.btn-cols .col .sub {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--muted-soft); margin-bottom: 8px;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn {
+  font-size: 11.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px;
+  border: none; cursor: default; line-height: 1;
+  letter-spacing: 0.02em;
+}
+.btn-contained.primary   { background: var(--primary-main);   color: #fff; }
+.btn-contained.secondary { background: var(--secondary-main); color: #fff; }
+.btn-contained.success   { background: var(--success-main);   color: #fff; }
+.btn-contained.warning   { background: var(--warning-main);   color: #fff; }
+.btn-contained.error     { background: var(--error-main);     color: #fff; }
+.btn-contained.disabled  { background: #E0E0E0;               color: #AAAAAA; }
+.btn-outlined            { background: #fff; border-width: 1.5px; border-style: solid; }
+.btn-outlined.primary    { border-color: var(--primary-main);   color: var(--primary-main); }
+.btn-outlined.secondary  { border-color: var(--secondary-main); color: var(--secondary-main); }
+.btn-outlined.success    { border-color: var(--success-main);   color: var(--success-main); }
+.btn-outlined.warning    { border-color: var(--warning-main);   color: var(--warning-main); }
+.btn-outlined.error      { border-color: var(--error-main);     color: var(--error-main); }
+.btn-outlined.disabled   { border-color: #CCCCCC;               color: #BBBBBB; }
+.size-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.btn-sm { font-size: 10.5px; padding: 5px 11px; border-radius: 6px; }
+.btn-md { font-size: 11.5px; padding: 7px 14px; border-radius: 8px; }
+.btn-lg { font-size: 13px; padding: 9px 18px; border-radius: 10px; }
+
+/* ────────── Badges + Chips ────────── */
+.badge-list, .chip-list { display: flex; flex-wrap: wrap; gap: 5px; }
+.b-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+}
+.b-badge .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.b-chip {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 500; padding: 4px 11px; border-radius: 999px;
+  border: 1px solid;
+}
+
+/* ────────── Form Controls ────────── */
+.tf-list { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.tf-row { display: flex; align-items: flex-start; gap: 8px; }
+.tf-row .state { font-size: 9px; color: var(--muted-faint); width: 48px; flex-shrink: 0; padding-top: 9px; }
+.tf-field { flex: 1; position: relative; }
+.tf-field .lbl-flag {
+  position: absolute; top: -6px; left: 9px;
+  font-size: 9px; font-weight: 500; background: #fff; padding: 0 4px;
+}
+.tf-field .ctl {
+  border-radius: 7px; padding: 7px 9px; background: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px;
+}
+.tf-row .err-text { font-size: 9px; color: var(--error-main); margin-top: 3px; padding-left: 4px; }
+
+/* ────────── Indicators + Toggles ────────── */
+.ind-cluster { display: flex; flex-direction: column; gap: 11px; }
+.ind-row { display: flex; align-items: center; gap: 8px; }
+.ind-row .lbl-row { font-size: 9.5px; color: var(--muted-faint); width: 56px; flex-shrink: 0; }
+.ind-row .track {
+  flex: 1; position: relative; height: 5px; background: #EEEEEE; border-radius: 999px;
+}
+.ind-row .track.bar { height: 6px; overflow: hidden; }
+.ind-row .track .fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; }
+.ind-row .track.slider .thumb {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+.ind-row .pct { font-size: 9.5px; font-weight: 600; width: 28px; text-align: right; flex-shrink: 0; }
+
+.toggles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.toggle-row { display: flex; align-items: center; gap: 7px; }
+.toggle {
+  width: 28px; height: 16px; border-radius: 999px; position: relative; flex-shrink: 0;
+}
+.toggle .knob {
+  position: absolute; top: 2.5px; width: 11px; height: 11px;
+  background: #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+.toggle.on .knob { right: 2.5px; }
+.toggle.off .knob { left: 2.5px; }
+.toggle-row .lbl { font-size: 9.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <!-- ─── Brand (real Logos.png) ─── -->
+  <div class="tile t-brand">
+    <div class="lbl">Brand · Logo System</div>
+    <div class="brand-wrap">
+      <div class="brand-clip">
+        <img src="source/logos.png" alt="A2V Network and Fortress logo variants — color and reversed, vertical and horizontal lockups" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Color System ─── -->
+  <div class="tile t-color">
+    <div class="lbl">Color System</div>
+    <div class="color-grid">
+      <div class="fan">
+        <div class="head">Primary</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#003E5F; left:0px;"   data-tip="Darkest · #003E5F"></div>
+          <div class="fan-swatch" style="background:#004E72; left:20px;"  data-tip="Dark · #004E72"></div>
+          <div class="fan-swatch" style="background:#006585; left:40px;"  data-tip="Main · #006585"></div>
+          <div class="fan-swatch" style="background:#276984; left:60px;"  data-tip="Mid · #276984"></div>
+          <div class="fan-swatch" style="background:#5A93A8; left:80px;"  data-tip="Light · #5A93A8"></div>
+        </div>
+      </div>
+      <div class="fan">
+        <div class="head">Secondary</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#00607A; left:0px;"   data-tip="Deep · #00607A"></div>
+          <div class="fan-swatch" style="background:#0097A7; left:20px;"  data-tip="Dark · #0097A7"></div>
+          <div class="fan-swatch" style="background:#00BCD4; left:40px;"  data-tip="Main · #00BCD4"></div>
+          <div class="fan-swatch" style="background:#4DD0E1; left:60px;"  data-tip="Light · #4DD0E1"></div>
+          <div class="fan-swatch light" style="background:#B2EBF2; left:80px;" data-tip="Pale · #B2EBF2"></div>
+        </div>
+      </div>
+      <div class="fan">
+        <div class="head">Neutral</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#1A1A1A; left:0px;"   data-tip="900 · #1A1A1A"></div>
+          <div class="fan-swatch" style="background:#444444; left:20px;"  data-tip="700 · #444444"></div>
+          <div class="fan-swatch" style="background:#777777; left:40px;"  data-tip="500 · #777777"></div>
+          <div class="fan-swatch light" style="background:#AAAAAA; left:60px;" data-tip="300 · #AAAAAA"></div>
+          <div class="fan-swatch light" style="background:#DDDDDD; left:80px;" data-tip="150 · #DDDDDD"></div>
+          <div class="fan-swatch light" style="background:#F5F7F9; left:100px;" data-tip="50 · #F5F7F9"></div>
+        </div>
+      </div>
+      <div class="fan">
+        <div class="head">Success</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#1E6B23; left:0px;"   data-tip="Dark · #1E6B23"></div>
+          <div class="fan-swatch" style="background:#2E7D32; left:20px;"  data-tip="Main · #2E7D32"></div>
+          <div class="fan-swatch" style="background:#4CAF50; left:40px;"  data-tip="Mid · #4CAF50"></div>
+          <div class="fan-swatch light" style="background:#A5D6A7; left:60px;" data-tip="Light · #A5D6A7"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-grid row-2">
+      <div class="fan">
+        <div class="head">Info</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#0D47A1; left:0px;"   data-tip="Dark · #0D47A1"></div>
+          <div class="fan-swatch" style="background:#2196F3; left:20px;"  data-tip="Main · #2196F3"></div>
+          <div class="fan-swatch" style="background:#64B5F6; left:40px;"  data-tip="Mid · #64B5F6"></div>
+          <div class="fan-swatch light" style="background:#BBDEFB; left:60px;" data-tip="Light · #BBDEFB"></div>
+        </div>
+      </div>
+      <div class="fan">
+        <div class="head">Warning</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#E65100; left:0px;"   data-tip="Dark · #E65100"></div>
+          <div class="fan-swatch" style="background:#ED6C02; left:20px;"  data-tip="Main · #ED6C02"></div>
+          <div class="fan-swatch" style="background:#FF9800; left:40px;"  data-tip="Mid · #FF9800"></div>
+          <div class="fan-swatch light" style="background:#FFCC80; left:60px;" data-tip="Light · #FFCC80"></div>
+        </div>
+      </div>
+      <div class="fan">
+        <div class="head">Error</div>
+        <div class="fan-row" data-fan>
+          <div class="fan-swatch" style="background:#B71C1C; left:0px;"   data-tip="Dark · #B71C1C"></div>
+          <div class="fan-swatch" style="background:#E53935; left:20px;"  data-tip="Main · #E53935"></div>
+          <div class="fan-swatch" style="background:#EF5350; left:40px;"  data-tip="Mid · #EF5350"></div>
+          <div class="fan-swatch light" style="background:#FFCDD2; left:60px;" data-tip="Light · #FFCDD2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Typography (full width, two columns) ─── -->
+  <div class="tile t-type">
+    <div class="lbl">Typography · Inter</div>
+    <div class="type-cols">
+      <div class="type-col">
+        <div class="sub">Display</div>
+        <div>
+          <div class="type-row"><span class="tag">H1</span> <span class="sample" style="font-size:32px;font-weight:700;">Aa</span> <span class="px">96 px</span></div>
+          <div class="type-row"><span class="tag">H2</span> <span class="sample" style="font-size:28px;font-weight:700;">Aa</span> <span class="px">60 px</span></div>
+          <div class="type-row"><span class="tag">H3</span> <span class="sample" style="font-size:24px;font-weight:700;">Aa</span> <span class="px">48 px</span></div>
+          <div class="type-row"><span class="tag">H4</span> <span class="sample" style="font-size:20px;font-weight:700;">Aa</span> <span class="px">34 px</span></div>
+        </div>
+      </div>
+      <div class="type-col">
+        <div class="sub">Body &amp; Utility</div>
+        <div>
+          <div class="type-row"><span class="tag">H5</span>         <span class="sample" style="font-size:16px;font-weight:600;">Almost before we knew it.</span>                   <span class="px">24 px</span></div>
+          <div class="type-row"><span class="tag">Subtitle 1</span> <span class="sample" style="font-size:14px;font-weight:500;">Almost before we knew it, we had left the ground.</span> <span class="px">16 px</span></div>
+          <div class="type-row"><span class="tag">Subtitle 2</span> <span class="sample" style="font-size:13px;font-weight:500;">Almost before we knew it, we had left the ground.</span> <span class="px">14 px</span></div>
+          <div class="type-row"><span class="tag">Body 1</span>     <span class="sample" style="font-size:14px;font-weight:400;">Almost before we knew it, we had left the ground.</span> <span class="px">16 px</span></div>
+          <div class="type-row"><span class="tag">Body 2</span>     <span class="sample" style="font-size:13px;font-weight:400;">Almost before we knew it, we had left the ground.</span> <span class="px">14 px</span></div>
+          <div class="type-row"><span class="tag">Button</span>     <span class="sample" style="font-size:12px;font-weight:600;letter-spacing:0.06em;">BUTTON LABEL</span>           <span class="px">14 px</span></div>
+          <div class="type-row"><span class="tag">Caption</span>    <span class="sample" style="font-size:11px;font-weight:500;">Almost before we knew it.</span>                  <span class="px">12 px</span></div>
+          <div class="type-row"><span class="tag">Overline</span>   <span class="sample" style="font-size:11px;font-weight:500;letter-spacing:0.14em;">OVERLINE — ALL CAPS</span>     <span class="px">12 px</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Buttons (single row: Contained | Outlined | Sizes) ─── -->
+  <div class="tile t-btn">
+    <div class="lbl">Buttons</div>
+    <div class="btn-cols">
+      <div class="col">
+        <div class="sub">Contained</div>
+        <div class="btn-row">
+          <button class="btn btn-contained primary">Primary</button>
+          <button class="btn btn-contained secondary">Secondary</button>
+          <button class="btn btn-contained success">Success</button>
+          <button class="btn btn-contained warning">Warning</button>
+          <button class="btn btn-contained error">Error</button>
+          <button class="btn btn-contained disabled">Disabled</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="sub">Outlined</div>
+        <div class="btn-row">
+          <button class="btn btn-outlined primary">Primary</button>
+          <button class="btn btn-outlined secondary">Secondary</button>
+          <button class="btn btn-outlined success">Success</button>
+          <button class="btn btn-outlined warning">Warning</button>
+          <button class="btn btn-outlined error">Error</button>
+          <button class="btn btn-outlined disabled">Disabled</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="sub">Sizes</div>
+        <div class="size-row">
+          <button class="btn btn-contained primary btn-sm">Small</button>
+          <button class="btn btn-contained primary btn-md">Medium</button>
+          <button class="btn btn-contained primary btn-lg">Large</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Badges + Chips ─── -->
+  <div class="tile t-badge">
+    <div class="lbl">Badges &amp; Chips</div>
+    <div class="badge-list" style="margin-bottom:10px;">
+      <span class="b-badge" style="background:#E8F5E9;color:#1E6B23;"><span class="dot" style="background:#4CAF50;"></span>Active</span>
+      <span class="b-badge" style="background:#FFF3E0;color:#E65100;"><span class="dot" style="background:#ED6C02;"></span>Elevated</span>
+      <span class="b-badge" style="background:#FFEBEE;color:#B71C1C;"><span class="dot" style="background:#E53935;"></span>Severe</span>
+      <span class="b-badge" style="background:#FFF8E1;color:#E65100;"><span class="dot" style="background:#FFB300;"></span>Guarded</span>
+      <span class="b-badge" style="background:#E3F2FD;color:#0D47A1;"><span class="dot" style="background:#2196F3;"></span>Info</span>
+      <span class="b-badge" style="background:#E8F5E9;color:#1B5E20;"><span class="dot" style="background:#66BB6A;"></span>Low</span>
+    </div>
+    <div class="divider-h"></div>
+    <div class="chip-list">
+      <span class="b-chip" style="background:#E0F2F1;color:#00695C;border-color:#00695C33;">Compliance</span>
+      <span class="b-chip" style="background:#E8EAF6;color:#283593;border-color:#28359333;">Reviews</span>
+      <span class="b-chip" style="background:#FCE4EC;color:#880E4F;border-color:#880E4F33;">Incidents</span>
+      <span class="b-chip" style="background:#E1F5FE;color:#01579B;border-color:#01579B33;">Vendors</span>
+      <span class="b-chip" style="background:#006585;color:#fff;border-color:#006585;">Selected</span>
+      <span class="b-chip" style="background:#F5F5F5;color:#BBBBBB;border-color:#BBBBBB33;">Disabled</span>
+    </div>
+  </div>
+
+  <!-- ─── Form Controls ─── -->
+  <div class="tile t-form">
+    <div class="lbl">Form Controls</div>
+    <div class="tf-list">
+      <div class="tf-row">
+        <span class="state">Inactive</span>
+        <div class="tf-field">
+          <span class="lbl-flag" style="color:#999;">Message</span>
+          <div class="ctl" style="border:1px solid #CCCCCC;color:#CCC;">Enter value</div>
+        </div>
+      </div>
+      <div class="tf-row">
+        <span class="state">Focused</span>
+        <div class="tf-field">
+          <span class="lbl-flag" style="color:#006585;">Message</span>
+          <div class="ctl" style="border:2px solid #006585;color:#222;">Hello there</div>
+        </div>
+      </div>
+      <div class="tf-row">
+        <span class="state">Entered</span>
+        <div class="tf-field">
+          <span class="lbl-flag" style="color:#666;">Message</span>
+          <div class="ctl" style="border:1px solid #444;color:#222;">My message</div>
+        </div>
+      </div>
+      <div class="tf-row">
+        <span class="state">Error</span>
+        <div class="tf-field">
+          <span class="lbl-flag" style="color:#E53935;">Message</span>
+          <div class="ctl" style="border:1px solid #E53935;color:#222;">Bad input <span style="color:#E53935;">!</span></div>
+          <div class="err-text">This field is required</div>
+        </div>
+      </div>
+      <div class="tf-row" style="opacity:0.45;">
+        <span class="state">Disabled</span>
+        <div class="tf-field">
+          <span class="lbl-flag" style="color:#CCC;">Message</span>
+          <div class="ctl" style="border:1px solid #E0E0E0;color:#CCC;">Disabled</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Indicators + Toggles ─── -->
+  <div class="tile t-ind">
+    <div class="lbl">Indicators &amp; Toggles</div>
+    <div class="ind-cluster">
+      <div class="ind-row">
+        <span class="lbl-row">Primary</span>
+        <div class="track slider">
+          <div class="fill" style="width:65%;background:#006585;"></div>
+          <div class="thumb" style="left:calc(65% - 6px);background:#006585;"></div>
+        </div>
+        <span class="pct"></span>
+      </div>
+      <div class="ind-row">
+        <span class="lbl-row">Secondary</span>
+        <div class="track bar"><div class="fill" style="width:40%;background:#00BCD4;"></div></div>
+        <span class="pct" style="color:#00BCD4;">40%</span>
+      </div>
+      <div class="ind-row">
+        <span class="lbl-row">Success</span>
+        <div class="track slider">
+          <div class="fill" style="width:80%;background:#4CAF50;"></div>
+          <div class="thumb" style="left:calc(80% - 6px);background:#4CAF50;"></div>
+        </div>
+        <span class="pct"></span>
+      </div>
+      <div class="ind-row">
+        <span class="lbl-row">Warning</span>
+        <div class="track bar"><div class="fill" style="width:55%;background:#ED6C02;"></div></div>
+        <span class="pct" style="color:#ED6C02;">55%</span>
+      </div>
+      <div class="ind-row">
+        <span class="lbl-row">Error</span>
+        <div class="track slider">
+          <div class="fill" style="width:30%;background:#E53935;"></div>
+          <div class="thumb" style="left:calc(30% - 6px);background:#E53935;"></div>
+        </div>
+        <span class="pct"></span>
+      </div>
+    </div>
+    <div class="divider-h" style="margin-top:10px;"></div>
+    <div class="toggles-grid">
+      <div class="toggle-row"><div class="toggle on" style="background:#006585;"><div class="knob"></div></div><span class="lbl">Primary</span></div>
+      <div class="toggle-row"><div class="toggle on" style="background:#00BCD4;"><div class="knob"></div></div><span class="lbl">Secondary</span></div>
+      <div class="toggle-row"><div class="toggle on" style="background:#4CAF50;"><div class="knob"></div></div><span class="lbl">Success</span></div>
+      <div class="toggle-row"><div class="toggle on" style="background:#ED6C02;"><div class="knob"></div></div><span class="lbl">Warning</span></div>
+      <div class="toggle-row"><div class="toggle off" style="background:#DDDDDD;"><div class="knob"></div></div><span class="lbl">Off</span></div>
+      <div class="toggle-row" style="opacity:0.4;"><div class="toggle off" style="background:#E0E0E0;"><div class="knob"></div></div><span class="lbl">Disabled</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-fan]').forEach((fan) => {
+    const swatches = fan.querySelectorAll('.fan-swatch');
+    swatches.forEach((sw, i) => { sw.style.zIndex = String(i + 1); });
+  });
+</script>
+</body>
+</html>

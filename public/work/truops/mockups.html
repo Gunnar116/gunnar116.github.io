@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>TruOps Portfolio Mockups · v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page-bg: #E8E6DE;
+    --panel-bg: #1B1B1B;
+    --panel-bg-soft: #232323;
+    --chrome-bg: #F5F5F4;
+    --chrome-border: #E5E3DE;
+    --url-bg: #FFFFFF;
+    --url-border: #E5E3DE;
+    --url-text: #4A4A4A;
+    --traffic-red: #FF5F57;
+    --traffic-yellow: #FEBC2E;
+    --traffic-green: #28C840;
+    --label-text: #6B6B66;
+    --serif-cream: #F2EFE7;
+    --serif-muted: #9B968A;
+    --brand-blue: #007BF9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--page-bg);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    color: #1F1F1F;
+    padding: 60px 40px 80px;
+    min-width: 1440px;
+  }
+
+  .serif {
+    font-family: "Fraunces", "Tiempos Headline", Georgia, "Times New Roman", serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--label-text);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  /* ---------- COMPOSITION PANEL ---------- */
+  .composition {
+    background: var(--panel-bg);
+    border-radius: 28px;
+    margin-bottom: 80px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Subtle radial gradient toward top — gives panels dimension */
+  .composition::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(255, 255, 255, 0.04), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(0, 0, 0, 0.4), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grain texture — SVG noise, very subtle */
+  .composition::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Brand blue glow (used per-composition) */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow.blue {
+    background: radial-gradient(circle, var(--brand-blue), transparent 70%);
+  }
+
+  /* ---------- BROWSER FRAME ---------- */
+  .browser {
+    background: var(--chrome-bg);
+    border-radius: 14px;
+    box-shadow:
+      0 40px 80px -20px rgba(0, 0, 0, 0.6),
+      0 22px 44px -18px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
+  .chrome {
+    height: 40px;
+    background: var(--chrome-bg);
+    border-bottom: 1px solid var(--chrome-border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  .dots {
+    display: flex;
+    gap: 7px;
+  }
+
+  .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .dot.r { background: var(--traffic-red); }
+  .dot.y { background: var(--traffic-yellow); }
+  .dot.g { background: var(--traffic-green); }
+
+  .url {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--url-bg);
+    border: 1px solid var(--url-border);
+    border-radius: 7px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--url-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 320px;
+    justify-content: center;
+  }
+
+  .lock {
+    width: 10px;
+    height: 10px;
+    opacity: 0.5;
+  }
+
+  .screen {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ============================================================
+     MOCKUP 01 — SOLO HERO
+     Two-column: serif pull-quote left, bleeding browser right
+     ============================================================ */
+  .solo {
+    padding: 110px 0 110px 110px;
+    min-height: 720px;
+  }
+
+  .solo .glow {
+    width: 800px;
+    height: 800px;
+    right: -200px;
+    top: -200px;
+  }
+
+  .solo-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .solo-copy {
+    color: var(--serif-cream);
+  }
+
+  .solo-copy .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--serif-muted);
+    margin-bottom: 28px;
+  }
+
+  .solo-copy .pullquote {
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+
+  .solo-copy .pullquote em {
+    font-style: italic;
+    color: #C5C0B2;
+  }
+
+  .solo-copy .meta {
+    font-size: 13px;
+    color: var(--serif-muted);
+    line-height: 1.6;
+    max-width: 260px;
+  }
+
+  .solo-bleed {
+    position: relative;
+    min-width: 0;
+  }
+
+  .solo-bleed .browser {
+    width: 130%;
+  }
+
+  .solo-bleed .screen {
+    max-height: 720px;
+    object-fit: cover;
+    object-position: top left;
+  }
+
+  /* ============================================================
+     MOCKUP 02 — SYSTEM PAIR
+     Asymmetric scale: big left + smaller offset right
+     Serif tagline between
+     ============================================================ */
+  .pair {
+    padding: 100px 100px 110px;
+  }
+
+  .pair .glow {
+    width: 700px;
+    height: 700px;
+    left: -250px;
+    bottom: -300px;
+    opacity: 0.25;
+  }
+
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .pair-grid .browser-front {
+    transform: rotate(-0.4deg);
+  }
+
+  .pair-grid .browser-back {
+    transform: translateY(120px) rotate(0.5deg);
+  }
+
+  /* Scale chrome down in the pair composition so it matches
+     the visual weight in Mocks 01 and 03 (narrower browser frames) */
+  .pair-grid .chrome {
+    height: 28px;
+    padding: 0 12px;
+  }
+
+  .pair-grid .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .pair-grid .dots {
+    gap: 5px;
+  }
+
+  .pair-grid .url {
+    padding: 3px 11px;
+    font-size: 10px;
+    min-width: 240px;
+    border-radius: 5px;
+  }
+
+  .pair-grid .lock {
+    width: 8px;
+    height: 8px;
+  }
+
+  .pair-tagline {
+    position: absolute;
+    top: 44px;
+    right: 100px;
+    z-index: 3;
+    text-align: right;
+    color: var(--serif-cream);
+  }
+
+  .pair-tagline .eyebrow {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--serif-muted);
+    margin-bottom: 10px;
+  }
+
+  .pair-tagline .line {
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 300;
+  }
+
+  .pair-tagline .meta {
+    font-size: 13px;
+    color: var(--serif-muted);
+    line-height: 1.6;
+    margin-top: 18px;
+    max-width: 320px;
+    margin-left: auto;
+  }
+
+  /* ============================================================
+     MOCKUP 03 — DETAIL FOCUS
+     Centered narrower frame, serif heading above, bleeds bottom
+     ============================================================ */
+  .detail {
+    padding: 100px 100px 0;
+  }
+
+  .detail .glow {
+    width: 600px;
+    height: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -150px;
+    opacity: 0.22;
+  }
+
+  .detail-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+    color: var(--serif-cream);
+  }
+
+  .detail-header .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--serif-muted);
+    margin-bottom: 16px;
+  }
+
+  .detail-header .heading {
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 300;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .detail-header .heading em {
+    font-style: italic;
+    color: #C5C0B2;
+  }
+
+  .detail-header .meta {
+    font-size: 14px;
+    color: var(--serif-muted);
+    line-height: 1.6;
+    margin-top: 20px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .detail-wrap {
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* The bleed: screen extends past panel's bottom edge */
+  .detail-wrap .browser {
+    margin-bottom: -80px;
+  }
+
+  .detail-wrap .screen {
+    max-height: 620px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* ============================================================
+     MOCKUP 04 — CLARK AI ASSISTANT
+     Mirror of Mock 01: bleeds LEFT, serif copy on the right
+     ============================================================ */
+  .mock4 {
+    padding: 100px 100px 110px;
+  }
+
+  .mock4 .glow {
+    width: 800px;
+    height: 800px;
+    left: -200px;
+    bottom: -200px;
+    opacity: 0.3;
+  }
+
+  .mock4-grid {
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .mock4-bleed {
+    position: relative;
+    min-width: 0;
+  }
+
+  .mock4-bleed .browser {
+    width: 100%;
+  }
+
+  .mock4-bleed .screen {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .mock4-copy {
+    color: var(--serif-cream);
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mock4-copy .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--serif-muted);
+    margin-bottom: 18px;
+  }
+
+  .mock4-copy .pullquote {
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 300;
+    margin-bottom: 22px;
+  }
+
+  .mock4-copy .pullquote em {
+    font-style: italic;
+    color: #C5C0B2;
+  }
+
+  .mock4-copy .meta {
+    font-size: 14px;
+    color: var(--serif-muted);
+    line-height: 1.6;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOCKUP 1 — SOLO HERO (CIS Dashboard, bleeds right)
+       ============================================================ -->
+  <div class="label">Mockup 01 · Solo Hero — CIS Dashboard</div>
+  <section class="composition solo">
+    <div class="glow blue"></div>
+    <div class="solo-grid">
+      <div class="solo-copy serif">
+        <div class="eyebrow" style="font-family: 'Inter', sans-serif;">Compliance, in focus</div>
+        <div class="pullquote">Complexity, <em>made</em> readable.</div>
+        <div class="meta" style="font-family: 'Inter', sans-serif;">A dashboard experience designed to help teams understand risk, control status, and compliance progress without getting buried in the details.</div>
+      </div>
+      <div class="solo-bleed">
+        <div class="browser">
+          <div class="chrome">
+            <div class="dots">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            </div>
+            <div class="url">
+              <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+              app.truops.com/dashboard/cis
+            </div>
+          </div>
+          <img class="screen" src="cis-dashboard.png" alt="CIS Dashboard" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MOCKUP 2 — SYSTEM PAIR (Readiness + Multi-Tenant, asymmetric)
+       ============================================================ -->
+  <div class="label">Mockup 02 · System Pair — Readiness + Multi-Tenant</div>
+  <section class="composition pair">
+    <div class="glow blue"></div>
+    <div class="pair-tagline">
+      <div class="eyebrow">Platform thinking</div>
+      <div class="line serif">Designed <em>beyond</em><br/>a single screen.</div>
+      <div class="meta">The interface system was built to scale across compliance workflows, admin views, and multi-tenant product needs.</div>
+    </div>
+    <div class="pair-grid">
+      <div class="browser browser-front">
+        <div class="chrome">
+          <div class="dots">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="url">
+            <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+            app.truops.com/dashboard/compliance-readiness
+          </div>
+        </div>
+        <img class="screen" src="compliance-readiness.png" alt="Compliance Readiness Dashboard" />
+      </div>
+      <div class="browser browser-back">
+        <div class="chrome">
+          <div class="dots">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="url">
+            <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+            app.truops.com/admin/multi-tenant
+          </div>
+        </div>
+        <img class="screen" src="multi-tenant.png" alt="Multi-Tenant Manage Page" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MOCKUP 3 — DETAIL FOCUS (Templates, bleeds bottom)
+       ============================================================ -->
+  <div class="label">Mockup 03 · Detail Focus — Compliance Templates</div>
+  <section class="composition detail">
+    <div class="glow blue"></div>
+    <div class="detail-header">
+      <div class="eyebrow">Compliance templates</div>
+      <div class="heading serif">Start <em>structured</em>. Move <em>faster</em>.</div>
+      <div class="meta">Reusable templates gave teams a clearer path from setup to execution.</div>
+    </div>
+    <div class="detail-wrap">
+      <div class="browser">
+        <div class="chrome">
+          <div class="dots">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="url">
+            <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+            app.truops.com/compliance/templates
+          </div>
+        </div>
+        <img class="screen" src="compliance-templates.png" alt="Compliance Templates" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MOCKUP 4 — CLARK AI ASSISTANT (bleeds left, live iframe)
+       ============================================================ -->
+  <div class="label">Mockup 04 · AI Moment — Clark</div>
+  <section class="composition mock4">
+    <div class="glow blue"></div>
+    <div class="mock4-grid">
+      <div class="mock4-copy serif">
+        <div class="eyebrow" style="font-family: 'Inter', sans-serif;">Meet Clark</div>
+        <div class="pullquote">Compliance, <em>conversational</em>.</div>
+        <div class="meta" style="font-family: 'Inter', sans-serif;">[Placeholder copy — replace with your real case-study text for the Clark AI feature.]</div>
+      </div>
+      <div class="mock4-bleed">
+        <div class="browser">
+          <div class="chrome">
+            <div class="dots">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            </div>
+            <div class="url">
+              <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+              app.truops.com/clark
+            </div>
+          </div>
+          <img class="screen" src="clark-demo.png" alt="Clark — AI Assistant" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

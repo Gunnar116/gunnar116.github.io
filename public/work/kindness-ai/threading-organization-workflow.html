@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kindness.ai — Labeling & Organization Workflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --kindigo-50:#e4e8fa; --kindigo-100:#d1d8f6; --kindigo-500:#5a73df;
+    --kindigo-600:#4863db; --kindigo-700:#304ed6;
+    --kindness-500:#df5a73;
+    --text-primary:#18181c; --text-secondary:#525360; --text-tertiary:#6f7183;
+    --board-bg:#faf8f4; --tile-bg:#ffffff; --tile-border:#ededee;
+    --rail-line:#e6e3db;
+    --stage-bg:#0c0c0f; --stage-edge:#26262e;
+    --img-aspect:1.5205; /* 3456 / 2273 */
+  }
+
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; }
+  body {
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--board-bg); color:var(--text-primary);
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+
+  .wrap {
+    height:100%; min-height:560px;
+    display:flex; flex-direction:column;
+    padding:clamp(14px,2vw,24px);
+    gap:clamp(12px,1.5vw,18px);
+  }
+
+  /* ---- Header ---- */
+  .head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex:none; }
+  .eyebrow {
+    display:flex; align-items:center; gap:8px;
+    font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--text-tertiary);
+  }
+  .eyebrow .dot { width:7px; height:7px; border-radius:50%; background:var(--kindness-500); }
+  .head h1 { margin:7px 0 0; font-size:clamp(16px,1.8vw,20px); font-weight:600; letter-spacing:-0.015em; line-height:1.2; max-width:880px; }
+  .counter { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; color:var(--text-tertiary); white-space:nowrap; letter-spacing:.04em; }
+  .counter b { color:var(--text-primary); font-weight:500; }
+
+  /* ---- 3-column shell ---- */
+  .grid {
+    flex:1; min-height:0;
+    display:grid;
+    grid-template-columns: 212px minmax(0,1fr) 312px;
+    gap:clamp(20px,2vw,32px);
+    align-items:stretch;
+  }
+
+  /* ---- Step rail ---- */
+  .rail { position:relative; min-width:0; }
+  .rail ol { list-style:none; margin:0; padding:0; position:relative; }
+  .rail ol::before { content:""; position:absolute; left:14px; top:14px; bottom:14px; width:2px; background:var(--rail-line); border-radius:2px; }
+  .step {
+    position:relative; display:flex; gap:12px; align-items:flex-start;
+    padding:11px 10px 11px 0; cursor:pointer; border:0; background:none;
+    width:100%; text-align:left; font:inherit; color:inherit; border-radius:10px; transition:background .15s ease;
+  }
+  .step:hover { background:rgba(90,115,223,0.05); }
+  .step .num {
+    flex:none; width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
+    font-size:12px; font-weight:600; font-family:'JetBrains Mono',monospace;
+    background:var(--tile-bg); border:2px solid var(--rail-line); color:var(--text-tertiary);
+    z-index:1; transition:all .18s ease;
+  }
+  .step .lbl { min-width:0; padding-top:3px; }
+  .step .lbl .t { display:block; font-size:13.5px; font-weight:600; letter-spacing:-0.01em; line-height:1.25; color:var(--text-secondary); transition:color .15s ease; }
+  .step .lbl .s { display:block; margin-top:2px; font-size:11.5px; line-height:1.3; color:var(--text-tertiary); }
+  .step[aria-current="true"] .num { background:var(--kindigo-500); border-color:var(--kindigo-500); color:#fff; box-shadow:0 0 0 4px rgba(90,115,223,0.14); }
+  .step[aria-current="true"] .lbl .t { color:var(--text-primary); }
+  .step.done .num { background:var(--kindigo-50); border-color:var(--kindigo-100); color:var(--kindigo-700); }
+
+  /* ---- Center: product screen (priority) ---- */
+  .stagewrap { display:flex; align-items:center; justify-content:center; min-width:0; min-height:0; }
+  .stage {
+    width:100%; max-height:100%;
+    display:flex; flex-direction:column;
+    border-radius:14px; overflow:hidden;
+    background:var(--stage-bg); border:1px solid var(--stage-edge);
+    box-shadow:0 26px 54px -28px rgba(20,20,40,0.5), 0 6px 16px -10px rgba(20,20,40,0.34);
+  }
+  .chrome { flex:none; display:flex; align-items:center; gap:12px; padding:9px 14px; background:#16161b; border-bottom:1px solid #232329; }
+  .lights { display:flex; gap:6px; }
+  .lights i { width:10px; height:10px; border-radius:50%; display:block; }
+  .lights i:nth-child(1){ background:#ff5f57; } .lights i:nth-child(2){ background:#febc2e; } .lights i:nth-child(3){ background:#28c840; }
+  .url { margin:0 auto; font-family:'JetBrains Mono',monospace; font-size:11px; color:#7e8090; background:#0e0e12; border:1px solid #232329; padding:3px 14px; border-radius:6px; max-width:280px; }
+  .chrome .spacer { width:46px; }
+  /* image area carries the screen's exact aspect so the frame hugs it (no dark margins) */
+  .view { position:relative; width:100%; aspect-ratio:var(--img-aspect); background:var(--stage-bg); min-height:0; }
+  .view .fg { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; display:block; transition:opacity .2s ease; }
+
+  /* ---- Right: explanation panel ---- */
+  .side { display:flex; flex-direction:column; min-width:0; min-height:0; }
+  .side .tag { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--kindigo-600); }
+  .side h2 { margin:6px 0 0; font-size:clamp(15px,1.5vw,18px); font-weight:600; letter-spacing:-0.012em; line-height:1.28; }
+  .side .desc { margin:9px 0 0; font-size:13px; line-height:1.55; color:var(--text-secondary); }
+
+  .callout { margin-top:14px; display:none; background:linear-gradient(180deg,#f3f5fd 0%, #eef1fc 100%); border:1px solid var(--kindigo-100); border-radius:12px; padding:13px 15px; }
+  .callout.show { display:block; }
+  .callout .hd { display:flex; align-items:center; gap:9px; }
+  .callout .ic { flex:none; width:24px; height:24px; border-radius:7px; display:grid; place-items:center; background:var(--kindigo-500); color:#fff; }
+  .callout .ic svg { width:14px; height:14px; }
+  .callout .k { font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--kindigo-700); }
+  .callout p { margin:9px 0 0; font-size:12px; line-height:1.5; color:#3a3c52; }
+
+  .nav { margin-top:auto; padding-top:18px; display:flex; align-items:center; gap:10px; }
+  .btn {
+    display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; cursor:pointer;
+    padding:9px 14px; border-radius:9px; border:1px solid var(--tile-border); background:var(--tile-bg); color:var(--text-primary); transition:all .15s ease;
+  }
+  .btn:hover:not([disabled]) { border-color:#d8d5cd; background:#fff; }
+  .btn[disabled] { opacity:.4; cursor:not-allowed; }
+  .btn.primary { background:var(--kindigo-500); border-color:var(--kindigo-500); color:#fff; }
+  .btn.primary:hover:not([disabled]) { background:var(--kindigo-600); border-color:var(--kindigo-600); }
+  .btn svg { width:14px; height:14px; }
+  .btn.icon { padding:9px 11px; }
+
+  /* ---- Responsive: stack panel below the screen, rail becomes top tabs ---- */
+  @media (max-width:1024px) {
+    .grid { grid-template-columns:1fr; gap:16px; align-items:start; }
+    .rail { order:0; }
+    .rail ol { display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; }
+    .rail ol::before { display:none; }
+    .step { flex:none; width:auto; align-items:center; padding:6px 10px 6px 0; }
+    .stagewrap { order:1; }
+    .side { order:2; }
+    .nav { margin-top:14px; }
+  }
+  @media (max-width:560px) {
+    .step .lbl { display:none; }
+    .step[aria-current="true"] .lbl { display:block; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Labeling &amp; Organization Workflow</div>
+        <h1>Seeing organization, editing labels, and creating labels with AI auto-apply.</h1>
+      </div>
+      <div class="counter"><b id="cur">01</b> / 03</div>
+    </div>
+
+    <div class="grid">
+      <nav class="rail" aria-label="Workflow steps">
+        <ol id="rail"></ol>
+      </nav>
+
+      <div class="stagewrap">
+        <div class="stage">
+          <div class="chrome">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="url">app.kindness.ai/inbox</span>
+            <span class="spacer"></span>
+          </div>
+          <div class="view"><img class="fg" id="fg" alt="" /></div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="tag" id="tag"></div>
+        <h2 id="title"></h2>
+        <p class="desc" id="desc"></p>
+        <div class="callout" id="callout">
+          <div class="hd">
+            <span class="ic" aria-hidden>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z" fill="currentColor"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1z" fill="currentColor"/></svg>
+            </span>
+            <span class="k">How the AI behavior works</span>
+          </div>
+          <p id="calloutText"></p>
+        </div>
+        <div class="nav">
+          <button class="btn icon" id="prev" aria-label="Previous step">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn primary" id="next" aria-label="Next step" style="flex:1; justify-content:center;">
+            Next
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script>
+  const DIR = 'threading-workflow/';
+  const STEPS = [
+    {
+      tag:'Organized inbox', short:'Organized inbox', railSub:'See the organization',
+      title:'Organization you can see in the inbox',
+      img:'step-01-organized-inbox.png',
+      desc:'Labels live in the sidebar as elevated filters — selecting one narrows the inbox to matching messages. Row-level label chips keep organization visible while scanning a high-volume inbox.'
+    },
+    {
+      tag:'Edit a label', short:'Edit a label', railSub:'Rename, refine, manage',
+      title:'Refine an existing label',
+      img:'step-02-edit-label.png',
+      desc:'Existing labels can be renamed or refined anytime. Description and color make them easier to scan, and delete stays available as a secondary, clearly destructive action that removes the label from every message.'
+    },
+    {
+      tag:'Create a label + AI auto-labeling', short:'Create + AI auto-apply', railSub:'Title, color, automation',
+      title:'Create a label, then let it work for you',
+      img:'step-03-create-label-ai-auto-labeling.png',
+      desc:'New labels are created with a title, optional description, and color. Auto-labeling can be enabled right in the creation flow.',
+      callout:'AI auto-labeling uses the label title and description as matching context. When enabled, the system can evaluate incoming messages against that label definition, preview likely matches, and reduce the manual effort of organizing high-volume conversations. The interaction still keeps the user in control: the label definition is visible, the behavior is optional, and matches can be reviewed or adjusted instead of feeling like a hidden automation.'
+    },
+  ];
+
+  let i = 0;
+  const railEl = document.getElementById('rail');
+  const fg = document.getElementById('fg');
+  const elTag = document.getElementById('tag');
+  const elTitle = document.getElementById('title');
+  const elDesc = document.getElementById('desc');
+  const elCur = document.getElementById('cur');
+  const callout = document.getElementById('callout');
+  const calloutText = document.getElementById('calloutText');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+
+  STEPS.forEach((s, idx) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.className = 'step'; b.type = 'button';
+    b.innerHTML = `<span class="num">${String(idx+1).padStart(2,'0')}</span>
+      <span class="lbl"><span class="t">${s.short}</span><span class="s">${s.railSub}</span></span>`;
+    b.addEventListener('click', () => go(idx));
+    li.appendChild(b); railEl.appendChild(li);
+  });
+  const stepBtns = [...railEl.querySelectorAll('.step')];
+
+  function go(idx) {
+    i = Math.max(0, Math.min(STEPS.length - 1, idx));
+    const s = STEPS[i];
+    fg.src = DIR + s.img; fg.alt = s.title;
+    elTag.textContent = s.tag;
+    elTitle.textContent = s.title;
+    elDesc.textContent = s.desc;
+    elCur.textContent = String(i+1).padStart(2,'0');
+    if (s.callout) { calloutText.textContent = s.callout; callout.classList.add('show'); }
+    else { callout.classList.remove('show'); }
+    prev.disabled = i === 0;
+    next.disabled = i === STEPS.length - 1;
+    stepBtns.forEach((b, j) => {
+      b.setAttribute('aria-current', j === i ? 'true' : 'false');
+      b.classList.toggle('done', j < i);
+    });
+  }
+
+  prev.addEventListener('click', () => go(i - 1));
+  next.addEventListener('click', () => go(i + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(i - 1);
+    else if (e.key === 'ArrowRight') go(i + 1);
+  });
+
+  go(0);
+</script>
+</body>
+</html>

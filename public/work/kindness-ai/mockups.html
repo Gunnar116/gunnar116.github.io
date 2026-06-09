@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kindness.ai — Portfolio Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ====================================================================
+   Real Kindness.ai design tokens from
+   ~/Documents/Documents - kindness-000008-1000013/{colors,tokens}.json
+   Four ramps:
+     Kindigo  — primary indigo (brand)
+     Kindle   — warm orange (accent)
+     Kindness — rose / attention
+     Kindred  — neutral text/surface
+   ==================================================================== */
+:root {
+  /* Kindigo */
+  --kindigo-50:  #e4e8fa;
+  --kindigo-100: #d1d8f6;
+  --kindigo-200: #b6c1f1;
+  --kindigo-300: #a3b1ed;
+  --kindigo-400: #6d82e2;
+  --kindigo-500: #5a73df;
+  --kindigo-600: #4863db;
+  --kindigo-700: #304ed6;
+  --kindigo-800: #243fb6;
+  --kindigo-900: #1a2e86;
+  --kindigo-950: #111d55;
+
+  /* Kindle (warm orange) */
+  --kindle-50:  #fcede4;
+  --kindle-100: #f9e1d2;
+  --kindle-200: #f6cfb8;
+  --kindle-300: #f4c3a6;
+  --kindle-400: #ed9f71;
+  --kindle-500: #eb935f;
+  --kindle-600: #e9874d;
+  --kindle-700: #e67431;
+  --kindle-800: #cf5d1a;
+  --kindle-900: #984413;
+  --kindle-950: #612b0c;
+
+  /* Kindness (rose / attention) */
+  --kindness-50:  #fae4e8;
+  --kindness-100: #f6d1d8;
+  --kindness-200: #f1b6c1;
+  --kindness-300: #eda3b1;
+  --kindness-400: #e26d82;
+  --kindness-500: #df5a73;
+  --kindness-600: #db4863;
+  --kindness-700: #d6304e;
+  --kindness-800: #b6243f;
+  --kindness-900: #861a2e;
+  --kindness-950: #55111d;
+
+  /* Kindred (neutral) */
+  --kindred-50:  #f6f6fa;
+  --kindred-100: #edeef4;
+  --kindred-200: #dbdde9;
+  --kindred-300: #cacddc;
+  --kindred-400: #9c9eb0;
+  --kindred-500: #6f7183;
+  --kindred-600: #525360;
+  --kindred-700: #3f3f4b;
+  --kindred-800: #27272b;
+  --kindred-900: #18181c;
+  --kindred-950: #09090c;
+
+  /* Semantic / surface helpers */
+  --ink:           var(--kindred-900);
+  --ink-soft:      var(--kindred-700);
+  --body:          var(--kindred-600);
+  --muted:         var(--kindred-500);
+  --muted-soft:    var(--kindred-400);
+  --muted-faint:   #C7CAD8;
+  --border:        var(--kindred-200);
+  --border-strong: var(--kindred-300);
+  --hairline:      var(--kindred-100);
+  --bg:            #FBFBFD;
+  --bg-tint:       #F4F5FB;
+  --surface:       #FFFFFF;
+  --surface-mute:  var(--kindred-50);
+
+  --accent:        var(--kindigo-600);
+  --accent-dark:   var(--kindigo-800);
+  --accent-soft:   var(--kindigo-50);
+  --accent-tint:   #F0F2FB;
+
+  --high:          var(--kindness-700);
+  --high-soft:     var(--kindness-50);
+  --med:           var(--kindle-700);
+  --med-soft:      var(--kindle-50);
+  --low:           #2E7D32;
+  --low-soft:      #E8F5E9;
+  --info:          var(--kindigo-700);
+  --info-soft:     var(--kindigo-50);
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mockup {
+  width: max-content;
+  margin: 24px 0;
+  background: var(--bg-tint);
+}
+.frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow:
+    0 24px 50px -28px rgba(26, 46, 134, 0.18),
+    0 10px 22px -12px rgba(26, 46, 134, 0.08);
+  overflow: hidden;
+}
+
+/* ===== Topbar shared by product frames ===== */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.topbar .brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em;
+}
+.topbar .brand .glyph {
+  width: 22px; height: 22px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--kindigo-600) 0%, var(--kindigo-800) 100%);
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 700;
+}
+.topbar .crumbs { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+.topbar .crumbs .sep { color: var(--muted-soft); }
+.topbar .actions { display: flex; align-items: center; gap: 10px; }
+.topbar .pill {
+  height: 28px; padding: 0 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; color: var(--ink-soft);
+}
+.topbar .pill.accent {
+  background: var(--accent-soft); color: var(--kindigo-800); border-color: transparent;
+}
+.topbar .avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--kindred-300) 0%, var(--kindred-500) 100%);
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 700;
+}
+
+/* ===== Product layout ===== */
+.product { display: grid; height: 100%; }
+.product.cols-2  { grid-template-columns: 240px 1fr; }
+.product.cols-3  { grid-template-columns: 240px 380px 1fr; }
+.product.cols-4  { grid-template-columns: 240px 380px 1fr 320px; }
+
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  padding: 18px 14px;
+}
+.sidebar .group {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted);
+  padding: 12px 8px 6px;
+}
+.sidebar .nav {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 8px;
+  font-size: 13px; color: var(--ink-soft); font-weight: 500;
+  margin: 1px 0;
+}
+.sidebar .nav .ic {
+  width: 14px; height: 14px; border-radius: 4px;
+  background: var(--muted-soft);
+  flex-shrink: 0;
+}
+.sidebar .nav.active {
+  background: var(--accent-soft); color: var(--kindigo-800);
+}
+.sidebar .nav.active .ic { background: var(--kindigo-600); }
+.sidebar .nav .count {
+  margin-left: auto; font-size: 11px; color: var(--muted);
+  font-feature-settings: "tnum";
+}
+
+.label-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px; margin: 1px 0;
+  font-size: 12.5px; color: var(--ink-soft);
+  border-radius: 6px;
+}
+.label-row .swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.label-row .count { margin-left: auto; font-size: 11px; color: var(--muted); font-feature-settings: "tnum"; }
+
+/* ===== Inbox list ===== */
+.inbox-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.inbox-head .title { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.inbox-head .count-chip {
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--kindigo-800); margin-left: 8px;
+}
+.inbox-head .tools { display: flex; align-items: center; gap: 8px; }
+.inbox-head .tools .ic-btn {
+  width: 26px; height: 26px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--surface);
+}
+.filter-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 24px; padding: 0 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  background: var(--surface-mute); color: var(--ink-soft);
+  border: 1px solid var(--border);
+}
+.chip.active {
+  background: var(--kindigo-600); color: #fff; border-color: var(--kindigo-600);
+}
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+.msg-list { background: var(--surface); }
+.msg {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.msg.selected { background: var(--accent-tint); }
+.msg.selected::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--kindigo-600);
+}
+.msg .avatar-sm {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 700;
+  flex-shrink: 0;
+}
+.msg .body { min-width: 0; }
+.msg .from-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; flex-wrap: wrap; }
+.msg .from { font-size: 13px; font-weight: 600; color: var(--ink); }
+.msg .label-pill {
+  font-size: 9.5px; font-weight: 600; padding: 1.5px 6px; border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+.msg .sub {
+  font-size: 12.5px; color: var(--ink-soft); font-weight: 500;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-bottom: 2px;
+}
+.msg .preview {
+  font-size: 11.5px; color: var(--muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.msg .meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.msg .time { font-size: 11px; color: var(--muted); font-feature-settings: "tnum"; }
+.msg .unread { width: 8px; height: 8px; border-radius: 50%; background: var(--kindigo-600); }
+
+/* ===== Thread panel ===== */
+.thread {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex; flex-direction: column;
+}
+.thread .head {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.thread .head .name { font-size: 14px; font-weight: 700; color: var(--ink); }
+.thread .head .sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.thread .head .badge {
+  font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--kindigo-800);
+}
+.thread .messages {
+  flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+  background: var(--surface-mute);
+}
+.bubble {
+  max-width: 88%; padding: 9px 12px; border-radius: 12px;
+  font-size: 12px; color: var(--ink); line-height: 1.4;
+}
+.bubble.them { background: var(--surface); border: 1px solid var(--border); align-self: flex-start; }
+.bubble.us   { background: var(--kindigo-600); color: #fff; align-self: flex-end; border: 1px solid var(--kindigo-600); }
+.bubble .ts { font-size: 9.5px; color: var(--muted); margin-top: 4px; font-feature-settings: "tnum"; }
+.bubble.us .ts { color: rgba(255,255,255,0.7); }
+
+.thread .composer {
+  border-top: 1px solid var(--border);
+  padding: 12px 14px;
+  background: var(--surface);
+  display: flex; align-items: center; gap: 8px;
+}
+.thread .composer .input {
+  flex: 1; height: 32px; border-radius: 999px;
+  background: var(--surface-mute); border: 1px solid var(--border);
+  padding: 0 14px; font-size: 12.5px; color: var(--muted-soft);
+  display: flex; align-items: center;
+}
+.thread .composer .send {
+  height: 32px; padding: 0 14px; border-radius: 8px;
+  background: var(--kindigo-600); color: #fff; font-size: 12px; font-weight: 600;
+  display: grid; place-items: center;
+}
+
+/* ===== AI panel ===== */
+.ai-panel { background: var(--surface); padding: 18px; }
+.ai-panel h4 {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--kindigo-700); margin-bottom: 8px;
+}
+.ai-card {
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-soft);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.ai-card .row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11.5px; color: var(--ink-soft);
+}
+.ai-card .conf {
+  margin-left: auto; font-size: 10.5px; font-weight: 600;
+  color: var(--kindigo-700); font-feature-settings: "tnum";
+}
+.ai-card .ic-ai {
+  width: 16px; height: 16px; border-radius: 4px;
+  background: linear-gradient(135deg, var(--kindigo-600) 0%, var(--kindigo-800) 100%);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.ai-card .ic-ai svg { width: 8px; height: 8px; }
+.ai-card .actions { display: flex; gap: 6px; margin-top: 10px; }
+.ai-card .btn-mini {
+  font-size: 10.5px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink-soft);
+}
+.ai-card .btn-mini.primary { background: var(--kindigo-600); color: #fff; border-color: var(--kindigo-600); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero { padding: 56px; }
+#hero .frame { width: 1640px; height: 1000px; }
+#hero .product { height: calc(100% - 56px); }
+
+/* ============================================================
+   01 — Product design infrastructure / system board
+   ============================================================ */
+#system { padding: 56px; }
+#system .frame {
+  width: 1480px; height: 1000px;
+  background: var(--bg-tint);
+  padding: 28px 30px;
+}
+#system .head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding-bottom: 18px; border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+#system .head .title {
+  font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.015em;
+}
+#system .head .sub {
+  font-size: 13px; color: var(--muted); margin-top: 6px;
+  max-width: 720px; line-height: 1.5;
+}
+#system .head .pill {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--kindigo-800);
+}
+
+#system .grid {
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+#system .tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px 16px;
+}
+#system .tile .name {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--kindigo-700); margin-bottom: 4px;
+}
+#system .tile .desc {
+  font-size: 12.5px; color: var(--muted); margin-bottom: 14px; line-height: 1.5;
+}
+#system .t-colors  { grid-column: 1 / span 12; }
+#system .t-comp    { grid-column: 1 / span 7; }
+#system .t-type    { grid-column: 8 / span 5; }
+#system .t-figma   { grid-column: 1 / span 7; }
+#system .t-handoff { grid-column: 8 / span 5; }
+
+/* Color palettes — real Kindness tokens */
+.palette-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+.palette-col .head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.palette-col .head .name { font-size: 13px; font-weight: 700; color: var(--ink); }
+.palette-col .head .role { font-size: 10px; color: var(--muted); }
+.palette-stack {
+  display: grid; grid-template-columns: repeat(11, 1fr); gap: 3px;
+}
+.palette-step {
+  height: 36px; border-radius: 5px;
+  display: flex; align-items: flex-end; padding: 3px 4px;
+  font-size: 8px; font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.palette-step.dark  { color: #fff; }
+.palette-step.light { color: var(--kindred-700); }
+
+/* Component grid */
+.comp-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+}
+.comp-cell {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px; background: var(--surface-mute);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.comp-cell .lbl { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+.comp-btn {
+  font-size: 11px; font-weight: 600; padding: 6px 11px; border-radius: 7px;
+  background: var(--kindigo-600); color: #fff; align-self: flex-start;
+}
+.comp-btn.out { background: #fff; color: var(--kindigo-700); border: 1.5px solid var(--kindigo-600); }
+.comp-btn.warm { background: var(--kindle-600); }
+.comp-chip {
+  font-size: 10.5px; padding: 3px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--kindigo-800);
+  align-self: flex-start;
+}
+.comp-chip.warn { background: var(--kindle-50); color: var(--kindle-900); }
+.comp-chip.rose { background: var(--kindness-50); color: var(--kindness-900); }
+.comp-field {
+  background: #fff; border: 1px solid var(--border-strong); border-radius: 7px;
+  padding: 5px 10px; font-size: 11px; color: var(--muted);
+  align-self: stretch;
+}
+
+/* Type specimen */
+.type-list { display: flex; flex-direction: column; gap: 8px; }
+.type-line {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 6px 0; border-bottom: 1px solid var(--hairline);
+}
+.type-line:last-child { border-bottom: 0; }
+.type-line .tag { font-size: 9.5px; color: var(--muted-faint); width: 60px; flex-shrink: 0; }
+.type-line .sample { color: var(--ink); flex: 1; min-width: 0; line-height: 1; }
+.type-line .px { font-size: 9.5px; color: var(--muted-faint); }
+
+/* Figma file structure */
+.figma-tree { font-size: 12px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 3px; }
+.figma-tree .node { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 5px; }
+.figma-tree .node .ic {
+  width: 14px; height: 14px; border-radius: 3px;
+  background: var(--accent-soft);
+  flex-shrink: 0;
+}
+.figma-tree .node.section .ic { background: var(--kindigo-600); }
+.figma-tree .node .name-col { font-weight: 500; }
+.figma-tree .node.section .name-col { font-weight: 700; color: var(--ink); }
+.figma-tree .node .count { margin-left: auto; font-size: 10.5px; color: var(--muted); }
+.figma-tree .indent { padding-left: 22px; }
+
+/* Engineering handoff */
+.handoff-list { display: flex; flex-direction: column; gap: 12px; }
+.handoff-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface-mute);
+}
+.handoff-row .design,
+.handoff-row .code {
+  font-size: 11px; color: var(--ink-soft); line-height: 1.4;
+}
+.handoff-row .lbl {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted); margin-bottom: 4px;
+}
+.handoff-row code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px; color: var(--kindigo-800); background: var(--kindigo-50);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* ============================================================
+   02 — Inbox workflow
+   ============================================================ */
+#inbox { padding: 56px; }
+#inbox .frame { width: 1480px; height: 900px; }
+#inbox .product { height: calc(100% - 56px); }
+
+/* ============================================================
+   03 — Threading + labels + filters
+   ============================================================ */
+#thread { padding: 56px; }
+#thread .frame { width: 1480px; height: 900px; }
+#thread .product { height: calc(100% - 56px); }
+
+/* ============================================================
+   04 — AI search + auto-labeling
+   ============================================================ */
+#ai { padding: 56px; }
+#ai .frame { width: 1480px; height: 900px; }
+#ai .product { height: calc(100% - 56px); }
+
+.search-bar {
+  margin: 14px 18px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface-mute);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.search-bar .ic-search {
+  width: 18px; height: 18px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--kindigo-600) 0%, var(--kindigo-800) 100%);
+  display: grid; place-items: center; color: #fff; font-size: 10px;
+  flex-shrink: 0;
+}
+.search-bar .query { font-size: 13px; color: var(--ink); font-weight: 500; }
+.search-bar .ai-chip {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+  background: var(--kindigo-600); color: #fff;
+}
+.search-bar .ai-chip .dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+
+.search-results { padding: 0 18px 14px; }
+.result-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 10px;
+}
+.result-card .ai-reason {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 600; color: var(--kindigo-700);
+  background: var(--accent-soft);
+  padding: 3px 9px; border-radius: 999px;
+  margin-bottom: 8px;
+}
+.result-card .ai-reason .dot { width: 5px; height: 5px; background: var(--kindigo-600); border-radius: 50%; }
+.result-card .head-row { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+.result-card .avatar-sm {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff; font-size: 9.5px; font-weight: 700;
+}
+.result-card .name { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.result-card .meta-time { margin-left: auto; font-size: 10.5px; color: var(--muted); font-feature-settings: "tnum"; }
+.result-card .snippet { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+.result-card .match { background: var(--accent-soft); color: var(--kindigo-800); padding: 0 4px; border-radius: 3px; font-weight: 600; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO — full product ecosystem
+     ============================================================ -->
+<section id="hero" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">K</span>
+        <span>Kindness Inbox</span>
+        <span class="crumbs" style="margin-left:14px;"><span>All conversations</span></span>
+      </div>
+      <div class="actions">
+        <span class="pill">⌘K Search</span>
+        <span class="pill accent">AI · On</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="product cols-4">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="group">Workspace</div>
+        <div class="nav active"><span class="ic"></span>Inbox<span class="count">128</span></div>
+        <div class="nav"><span class="ic"></span>Assigned to me<span class="count">14</span></div>
+        <div class="nav"><span class="ic"></span>Snoozed<span class="count">6</span></div>
+        <div class="nav"><span class="ic"></span>All threads</div>
+        <div class="nav"><span class="ic"></span>Saved searches</div>
+
+        <div class="group">Labels</div>
+        <div class="label-row"><span class="swatch" style="background:#4863DB;"></span>Onboarding<span class="count">42</span></div>
+        <div class="label-row"><span class="swatch" style="background:#2E7D32;"></span>Active follow-up<span class="count">18</span></div>
+        <div class="label-row"><span class="swatch" style="background:#E67431;"></span>Needs attention<span class="count">9</span></div>
+        <div class="label-row"><span class="swatch" style="background:#5A73DF;"></span>Resources<span class="count">23</span></div>
+        <div class="label-row"><span class="swatch" style="background:#DB4863;"></span>Escalated<span class="count">4</span></div>
+        <div class="label-row"><span class="swatch" style="background:#9C9EB0;"></span>Archive</div>
+      </div>
+
+      <!-- Inbox list -->
+      <div style="display:flex; flex-direction:column; min-width:0; border-right:1px solid var(--border);">
+        <div class="inbox-head">
+          <div class="title">Inbox <span class="count-chip">128</span></div>
+          <div class="tools"><div class="ic-btn"></div><div class="ic-btn"></div></div>
+        </div>
+        <div class="filter-row">
+          <span class="chip active">All</span>
+          <span class="chip">Assigned</span>
+          <span class="chip">Unread</span>
+          <span class="chip"><span class="dot" style="background:#E67431;"></span>Needs attention</span>
+          <span class="chip" style="margin-left:auto;">Sort · Recent</span>
+        </div>
+        <div class="msg-list">
+          <div class="msg selected">
+            <div class="avatar-sm" style="background:#4863DB;">JR</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Jamie Rivera</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Re: First check-in</div>
+              <div class="preview">Thanks for reaching out. I'd love to start with a brief intake call early next week if that works.</div>
+            </div>
+            <div class="meta"><span class="time">2:14p</span><span class="unread"></span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#243FB6;">DM</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Devon Mara</span>
+                <span class="label-pill" style="background:#FCEDE4;color:#984413;">Needs attention</span>
+              </div>
+              <div class="sub">Following up on yesterday's session</div>
+              <div class="preview">Quick question about the resources you mentioned — wanted to clarify a couple of things before our next meeting.</div>
+            </div>
+            <div class="meta"><span class="time">1:48p</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#2E7D32;">AT</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Avery Toth</span>
+                <span class="label-pill" style="background:#E8F5E9;color:#1B5E20;">Active follow-up</span>
+              </div>
+              <div class="sub">Weekly check-in scheduled</div>
+              <div class="preview">Confirmed for Thursday at 10am. I'll send a reminder the morning of. Reach out anytime in between.</div>
+            </div>
+            <div class="meta"><span class="time">12:30p</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#6D82E2;">SL</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Sam L.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Account setup question</div>
+              <div class="preview">Got the welcome email — quick clarifying question on the next steps document, can I respond there?</div>
+            </div>
+            <div class="meta"><span class="time">11:12a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#E67431;">RG</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Rae Gold</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Resources</span>
+              </div>
+              <div class="sub">Sharing what worked</div>
+              <div class="preview">Wanted to share a couple of resources that have helped me this week — happy to keep building on this list.</div>
+            </div>
+            <div class="meta"><span class="time">10:02a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#D6304E;">MV</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Marin V.</span>
+                <span class="label-pill" style="background:#FAE4E8;color:#861A2E;">Escalated</span>
+              </div>
+              <div class="sub">Re: Goals for the month</div>
+              <div class="preview">Putting together a short summary of what we discussed — sending it your way in the next hour.</div>
+            </div>
+            <div class="meta"><span class="time">9:24a</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thread -->
+      <div class="thread">
+        <div class="head">
+          <div>
+            <div class="name">Jamie Rivera</div>
+            <div class="sub">3 messages · Started yesterday</div>
+          </div>
+          <span class="badge">Onboarding</span>
+        </div>
+        <div class="messages">
+          <div class="bubble them">
+            Hi! Just wanted to introduce myself and confirm the next steps from our intake. Excited to get started.
+            <div class="ts">Yesterday · 3:42p</div>
+          </div>
+          <div class="bubble us">
+            Welcome aboard. I'll send over a short intake form today and we can schedule a first check-in next week — what days tend to work best for you?
+            <div class="ts">Yesterday · 4:08p</div>
+          </div>
+          <div class="bubble them">
+            Thanks for reaching out. I'd love to start with a brief intake call early next week if that works — Tuesday or Wednesday morning would be ideal.
+            <div class="ts">Today · 2:14p</div>
+          </div>
+        </div>
+        <div class="composer">
+          <div class="input">Reply to Jamie…</div>
+          <div class="send">Send</div>
+        </div>
+      </div>
+
+      <!-- AI panel -->
+      <div class="ai-panel">
+        <h4>AI assist</h4>
+
+        <div class="ai-card">
+          <div class="row">
+            <div class="ic-ai"><svg viewBox="0 0 8 8" fill="none"><path d="M4 0L5 3 8 4 5 5 4 8 3 5 0 4 3 3Z" fill="#fff"/></svg></div>
+            <span style="font-weight:600; color:var(--ink-soft);">Suggested label</span>
+            <span class="conf">92%</span>
+          </div>
+          <div class="row" style="margin-top:8px;">
+            <span class="swatch" style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#4863DB;"></span>
+            <span style="font-weight:600;">Onboarding</span>
+            <span style="margin-left:auto;font-size:10.5px;color:var(--muted);">First-message intent</span>
+          </div>
+          <div class="actions">
+            <span class="btn-mini primary">Apply</span>
+            <span class="btn-mini">Different label</span>
+            <span class="btn-mini">Dismiss</span>
+          </div>
+        </div>
+
+        <div class="ai-card" style="background:var(--surface-mute);border-color:var(--border);">
+          <div class="row">
+            <div class="ic-ai" style="background:linear-gradient(135deg,#E67431,#984413);">
+              <svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <span style="font-weight:600; color:var(--ink-soft);">Reply suggestion</span>
+          </div>
+          <div class="row" style="margin-top:8px; align-items:flex-start;">
+            <span style="font-size:11.5px;color:var(--ink-soft);line-height:1.45;">
+              "Tuesday morning works — I'll send a calendar invite for 10am and a short intake form ahead of time."
+            </span>
+          </div>
+          <div class="actions">
+            <span class="btn-mini primary">Use draft</span>
+            <span class="btn-mini">Edit</span>
+            <span class="btn-mini">Dismiss</span>
+          </div>
+        </div>
+
+        <h4 style="margin-top:18px;">Context</h4>
+        <div style="border:1px solid var(--border); border-radius:10px; padding:10px 12px; background:var(--surface-mute);">
+          <div style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Stage</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--ink);">Onboarding · Week 1</div>
+          <div style="height:1px;background:var(--hairline);margin:8px 0;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted-soft);">
+            <span>Last contact</span><span style="color:var(--ink-soft);font-weight:600;">Yesterday</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted-soft);margin-top:4px;">
+            <span>Time zone</span><span style="color:var(--ink-soft);font-weight:600;">PT</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     01 — Product design infrastructure
+     ============================================================ -->
+<section id="system" class="mockup">
+  <div class="frame">
+    <div class="head">
+      <div>
+        <div class="title">Kindness · Product Design System</div>
+        <div class="sub">Shared tokens, components, type, and Figma organization that gave design and engineering one contract for shipping the product.</div>
+      </div>
+      <span class="pill">v0.9 · Active</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- All four real color palettes -->
+      <div class="tile t-colors">
+        <div class="name">Color tokens · Kindigo · Kindle · Kindness · Kindred</div>
+        <div class="desc">Brand and semantic ramps imported as design tokens (Tokens Studio JSON) and consumed by both design and engineering — primary, accent, attention, and neutral.</div>
+        <div class="palette-grid">
+          <div class="palette-col">
+            <div class="head"><span class="name">Kindigo</span><span class="role">primary</span></div>
+            <div class="palette-stack">
+              <div class="palette-step light" style="background:#e4e8fa;">50</div>
+              <div class="palette-step light" style="background:#d1d8f6;">100</div>
+              <div class="palette-step light" style="background:#b6c1f1;">200</div>
+              <div class="palette-step light" style="background:#a3b1ed;">300</div>
+              <div class="palette-step dark"  style="background:#6d82e2;">400</div>
+              <div class="palette-step dark"  style="background:#5a73df;">500</div>
+              <div class="palette-step dark"  style="background:#4863db;">600</div>
+              <div class="palette-step dark"  style="background:#304ed6;">700</div>
+              <div class="palette-step dark"  style="background:#243fb6;">800</div>
+              <div class="palette-step dark"  style="background:#1a2e86;">900</div>
+              <div class="palette-step dark"  style="background:#111d55;">950</div>
+            </div>
+          </div>
+          <div class="palette-col">
+            <div class="head"><span class="name">Kindle</span><span class="role">accent</span></div>
+            <div class="palette-stack">
+              <div class="palette-step light" style="background:#fcede4;">50</div>
+              <div class="palette-step light" style="background:#f9e1d2;">100</div>
+              <div class="palette-step light" style="background:#f6cfb8;">200</div>
+              <div class="palette-step light" style="background:#f4c3a6;">300</div>
+              <div class="palette-step dark"  style="background:#ed9f71;">400</div>
+              <div class="palette-step dark"  style="background:#eb935f;">500</div>
+              <div class="palette-step dark"  style="background:#e9874d;">600</div>
+              <div class="palette-step dark"  style="background:#e67431;">700</div>
+              <div class="palette-step dark"  style="background:#cf5d1a;">800</div>
+              <div class="palette-step dark"  style="background:#984413;">900</div>
+              <div class="palette-step dark"  style="background:#612b0c;">950</div>
+            </div>
+          </div>
+          <div class="palette-col">
+            <div class="head"><span class="name">Kindness</span><span class="role">attention</span></div>
+            <div class="palette-stack">
+              <div class="palette-step light" style="background:#fae4e8;">50</div>
+              <div class="palette-step light" style="background:#f6d1d8;">100</div>
+              <div class="palette-step light" style="background:#f1b6c1;">200</div>
+              <div class="palette-step light" style="background:#eda3b1;">300</div>
+              <div class="palette-step dark"  style="background:#e26d82;">400</div>
+              <div class="palette-step dark"  style="background:#df5a73;">500</div>
+              <div class="palette-step dark"  style="background:#db4863;">600</div>
+              <div class="palette-step dark"  style="background:#d6304e;">700</div>
+              <div class="palette-step dark"  style="background:#b6243f;">800</div>
+              <div class="palette-step dark"  style="background:#861a2e;">900</div>
+              <div class="palette-step dark"  style="background:#55111d;">950</div>
+            </div>
+          </div>
+          <div class="palette-col">
+            <div class="head"><span class="name">Kindred</span><span class="role">neutral</span></div>
+            <div class="palette-stack">
+              <div class="palette-step light" style="background:#f6f6fa;">50</div>
+              <div class="palette-step light" style="background:#edeef4;">100</div>
+              <div class="palette-step light" style="background:#dbdde9;">200</div>
+              <div class="palette-step light" style="background:#cacddc;">300</div>
+              <div class="palette-step dark"  style="background:#9c9eb0;">400</div>
+              <div class="palette-step dark"  style="background:#6f7183;">500</div>
+              <div class="palette-step dark"  style="background:#525360;">600</div>
+              <div class="palette-step dark"  style="background:#3f3f4b;">700</div>
+              <div class="palette-step dark"  style="background:#27272b;">800</div>
+              <div class="palette-step dark"  style="background:#18181c;">900</div>
+              <div class="palette-step dark"  style="background:#09090c;">950</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component library -->
+      <div class="tile t-comp">
+        <div class="name">Component library</div>
+        <div class="desc">Buttons, chips, fields, labels, and avatars — every variant mirrored in code as production components.</div>
+        <div class="comp-grid">
+          <div class="comp-cell">
+            <div class="lbl">Button</div>
+            <div class="comp-btn">Primary</div>
+            <div class="comp-btn out">Secondary</div>
+            <div class="comp-btn warm">Accent</div>
+          </div>
+          <div class="comp-cell">
+            <div class="lbl">Chip</div>
+            <div class="comp-chip">Onboarding</div>
+            <div class="comp-chip warn">Needs attention</div>
+            <div class="comp-chip rose">Escalated</div>
+          </div>
+          <div class="comp-cell">
+            <div class="lbl">Field</div>
+            <div class="comp-field" style="border-color:var(--kindigo-600); color:var(--ink);">Reply to Jamie…</div>
+            <div class="comp-field">Subject</div>
+          </div>
+          <div class="comp-cell">
+            <div class="lbl">Label</div>
+            <div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--ink-soft);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#4863DB;"></span>Onboarding
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--ink-soft);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#E67431;"></span>Needs attention
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--ink-soft);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#DB4863;"></span>Escalated
+            </div>
+          </div>
+          <div class="comp-cell">
+            <div class="lbl">Avatar</div>
+            <div style="display:flex; gap:4px;">
+              <div style="width:24px;height:24px;border-radius:50%;background:#4863DB;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;">JR</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:#243FB6;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;">DM</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:#2E7D32;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;">AT</div>
+            </div>
+          </div>
+          <div class="comp-cell">
+            <div class="lbl">Toggle / state</div>
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="width:30px;height:16px;border-radius:999px;background:#4863DB;position:relative;">
+                <div style="position:absolute;top:2.5px;right:2.5px;width:11px;height:11px;border-radius:50%;background:#fff;"></div>
+              </div>
+              <span style="font-size:11px;color:var(--ink-soft);">AI assist · On</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="tile t-type">
+        <div class="name">Typography · Inter</div>
+        <div class="desc">Display + body scale tuned for dense product surfaces.</div>
+        <div class="type-list">
+          <div class="type-line"><span class="tag">Display</span><span class="sample" style="font-size:22px;font-weight:800;letter-spacing:-0.02em;">Inbox</span><span class="px">36 px · 800</span></div>
+          <div class="type-line"><span class="tag">H2</span><span class="sample" style="font-size:18px;font-weight:700;">Section title</span><span class="px">28 · 700</span></div>
+          <div class="type-line"><span class="tag">H3</span><span class="sample" style="font-size:15px;font-weight:600;">Subsection</span><span class="px">20 · 600</span></div>
+          <div class="type-line"><span class="tag">Body</span><span class="sample" style="font-size:13px;">Reading copy for product surfaces and conversation context.</span><span class="px">14 · 400</span></div>
+          <div class="type-line"><span class="tag">Caption</span><span class="sample" style="font-size:11px;color:var(--muted);">Metadata · timestamps · counts</span><span class="px">12 · 500</span></div>
+          <div class="type-line"><span class="tag">Overline</span><span class="sample" style="font-size:10.5px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;">Overline · all caps</span><span class="px">12 · 600</span></div>
+        </div>
+      </div>
+
+      <!-- Figma file structure -->
+      <div class="tile t-figma">
+        <div class="name">Figma file structure</div>
+        <div class="desc">Top-level files separate the design system, product surfaces, and exploration so the team always knows where to work.</div>
+        <div class="figma-tree">
+          <div class="node section"><span class="ic"></span><span class="name-col">Design System</span><span class="count">4 pages · 86 variants</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Foundations · color, type, spacing, motion</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Core components · buttons, chips, fields, labels</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Patterns · inbox, threads, labels, search</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Documentation · usage, do/don't, tokens</span></div>
+          <div class="node section" style="margin-top:6px;"><span class="ic"></span><span class="name-col">Product · Inbox</span><span class="count">12 flows</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Workspace · Inbox shell + sidebar</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Threading · message detail + composer</span></div>
+          <div class="node indent"><span class="ic"></span><span class="name-col">Search · AI-assisted</span></div>
+          <div class="node section" style="margin-top:6px;"><span class="ic"></span><span class="name-col">Exploration · AI features</span><span class="count">in progress</span></div>
+        </div>
+      </div>
+
+      <!-- Engineering handoff -->
+      <div class="tile t-handoff">
+        <div class="name">Design ↔ Engineering handoff</div>
+        <div class="desc">Token names match the production codebase; component variants align with implementation props.</div>
+        <div class="handoff-list">
+          <div class="handoff-row">
+            <div class="design">
+              <div class="lbl">Design</div>
+              Kindigo / 600
+            </div>
+            <div class="code">
+              <div class="lbl">Code</div>
+              <code>--kindigo-600</code>
+            </div>
+          </div>
+          <div class="handoff-row">
+            <div class="design">
+              <div class="lbl">Design</div>
+              Button · Primary · Sm/Md/Lg
+            </div>
+            <div class="code">
+              <div class="lbl">Code</div>
+              <code>&lt;Button variant="primary" size /&gt;</code>
+            </div>
+          </div>
+          <div class="handoff-row">
+            <div class="design">
+              <div class="lbl">Design</div>
+              Chip · attention
+            </div>
+            <div class="code">
+              <div class="lbl">Code</div>
+              <code>&lt;Chip tone="attention" /&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     02 — Inbox workflow redesign
+     ============================================================ -->
+<section id="inbox" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">K</span>
+        <span>Inbox · Operational view</span>
+      </div>
+      <div class="actions">
+        <span class="pill">Saved view · Today</span>
+        <span class="pill">⌘K</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="product cols-2">
+      <div class="sidebar">
+        <div class="group">Workspace</div>
+        <div class="nav active"><span class="ic"></span>Inbox<span class="count">128</span></div>
+        <div class="nav"><span class="ic"></span>Assigned to me<span class="count">14</span></div>
+        <div class="nav"><span class="ic"></span>Snoozed<span class="count">6</span></div>
+        <div class="nav"><span class="ic"></span>All threads</div>
+
+        <div class="group">Priority</div>
+        <div class="label-row"><span class="swatch" style="background:#E67431;"></span>Needs attention<span class="count">9</span></div>
+        <div class="label-row"><span class="swatch" style="background:#2E7D32;"></span>Active<span class="count">42</span></div>
+        <div class="label-row"><span class="swatch" style="background:#4863DB;"></span>Waiting on them<span class="count">23</span></div>
+        <div class="label-row"><span class="swatch" style="background:#9C9EB0;"></span>Done · this week<span class="count">38</span></div>
+
+        <div class="group">Saved views</div>
+        <div class="nav"><span class="ic"></span>This morning</div>
+        <div class="nav"><span class="ic"></span>Onboarding cohort</div>
+        <div class="nav"><span class="ic"></span>Overdue follow-ups</div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; min-width:0;">
+        <div class="inbox-head">
+          <div class="title">Inbox <span class="count-chip">128</span></div>
+          <div class="tools"><div class="ic-btn"></div><div class="ic-btn"></div><div class="ic-btn"></div></div>
+        </div>
+        <div class="filter-row">
+          <span class="chip active">All</span>
+          <span class="chip">Assigned</span>
+          <span class="chip">Unread</span>
+          <span class="chip"><span class="dot" style="background:#E67431;"></span>Needs attention</span>
+          <span class="chip"><span class="dot" style="background:#2E7D32;"></span>Active</span>
+          <span class="chip">Has attachment</span>
+          <span class="chip" style="margin-left:auto;">Density · Comfortable</span>
+          <span class="chip">Sort · Recent</span>
+        </div>
+        <div class="msg-list">
+          <div class="msg">
+            <div class="avatar-sm" style="background:#4863DB;">JR</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Jamie Rivera</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+                <span class="label-pill" style="background:#FCEDE4;color:#984413;">Needs attention</span>
+              </div>
+              <div class="sub">Re: First check-in</div>
+              <div class="preview">Thanks for reaching out. I'd love to start with a brief intake call early next week if that works.</div>
+            </div>
+            <div class="meta"><span class="time">2:14p</span><span class="unread"></span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#243FB6;">DM</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Devon Mara</span>
+                <span class="label-pill" style="background:#FCEDE4;color:#984413;">Needs attention</span>
+              </div>
+              <div class="sub">Following up on yesterday's session</div>
+              <div class="preview">Quick question about the resources you mentioned — wanted to clarify a couple of things before our next meeting.</div>
+            </div>
+            <div class="meta"><span class="time">1:48p</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#2E7D32;">AT</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Avery Toth</span>
+                <span class="label-pill" style="background:#E8F5E9;color:#1B5E20;">Active follow-up</span>
+              </div>
+              <div class="sub">Weekly check-in scheduled</div>
+              <div class="preview">Confirmed for Thursday at 10am. I'll send a reminder the morning of. Reach out anytime in between.</div>
+            </div>
+            <div class="meta"><span class="time">12:30p</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#6D82E2;">SL</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Sam L.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Account setup question</div>
+              <div class="preview">Got the welcome email — quick clarifying question on the next steps document, can I respond there?</div>
+            </div>
+            <div class="meta"><span class="time">11:12a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#E67431;">RG</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Rae Gold</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Resources</span>
+              </div>
+              <div class="sub">Sharing what worked</div>
+              <div class="preview">Wanted to share a couple of resources that have helped me this week — happy to keep building on this list.</div>
+            </div>
+            <div class="meta"><span class="time">10:02a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#D6304E;">MV</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Marin V.</span>
+                <span class="label-pill" style="background:#FAE4E8;color:#861A2E;">Escalated</span>
+              </div>
+              <div class="sub">Re: Goals for the month</div>
+              <div class="preview">Putting together a short summary of what we discussed — sending it your way in the next hour.</div>
+            </div>
+            <div class="meta"><span class="time">9:24a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#E9874D;">EH</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Eli H.</span>
+                <span class="label-pill" style="background:#E8F5E9;color:#1B5E20;">Active follow-up</span>
+              </div>
+              <div class="sub">Confirming today's session</div>
+              <div class="preview">All set for today, just confirming the time and link. Looking forward to it.</div>
+            </div>
+            <div class="meta"><span class="time">8:55a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#5A73DF;">LC</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Lex C.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Resources</span>
+              </div>
+              <div class="sub">Reading list follow-up</div>
+              <div class="preview">Made it through the first two — chapters 3 and 4 have been the most helpful so far. Sharing notes soon.</div>
+            </div>
+            <div class="meta"><span class="time">Yesterday</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 — Threading + labels + filters
+     ============================================================ -->
+<section id="thread" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">K</span>
+        <span>Thread · Jamie Rivera</span>
+        <span class="crumbs" style="margin-left:14px;">
+          <span>Inbox</span><span class="sep">/</span><span>Onboarding</span>
+        </span>
+      </div>
+      <div class="actions">
+        <span class="pill">Snooze</span>
+        <span class="pill">Assign</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="product cols-3">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="group">All labels</div>
+        <div class="label-row"><span class="swatch" style="background:#4863DB;"></span>Onboarding<span class="count">42</span></div>
+        <div class="label-row"><span class="swatch" style="background:#2E7D32;"></span>Active follow-up<span class="count">18</span></div>
+        <div class="label-row"><span class="swatch" style="background:#E67431;"></span>Needs attention<span class="count">9</span></div>
+        <div class="label-row"><span class="swatch" style="background:#5A73DF;"></span>Resources<span class="count">23</span></div>
+        <div class="label-row"><span class="swatch" style="background:#DB4863;"></span>Escalated<span class="count">4</span></div>
+        <div class="label-row"><span class="swatch" style="background:#9C9EB0;"></span>Archive</div>
+
+        <div class="group">Applied filters</div>
+        <div style="padding:4px 8px; display:flex; flex-wrap:wrap; gap:5px;">
+          <span class="chip active">Onboarding</span>
+          <span class="chip active">This week</span>
+          <span class="chip">Clear</span>
+        </div>
+      </div>
+
+      <!-- Filtered list -->
+      <div style="display:flex; flex-direction:column; min-width:0; border-right:1px solid var(--border);">
+        <div class="inbox-head">
+          <div class="title">Filtered <span class="count-chip">12</span></div>
+          <div class="tools"><div class="ic-btn"></div></div>
+        </div>
+        <div class="filter-row" style="padding:8px 16px;">
+          <span style="font-size:11px;color:var(--muted);">Showing <strong style="color:var(--ink);">Onboarding</strong> · <strong style="color:var(--ink);">This week</strong></span>
+          <span class="chip" style="margin-left:auto;">12 of 128</span>
+        </div>
+        <div class="msg-list">
+          <div class="msg selected">
+            <div class="avatar-sm" style="background:#4863DB;">JR</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Jamie Rivera</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Re: First check-in · <span style="color:var(--kindigo-700);">3 messages</span></div>
+              <div class="preview">Thanks for reaching out. I'd love to start with a brief intake call early next week.</div>
+            </div>
+            <div class="meta"><span class="time">2:14p</span><span class="unread"></span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#6D82E2;">SL</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Sam L.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Account setup question · <span style="color:var(--kindigo-700);">2 messages</span></div>
+              <div class="preview">Got the welcome email — quick clarifying question on the next steps document.</div>
+            </div>
+            <div class="meta"><span class="time">11:12a</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#243FB6;">PT</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Pat T.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Welcome — getting started</div>
+              <div class="preview">Excited to be here. Working through the welcome doc, and have a couple of quick questions.</div>
+            </div>
+            <div class="meta"><span class="time">Yesterday</span></div>
+          </div>
+          <div class="msg">
+            <div class="avatar-sm" style="background:#5A73DF;">CK</div>
+            <div class="body">
+              <div class="from-row">
+                <span class="from">Cam K.</span>
+                <span class="label-pill" style="background:#E4E8FA;color:#243FB6;">Onboarding</span>
+              </div>
+              <div class="sub">Re: Intake form follow-up</div>
+              <div class="preview">Submitted the form earlier this morning — let me know if you need anything else from my side.</div>
+            </div>
+            <div class="meta"><span class="time">Mon</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thread view -->
+      <div class="thread">
+        <div class="head">
+          <div>
+            <div class="name">Jamie Rivera</div>
+            <div class="sub">3 messages · Started yesterday · 2 labels</div>
+          </div>
+          <div style="display:flex; gap:5px;">
+            <span class="badge">Onboarding</span>
+            <span class="badge" style="background:#FCEDE4;color:#984413;">Needs attention</span>
+          </div>
+        </div>
+        <div class="messages">
+          <div class="bubble them">
+            Hi! Just wanted to introduce myself and confirm the next steps from our intake. Excited to get started.
+            <div class="ts">Yesterday · 3:42p</div>
+          </div>
+          <div class="bubble us">
+            Welcome aboard. I'll send over a short intake form today and we can schedule a first check-in next week — what days tend to work best for you?
+            <div class="ts">Yesterday · 4:08p</div>
+          </div>
+          <div class="bubble them">
+            Thanks for reaching out. I'd love to start with a brief intake call early next week if that works — Tuesday or Wednesday morning would be ideal.
+            <div class="ts">Today · 2:14p</div>
+          </div>
+        </div>
+        <div class="composer">
+          <div class="input">Reply to Jamie…</div>
+          <div class="send">Send</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 — AI-assisted search + auto-labeling
+     ============================================================ -->
+<section id="ai" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">K</span>
+        <span>AI search · "intake forms"</span>
+      </div>
+      <div class="actions">
+        <span class="pill">⌘K</span>
+        <span class="pill accent">AI · On</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="product cols-3">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="group">Search history</div>
+        <div class="nav active"><span class="ic"></span>intake forms</div>
+        <div class="nav"><span class="ic"></span>follow-up resources</div>
+        <div class="nav"><span class="ic"></span>scheduling Tuesday</div>
+        <div class="nav"><span class="ic"></span>missed sessions</div>
+
+        <div class="group">Recently auto-labeled</div>
+        <div style="padding:4px 8px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);">
+            <span style="width:8px;height:8px;border-radius:50%;background:#4863DB;"></span>
+            <span style="font-weight:500;">Onboarding</span>
+            <span style="margin-left:auto;font-size:10px;color:var(--muted);">+18</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);">
+            <span style="width:8px;height:8px;border-radius:50%;background:#5A73DF;"></span>
+            <span style="font-weight:500;">Resources</span>
+            <span style="margin-left:auto;font-size:10px;color:var(--muted);">+9</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);">
+            <span style="width:8px;height:8px;border-radius:50%;background:#E67431;"></span>
+            <span style="font-weight:500;">Needs attention</span>
+            <span style="margin-left:auto;font-size:10px;color:var(--muted);">+4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search panel -->
+      <div style="display:flex; flex-direction:column; min-width:0; border-right:1px solid var(--border);">
+        <div class="search-bar">
+          <div class="ic-search">⌕</div>
+          <div class="query">intake forms</div>
+          <div class="ai-chip"><span class="dot"></span>AI matched 8</div>
+        </div>
+
+        <div class="search-results">
+          <div class="result-card">
+            <div class="ai-reason"><span class="dot"></span>Why: subject and message match · 96%</div>
+            <div class="head-row">
+              <div class="avatar-sm" style="background:#4863DB;">JR</div>
+              <div class="name">Jamie Rivera</div>
+              <div class="meta-time">2:14p</div>
+            </div>
+            <div class="snippet">"…happy to fill out the <span class="match">intake form</span> ahead of time so we can use the call to dig in…"</div>
+          </div>
+
+          <div class="result-card">
+            <div class="ai-reason"><span class="dot"></span>Why: semantic match on intake workflow · 88%</div>
+            <div class="head-row">
+              <div class="avatar-sm" style="background:#5A73DF;">CK</div>
+              <div class="name">Cam K.</div>
+              <div class="meta-time">Mon</div>
+            </div>
+            <div class="snippet">"Submitted the form earlier this morning — let me know if you need anything else from my side."</div>
+          </div>
+
+          <div class="result-card">
+            <div class="ai-reason"><span class="dot"></span>Why: label match · Onboarding · 84%</div>
+            <div class="head-row">
+              <div class="avatar-sm" style="background:#243FB6;">PT</div>
+              <div class="name">Pat T.</div>
+              <div class="meta-time">Yesterday</div>
+            </div>
+            <div class="snippet">"Working through the welcome doc and the <span class="match">intake</span> — quick questions on the resources section."</div>
+          </div>
+
+          <div class="result-card">
+            <div class="ai-reason"><span class="dot"></span>Why: thread sibling · 81%</div>
+            <div class="head-row">
+              <div class="avatar-sm" style="background:#6D82E2;">SL</div>
+              <div class="name">Sam L.</div>
+              <div class="meta-time">11:12a</div>
+            </div>
+            <div class="snippet">"Got the welcome email — quick clarifying question on the next steps document."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auto-label review panel -->
+      <div class="ai-panel">
+        <h4>Auto-labeling · pending review</h4>
+
+        <div class="ai-card">
+          <div class="row">
+            <div class="ic-ai"><svg viewBox="0 0 8 8" fill="none"><path d="M4 0L5 3 8 4 5 5 4 8 3 5 0 4 3 3Z" fill="#fff"/></svg></div>
+            <span style="font-weight:600; color:var(--ink-soft);">Jamie Rivera</span>
+            <span class="conf">92%</span>
+          </div>
+          <div class="row" style="margin-top:6px;">
+            <span style="font-size:10.5px;color:var(--muted);">Suggested:</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-soft);font-weight:600;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#4863DB;"></span>Onboarding
+            </span>
+          </div>
+          <div class="actions">
+            <span class="btn-mini primary">Apply</span>
+            <span class="btn-mini">Different</span>
+            <span class="btn-mini">Skip</span>
+          </div>
+        </div>
+
+        <div class="ai-card">
+          <div class="row">
+            <div class="ic-ai"><svg viewBox="0 0 8 8" fill="none"><path d="M4 0L5 3 8 4 5 5 4 8 3 5 0 4 3 3Z" fill="#fff"/></svg></div>
+            <span style="font-weight:600; color:var(--ink-soft);">Rae Gold</span>
+            <span class="conf">88%</span>
+          </div>
+          <div class="row" style="margin-top:6px;">
+            <span style="font-size:10.5px;color:var(--muted);">Suggested:</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-soft);font-weight:600;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#5A73DF;"></span>Resources
+            </span>
+          </div>
+          <div class="actions">
+            <span class="btn-mini primary">Apply</span>
+            <span class="btn-mini">Different</span>
+            <span class="btn-mini">Skip</span>
+          </div>
+        </div>
+
+        <div class="ai-card" style="background:#FCEDE4;border-color:#F6CFB8;">
+          <div class="row">
+            <div class="ic-ai" style="background:linear-gradient(135deg,#E67431,#984413);">!</div>
+            <span style="font-weight:600; color:var(--ink-soft);">Devon Mara</span>
+            <span class="conf" style="color:#984413;">64% · low</span>
+          </div>
+          <div class="row" style="margin-top:6px;">
+            <span style="font-size:10.5px;color:var(--kindle-900);">Confidence low — review before applying.</span>
+          </div>
+          <div class="actions">
+            <span class="btn-mini">Review</span>
+            <span class="btn-mini">Skip</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

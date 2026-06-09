@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kindness.ai — Homepage Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* ====================================================================
+   Stage — TruOps/Fortress hero aspect (1440×980 @ 1×, 2880×1960 @ 2×).
+   Dark editorial composition using the real Kindigo palette as the
+   atmospheric base, with the Kindle accent showing up subtly.
+   ==================================================================== */
+.stage {
+  width: 1440px;
+  height: 980px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(840px 560px at 18% 18%, rgba(110, 130, 226, 0.32) 0%, rgba(110, 130, 226, 0) 60%),
+    radial-gradient(900px 600px at 92% 88%, rgba(233, 135, 77, 0.16) 0%, rgba(233, 135, 77, 0) 65%),
+    linear-gradient(155deg, #0F1638 0%, #16204E 45%, #18255E 100%);
+}
+
+.grid-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(900px 700px at 70% 50%, #000 30%, rgba(0,0,0,0.4) 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(900px 700px at 70% 50%, #000 30%, rgba(0,0,0,0.4) 70%, transparent 100%);
+}
+
+/* Subtle communication-network ghost (lines between message-thread nodes) */
+.network {
+  position: absolute; inset: 0;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/* =========================
+   Left column — editorial text
+   ========================= */
+.text-col {
+  position: absolute;
+  left: 64px;
+  top: 0;
+  bottom: 0;
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 26px;
+  z-index: 4;
+}
+.eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #B6C1F1;
+}
+.eyebrow .accent-dot {
+  display: inline-block; width: 6px; height: 6px;
+  background: #6D82E2; border-radius: 50%;
+  margin-right: 8px; vertical-align: middle;
+}
+.headline {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  color: #FFFFFF;
+}
+.headline .italic {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #D1D8F6;
+}
+.support {
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 420px;
+}
+
+/* =========================
+   Right column — product window (oversized, intentionally cropped)
+   ========================= */
+.product-wrap {
+  position: absolute;
+  right: -120px;
+  top: 76px;
+  width: 940px;
+  height: 880px;
+  z-index: 3;
+}
+.product {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 60px 100px -32px rgba(0, 0, 0, 0.6),
+    0 28px 56px -16px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(91, 113, 223, 0.20),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Browser chrome */
+.chrome {
+  height: 36px;
+  background: linear-gradient(180deg, #F6F6FA 0%, #EDEEF4 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex; align-items: center;
+  padding: 0 14px;
+  gap: 10px;
+}
+.chrome .dots { display: flex; align-items: center; gap: 6px; }
+.chrome .dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.chrome .dot.r { background: #FF5F57; }
+.chrome .dot.y { background: #FEBC2E; }
+.chrome .dot.g { background: #28C840; }
+.chrome .url {
+  margin-left: 8px;
+  flex: 1;
+  height: 22px;
+  border-radius: 6px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex; align-items: center;
+  padding: 0 10px;
+  font-size: 11px;
+  color: #525360;
+  letter-spacing: 0.01em;
+}
+.chrome .url .lock {
+  width: 10px; height: 10px; margin-right: 8px;
+  display: inline-block; opacity: 0.5;
+}
+
+.screenshot {
+  width: 100%;
+  height: calc(100% - 36px);
+  background-image: url('kindness-hero-inbox-system.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  background-color: #FFFFFF;
+}
+
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(1200px 800px at 50% 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.32) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="grid-bg"></div>
+
+  <!-- Faint communication-network ghost — small "message thread" graph -->
+  <svg class="network" viewBox="0 0 1440 980" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="#B6C1F1" stroke-width="1" stroke-dasharray="3 5" fill="none" opacity="0.5">
+      <line x1="100" y1="180" x2="240" y2="260" />
+      <line x1="240" y1="260" x2="180" y2="420" />
+      <line x1="180" y1="420" x2="80"  y2="560" />
+      <line x1="180" y1="420" x2="320" y2="540" />
+      <line x1="80"  y1="560" x2="140" y2="740" />
+      <line x1="140" y1="740" x2="280" y2="820" />
+      <line x1="1180" y1="80" x2="1320" y2="180" />
+      <line x1="1320" y1="180" x2="1380" y2="320" />
+      <line x1="1380" y1="320" x2="1300" y2="500" />
+    </g>
+    <g>
+      <circle cx="100"  cy="180" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="100"  cy="180" r="2" fill="#B6C1F1" />
+      <circle cx="240"  cy="260" r="9" fill="#16204E" stroke="#E67431" stroke-width="1.6" />
+      <circle cx="240"  cy="260" r="3" fill="#E67431" />
+      <circle cx="180"  cy="420" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="80"   cy="560" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="320"  cy="540" r="8" fill="#16204E" stroke="#6D82E2" stroke-width="1.6" />
+      <circle cx="320"  cy="540" r="2.5" fill="#6D82E2" />
+      <circle cx="140"  cy="740" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="280"  cy="820" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="1180" cy="80"  r="5" fill="#16204E" stroke="#B6C1F1" stroke-width="1.2" />
+      <circle cx="1320" cy="180" r="6" fill="#16204E" stroke="#B6C1F1" stroke-width="1.4" />
+      <circle cx="1380" cy="320" r="8" fill="#16204E" stroke="#DB4863" stroke-width="1.6" />
+      <circle cx="1380" cy="320" r="2.5" fill="#DB4863" />
+      <circle cx="1300" cy="500" r="5" fill="#16204E" stroke="#B6C1F1" stroke-width="1.2" />
+    </g>
+  </svg>
+
+  <!-- Editorial text block -->
+  <div class="text-col">
+    <div class="eyebrow"><span class="accent-dot"></span>Product infrastructure · AI inbox</div>
+    <h1 class="headline">
+      The inbox,<br/>
+      <span class="italic">organized.</span>
+    </h1>
+    <p class="support">
+      A 0→1 product design infrastructure and inbox redesign for an AI-assisted communication platform — Figma systems, reusable patterns, and AI-assisted labeling and search built around the operators who live in the inbox.
+    </p>
+  </div>
+
+  <!-- Product window — Kindness inbox -->
+  <div class="product-wrap">
+    <div class="product">
+      <div class="chrome">
+        <div class="dots">
+          <span class="dot r"></span>
+          <span class="dot y"></span>
+          <span class="dot g"></span>
+        </div>
+        <div class="url">
+          <svg class="lock" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M3 4.5V3a2 2 0 014 0v1.5M2.5 4.5h5v4h-5z" stroke="#525360" stroke-width="0.8" stroke-linecap="round" />
+          </svg>
+          app.kindness.ai/inbox
+        </div>
+      </div>
+      <div class="screenshot"></div>
+    </div>
+  </div>
+
+  <div class="vignette"></div>
+
+</div>
+
+</body>
+</html>

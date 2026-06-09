@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortress A2V — Homepage Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* ====================================================================
+   Stage — matches TruOps hero aspect (~1440×980 at 1×, 2880×1960 at 2×).
+   Dark editorial enterprise-security feel, deep navy with a faint
+   relationship-network backdrop and a subtle Fortress-purple accent.
+   ==================================================================== */
+.stage {
+  width: 1440px;
+  height: 980px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(820px 540px at 20% 20%, rgba(91, 78, 145, 0.22) 0%, rgba(91, 78, 145, 0) 60%),
+    radial-gradient(900px 600px at 90% 85%, rgba(74, 110, 177, 0.15) 0%, rgba(74, 110, 177, 0) 65%),
+    linear-gradient(155deg, #14132A 0%, #1B1838 45%, #1E1B3E 100%);
+}
+
+/* Subtle dot grid texture */
+.grid-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(900px 700px at 70% 50%, #000 30%, rgba(0,0,0,0.4) 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(900px 700px at 70% 50%, #000 30%, rgba(0,0,0,0.4) 70%, transparent 100%);
+}
+
+/* Faint relationship-network ghost behind the dashboard */
+.network {
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+/* =========================
+   Left column — editorial text
+   ========================= */
+.text-col {
+  position: absolute;
+  left: 64px;
+  top: 0;
+  bottom: 0;
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 26px;
+  z-index: 4;
+}
+.eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #B4A8E0;
+}
+.eyebrow .accent-dot {
+  display: inline-block; width: 6px; height: 6px;
+  background: #9C92D6; border-radius: 50%;
+  margin-right: 8px; vertical-align: middle;
+}
+.headline {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  color: #FFFFFF;
+}
+.headline .italic {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #E4DEF6;
+}
+.support {
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 420px;
+}
+
+/* =========================
+   Right column — product window
+   ========================= */
+/* Oversized product window — intentionally extends past the right edge of
+   the stage so the dashboard reads as an immersive, cropped composition
+   (TruOps hero treatment). Stage overflow:hidden clips the right portion. */
+.product-wrap {
+  position: absolute;
+  right: -120px;
+  top: 76px;
+  width: 940px;
+  height: 880px;
+  perspective: 2000px;
+  z-index: 3;
+}
+.product {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 60px 100px -32px rgba(0, 0, 0, 0.6),
+    0 28px 56px -16px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(91, 78, 145, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Browser chrome header */
+.chrome {
+  height: 36px;
+  background: linear-gradient(180deg, #F4F4F8 0%, #ECEBF1 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex; align-items: center;
+  padding: 0 14px;
+  gap: 10px;
+}
+.chrome .dots {
+  display: flex; align-items: center; gap: 6px;
+}
+.chrome .dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.chrome .dot.r { background: #FF5F57; }
+.chrome .dot.y { background: #FEBC2E; }
+.chrome .dot.g { background: #28C840; }
+.chrome .url {
+  margin-left: 8px;
+  flex: 1;
+  height: 22px;
+  border-radius: 6px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex; align-items: center;
+  padding: 0 10px;
+  font-size: 11px;
+  color: #6E6B82;
+  letter-spacing: 0.01em;
+}
+.chrome .url .lock {
+  width: 10px; height: 10px; margin-right: 8px;
+  display: inline-block; opacity: 0.5;
+}
+
+/* Screenshot — Dashboard/Home cropped to fold via background-image */
+.screenshot {
+  width: 100%;
+  height: calc(100% - 36px);
+  background-image: url('source/dashboard-home.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  background-color: #FFFFFF;
+}
+
+/* Soft cinematic vignette */
+.vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1200px 800px at 50% 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.32) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- Background textures -->
+  <div class="grid-bg"></div>
+
+  <!-- Faint relationship-network ghost -->
+  <svg class="network" viewBox="0 0 1440 980" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="#9C92D6" stroke-width="1" stroke-dasharray="3 5" fill="none" opacity="0.5">
+      <line x1="120" y1="160" x2="260" y2="240" />
+      <line x1="260" y1="240" x2="180" y2="380" />
+      <line x1="180" y1="380" x2="80"  y2="520" />
+      <line x1="180" y1="380" x2="320" y2="500" />
+      <line x1="80"  y1="520" x2="140" y2="700" />
+      <line x1="140" y1="700" x2="260" y2="800" />
+      <line x1="260" y1="800" x2="380" y2="860" />
+      <line x1="1100" y1="80" x2="1240" y2="160" />
+      <line x1="1240" y1="160" x2="1340" y2="280" />
+      <line x1="1340" y1="280" x2="1280" y2="440" />
+      <line x1="1280" y1="440" x2="1380" y2="580" />
+    </g>
+    <g>
+      <circle cx="120"  cy="160" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="120"  cy="160" r="2" fill="#9C92D6" />
+      <circle cx="260"  cy="240" r="9" fill="#1B1838" stroke="#B6494A" stroke-width="1.6" />
+      <circle cx="260"  cy="240" r="3" fill="#B6494A" />
+      <circle cx="180"  cy="380" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="80"   cy="520" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="320"  cy="500" r="8" fill="#1B1838" stroke="#C48A4A" stroke-width="1.6" />
+      <circle cx="320"  cy="500" r="2.5" fill="#C48A4A" />
+      <circle cx="140"  cy="700" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="260"  cy="800" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="380"  cy="860" r="5" fill="#1B1838" stroke="#9C92D6" stroke-width="1.2" />
+      <circle cx="1100" cy="80"  r="5" fill="#1B1838" stroke="#9C92D6" stroke-width="1.2" />
+      <circle cx="1240" cy="160" r="6" fill="#1B1838" stroke="#9C92D6" stroke-width="1.4" />
+      <circle cx="1340" cy="280" r="5" fill="#1B1838" stroke="#9C92D6" stroke-width="1.2" />
+      <circle cx="1280" cy="440" r="8" fill="#1B1838" stroke="#B6494A" stroke-width="1.6" />
+      <circle cx="1280" cy="440" r="2.5" fill="#B6494A" />
+      <circle cx="1380" cy="580" r="5" fill="#1B1838" stroke="#9C92D6" stroke-width="1.2" />
+    </g>
+  </svg>
+
+  <!-- Editorial text block -->
+  <div class="text-col">
+    <div class="eyebrow"><span class="accent-dot"></span>Supply chain risk, in focus</div>
+    <h1 class="headline">
+      Risk,<br/>
+      <span class="italic">made visible.</span>
+    </h1>
+    <p class="support">
+      A product experience designed to help teams understand vendor relationships, risk signals, and operational priority without getting buried in the data.
+    </p>
+  </div>
+
+  <!-- Product window — AV Network dashboard -->
+  <div class="product-wrap">
+    <div class="product">
+      <div class="chrome">
+        <div class="dots">
+          <span class="dot r"></span>
+          <span class="dot y"></span>
+          <span class="dot g"></span>
+        </div>
+        <div class="url">
+          <svg class="lock" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M3 4.5V3a2 2 0 014 0v1.5M2.5 4.5h5v4h-5z" stroke="#6E6B82" stroke-width="0.8" stroke-linecap="round" />
+          </svg>
+          app.av-network.fortress.com/home
+        </div>
+      </div>
+      <div class="screenshot"></div>
+    </div>
+  </div>
+
+  <!-- Cinematic vignette -->
+  <div class="vignette"></div>
+
+</div>
+
+</body>
+</html>

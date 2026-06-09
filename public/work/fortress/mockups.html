@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortress A2V — Portfolio Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:         #1F1B36;
+  --ink-soft:    #2F2A50;
+  --body:        #4A456B;
+  --muted:       #8B8AA5;
+  --muted-soft:  #C7C5D8;
+  --border:      #E4E3ED;
+  --border-strong:#CFCEDD;
+  --bg-cream:    #F8F7FB;
+  --bg-lavender: #EFEAF6;
+  --bg-lavender-2:#E7E1F2;
+  --surface:     #FFFFFF;
+  --surface-mute:#F5F4FA;
+  --accent:      #5B4E91;
+  --accent-soft: #E1DBEF;
+  --high:        #B6494A;
+  --high-soft:   #F6E1E1;
+  --med:         #C48A4A;
+  --med-soft:    #F6ECD9;
+  --low:         #6E8E6E;
+  --low-soft:    #E3EFE0;
+  --info:        #4A6EB1;
+  --info-soft:   #E1E9F5;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #FBFAFD;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Shared mockup primitives
+   ============================================================ */
+.mockup {
+  width: max-content;
+  margin: 24px 0;
+  background: var(--bg-cream);
+}
+.frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow:
+    0 24px 50px -28px rgba(31, 27, 54, 0.18),
+    0 10px 22px -12px rgba(31, 27, 54, 0.08);
+  overflow: hidden;
+}
+.eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--accent);
+}
+
+/* status dot */
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot.high { background: var(--high); }
+.dot.med  { background: var(--med); }
+.dot.low  { background: var(--low); }
+.dot.info { background: var(--info); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+.badge.high { background: var(--high-soft); color: var(--high); }
+.badge.med  { background: var(--med-soft);  color: var(--med);  }
+.badge.low  { background: var(--low-soft);  color: var(--low);  }
+.badge.info { background: var(--info-soft); color: var(--info); }
+.badge.neutral {
+  background: var(--surface-mute); color: var(--ink-soft);
+  border-color: var(--border);
+}
+
+/* Topbar shared by product frames */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #FBFAFD 0%, #F5F4FA 100%);
+}
+.topbar .brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em;
+}
+.topbar .brand .glyph {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent) 0%, #312C50 100%);
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 700;
+}
+.topbar .crumbs {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--muted);
+}
+.topbar .crumbs .sep { color: var(--muted-soft); }
+.topbar .actions {
+  display: flex; align-items: center; gap: 10px;
+}
+.topbar .pill {
+  height: 28px; padding: 0 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; color: var(--ink-soft);
+}
+.topbar .avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #C7C5D8 0%, #8B8AA5 100%);
+  display: grid; place-items: center;
+  color: #fff; font-size: 11px; font-weight: 700;
+}
+
+/* Section layouts */
+.product {
+  display: grid;
+  grid-template-columns: 220px 1fr 320px;
+  height: 100%;
+}
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: #FBFAFD;
+  padding: 18px 14px;
+}
+.sidebar .group {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted);
+  padding: 14px 8px 8px;
+}
+.sidebar .nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 8px;
+  font-size: 13px; color: var(--ink-soft); font-weight: 500;
+  margin: 1px 0;
+}
+.sidebar .nav-item .ic {
+  width: 14px; height: 14px; border-radius: 4px;
+  background: var(--muted-soft);
+  flex-shrink: 0;
+}
+.sidebar .nav-item.active {
+  background: var(--accent-soft); color: var(--accent);
+}
+.sidebar .nav-item.active .ic { background: var(--accent); }
+
+.detail {
+  border-left: 1px solid var(--border);
+  background: var(--bg-cream);
+  padding: 22px 22px 20px;
+}
+.detail h4 {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted);
+  margin-bottom: 6px;
+}
+.detail .title-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+}
+.detail .name {
+  font-size: 17px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.detail .sub {
+  font-size: 12px; color: var(--muted); margin-top: 4px;
+}
+.detail .metric-tile {
+  margin-top: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+}
+.detail .metric-tile .lbl {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted); margin-bottom: 4px;
+}
+.detail .metric-tile .val {
+  font-size: 22px; font-weight: 700; color: var(--ink);
+  font-feature-settings: "tnum"; letter-spacing: -0.02em;
+}
+.detail .metric-tile .delta {
+  font-size: 12px; color: var(--muted); margin-top: 4px;
+}
+.detail .connections {
+  margin-top: 16px;
+}
+.detail .connections .head {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px;
+}
+.detail .conn-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-top: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.detail .conn-row:first-of-type { border-top: 0; }
+.detail .conn-row .name-col { flex: 1; color: var(--ink); font-weight: 500; }
+.detail .conn-row .meta-col { font-size: 11.5px; color: var(--muted); }
+
+/* ============================================================
+   1. HERO — A2V Network in full product frame
+   ============================================================ */
+#hero { padding: 60px; }
+#hero .frame { width: 1400px; height: 800px; }
+#hero .product { height: calc(100% - 56px); }
+
+/* Map canvas (center column) */
+.map {
+  position: relative;
+  background:
+    radial-gradient(1200px 600px at 50% 0%, #F4F1FA 0%, rgba(244,241,250,0) 70%),
+    var(--surface);
+  overflow: hidden;
+}
+.map .grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(207,206,221,0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(207,206,221,0.35) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(80% 70% at 50% 50%, #000 50%, transparent 100%);
+}
+.map .toolbar {
+  position: absolute; top: 14px; left: 14px; right: 14px;
+  display: flex; align-items: center; gap: 8px;
+  z-index: 5;
+}
+.map .chip {
+  height: 28px; padding: 0 11px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 500; color: var(--ink-soft);
+}
+.map .chip.active {
+  background: var(--accent-soft); color: var(--accent); border-color: transparent;
+}
+.map .chip .x {
+  color: var(--muted); font-size: 11px;
+}
+.map .zoom {
+  position: absolute; right: 14px; bottom: 14px;
+  width: 32px; border: 1px solid var(--border);
+  background: var(--surface); border-radius: 8px;
+  display: flex; flex-direction: column; overflow: hidden;
+  z-index: 5;
+}
+.map .zoom button {
+  height: 28px; background: var(--surface); border: 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-soft); font-size: 14px; cursor: default;
+}
+.map .zoom button:last-child { border-bottom: 0; }
+.map .legend {
+  position: absolute; left: 14px; bottom: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 11.5px; color: var(--ink-soft);
+  z-index: 5;
+}
+.map .legend .row { display: flex; align-items: center; gap: 8px; }
+
+.map svg.canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+
+/* Sidebar filters - hero */
+.sidebar.filters .group { padding-top: 18px; }
+.sidebar.filters .filter {
+  padding: 6px 8px; display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--ink-soft);
+}
+.sidebar.filters .filter .check {
+  width: 14px; height: 14px; border-radius: 3px;
+  border: 1px solid var(--border-strong); background: var(--surface);
+  flex-shrink: 0;
+}
+.sidebar.filters .filter .check.on {
+  background: var(--accent); border-color: var(--accent);
+  position: relative;
+}
+.sidebar.filters .filter .check.on::after {
+  content: ''; position: absolute; left: 3px; top: 1px;
+  width: 4px; height: 7px;
+  border: solid #fff; border-width: 0 1.6px 1.6px 0;
+  transform: rotate(45deg);
+}
+.sidebar.filters .filter .count {
+  margin-left: auto; font-size: 11px; color: var(--muted);
+  font-feature-settings: "tnum";
+}
+
+/* ============================================================
+   2. A2V Network Map — focused close-up
+   ============================================================ */
+#a2v { padding: 60px; }
+#a2v .frame { width: 1280px; height: 720px; }
+#a2v .map-full { height: 100%; }
+
+/* Larger node labels for the focused close-up. */
+#a2v .node-label { font-size: 11.5px; }
+
+/* ============================================================
+   3. Risk Visualization — layered dashboard
+   ============================================================ */
+#risk { padding: 60px; }
+#risk .frame { width: 1280px; height: 720px; background: var(--bg-cream); }
+#risk .body {
+  height: calc(100% - 56px);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  padding: 20px;
+}
+#risk .panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px;
+  display: flex; flex-direction: column;
+}
+#risk .panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+#risk .panel-head .title {
+  font-size: 14px; font-weight: 700; color: var(--ink);
+}
+#risk .panel-head .sub { font-size: 11.5px; color: var(--muted); }
+
+/* Severity distribution */
+.severity-stack {
+  display: flex; gap: 6px; margin-top: 8px;
+}
+.severity-stack .bar {
+  flex: 1; height: 18px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10.5px; font-weight: 700; color: rgba(255,255,255,0.95);
+  letter-spacing: 0.04em;
+}
+.severity-stack .bar.high { background: var(--high); }
+.severity-stack .bar.med  { background: var(--med); }
+.severity-stack .bar.low  { background: var(--low); }
+.severity-keys {
+  margin-top: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.severity-keys .row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12.5px; color: var(--ink-soft);
+}
+.severity-keys .row .meta { margin-left: auto; color: var(--muted); }
+
+/* Event list */
+.event-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 10px;
+  padding: 11px 12px; border-bottom: 1px solid var(--border);
+}
+.event-row:last-child { border-bottom: 0; }
+.event-row .sev {
+  width: 6px; height: 26px; border-radius: 3px;
+  background: var(--muted-soft);
+}
+.event-row.high .sev { background: var(--high); }
+.event-row.med .sev  { background: var(--med);  }
+.event-row.low .sev  { background: var(--low);  }
+.event-row .name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.event-row .meta { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.event-row .right {
+  text-align: right; font-size: 11px; color: var(--muted);
+  font-feature-settings: "tnum";
+}
+
+/* Trend chart */
+.trend {
+  margin-top: 14px;
+  background: var(--bg-cream); border-radius: 10px;
+  padding: 14px; height: 168px;
+  position: relative;
+}
+.trend svg { width: 100%; height: 100%; display: block; }
+
+/* Heatmap */
+.heatmap {
+  display: grid;
+  grid-template-columns: 60px repeat(12, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+.heatmap .lbl {
+  font-size: 10.5px; color: var(--muted); align-self: center;
+  text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+}
+.heatmap .cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 3px;
+  background: var(--surface-mute);
+}
+.heatmap .cell.l1 { background: #ECE8F5; }
+.heatmap .cell.l2 { background: #D7CDEC; }
+.heatmap .cell.l3 { background: #B5A4D7; }
+.heatmap .cell.l4 { background: var(--accent); }
+.heatmap .legend-row {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 8px;
+  font-size: 11px; color: var(--muted);
+}
+.heatmap .legend-row .swatch {
+  display: flex; align-items: center; gap: 5px;
+}
+.heatmap .legend-row .sw {
+  width: 12px; height: 12px; border-radius: 3px;
+}
+
+/* ============================================================
+   4. Dashboard Usability — overview + table
+   ============================================================ */
+#dash { padding: 60px; }
+#dash .frame { width: 1280px; height: 720px; background: var(--bg-cream); }
+#dash .body {
+  height: calc(100% - 56px);
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 14px; padding: 18px 18px 14px;
+}
+#dash .kpi {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+}
+#dash .kpi .lbl {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted);
+}
+#dash .kpi .val {
+  margin-top: 6px;
+  font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); font-feature-settings: "tnum";
+}
+#dash .kpi .delta {
+  margin-top: 6px;
+  font-size: 11.5px; color: var(--muted);
+}
+#dash .kpi .delta.up { color: var(--high); }
+#dash .kpi .delta.down { color: var(--low); }
+#dash .row-2 {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 2fr 1fr; gap: 14px;
+}
+#dash .panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+}
+#dash .panel .head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+#dash .panel .head .title {
+  font-size: 14px; font-weight: 700; color: var(--ink);
+}
+#dash .panel .head .chips {
+  display: flex; gap: 6px;
+}
+#dash table {
+  width: 100%; border-collapse: collapse; font-size: 12.5px;
+}
+#dash th {
+  text-align: left; padding: 8px 10px;
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+#dash td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-soft);
+}
+#dash tr:last-child td { border-bottom: 0; }
+#dash td .vendor {
+  display: flex; align-items: center; gap: 9px;
+  font-weight: 600; color: var(--ink);
+}
+#dash td .vendor .av {
+  width: 20px; height: 20px; border-radius: 4px;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 9px; font-weight: 700;
+  display: grid; place-items: center;
+  letter-spacing: 0.04em;
+}
+#dash .panel ul.queue {
+  list-style: none; padding: 0; margin: 0;
+}
+#dash .panel ul.queue li {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  align-items: start; gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+#dash .panel ul.queue li:last-child { border-bottom: 0; }
+#dash .panel ul.queue .num {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--bg-lavender); color: var(--accent);
+  font-size: 11px; font-weight: 700;
+  display: grid; place-items: center;
+}
+#dash .panel ul.queue .name { color: var(--ink); font-weight: 600; }
+#dash .panel ul.queue .meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+#dash .panel ul.queue .age { color: var(--muted); font-size: 11px; font-feature-settings: "tnum"; }
+
+/* ============================================================
+   5. System Patterns — design system component sheet
+   ============================================================ */
+#sys { padding: 48px; }
+#sys .frame {
+  width: 2000px; height: 1180px;
+  background: var(--bg-cream);
+  padding: 32px 30px;
+}
+#sys .head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+#sys .head .title {
+  font-size: 24px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.015em;
+}
+#sys .head .sub {
+  font-size: 14px; line-height: 1.5; color: var(--muted);
+  margin-top: 6px; max-width: 680px;
+}
+#sys .layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 320px 380px 280px;
+  gap: 22px;
+}
+#sys .row-1 {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 560px 1fr;
+  gap: 22px;
+}
+#sys .row-2,
+#sys .row-3 {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+#sys .tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px 16px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+#sys .tile .name {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--accent);
+  margin-bottom: 4px;
+}
+#sys .tile .desc {
+  font-size: 13px; color: var(--muted); margin-bottom: 14px;
+  line-height: 1.5;
+}
+#sys .clip {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #FFFFFF;
+}
+#sys .clip img {
+  position: absolute;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+/* small-card mini-card sample */
+#sys .mini-card {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+  background: var(--surface-mute);
+}
+#sys .mini-card .l {
+  font-size: 10.5px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+#sys .mini-card .v {
+  font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em;
+  margin-top: 4px;
+}
+/* chip group */
+.chip-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-group .chip {
+  height: 26px; padding: 0 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 11.5px; color: var(--ink-soft);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.chip-group .chip.active {
+  background: var(--accent-soft); color: var(--accent); border-color: transparent;
+}
+/* severity indicators */
+.sev-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.sev-row .pill {
+  border-radius: 10px; padding: 12px 10px;
+  text-align: center;
+}
+.sev-row .pill .lvl {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.sev-row .pill .n {
+  font-size: 18px; font-weight: 700; margin-top: 6px;
+  font-feature-settings: "tnum";
+}
+.sev-row .pill.high { background: var(--high-soft); color: var(--high); }
+.sev-row .pill.med  { background: var(--med-soft);  color: var(--med);  }
+.sev-row .pill.low  { background: var(--low-soft);  color: var(--low);  }
+/* table row sample */
+.table-rows {
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.table-rows .tr {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 10px; padding: 10px 12px;
+  font-size: 12px; border-bottom: 1px solid var(--border);
+}
+.table-rows .tr:last-child { border-bottom: 0; }
+.table-rows .tr.head {
+  background: var(--surface-mute);
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+}
+/* map/list toggle */
+.toggle {
+  display: inline-flex; padding: 3px; border-radius: 10px;
+  background: var(--bg-lavender); gap: 2px;
+}
+.toggle button {
+  padding: 6px 12px; border-radius: 7px; border: 0;
+  background: transparent; font-size: 11.5px; font-weight: 600;
+  color: var(--muted); cursor: default;
+}
+.toggle button.on {
+  background: var(--surface); color: var(--ink);
+  box-shadow: 0 1px 2px rgba(31,27,54,0.06);
+}
+
+/* tiny network preview inside tile */
+.mini-net {
+  height: 110px; border-radius: 8px;
+  background:
+    radial-gradient(180px 90px at 50% 0%, #F4F1FA 0%, rgba(244,241,250,0) 70%),
+    var(--surface-mute);
+  position: relative; overflow: hidden;
+}
+.mini-net svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     1. HERO — A2V Network in full product frame
+     ============================================================ -->
+<section id="hero" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">F</span>
+        <span>Asset-to-Vendor Network</span>
+        <span class="crumbs" style="margin-left:14px;">
+          <span>Risk Operations</span><span class="sep">/</span><span>Network</span>
+        </span>
+      </div>
+      <div class="actions">
+        <span class="pill">Last 30 days</span>
+        <span class="pill">Export</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="product">
+      <!-- Filters sidebar -->
+      <div class="sidebar filters">
+        <div class="group">Workspace</div>
+        <div class="nav-item active"><span class="ic"></span>Network</div>
+        <div class="nav-item"><span class="ic"></span>Vendors</div>
+        <div class="nav-item"><span class="ic"></span>Assets</div>
+        <div class="nav-item"><span class="ic"></span>Events</div>
+        <div class="nav-item"><span class="ic"></span>Documents</div>
+
+        <div class="group" style="padding-top:18px;">Filters</div>
+        <div style="padding:0 4px;">
+          <div style="font-size:11px; color:var(--muted); margin:6px 4px 4px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600;">Risk level</div>
+          <div class="filter"><span class="check on"></span><span class="dot high" style="margin-right:2px;"></span>High<span class="count">14</span></div>
+          <div class="filter"><span class="check on"></span><span class="dot med" style="margin-right:2px;"></span>Medium<span class="count">37</span></div>
+          <div class="filter"><span class="check"></span><span class="dot low" style="margin-right:2px;"></span>Low<span class="count">82</span></div>
+
+          <div style="font-size:11px; color:var(--muted); margin:14px 4px 4px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600;">Asset group</div>
+          <div class="filter"><span class="check on"></span>Primary infrastructure<span class="count">18</span></div>
+          <div class="filter"><span class="check on"></span>Operational systems<span class="count">26</span></div>
+          <div class="filter"><span class="check"></span>Support services<span class="count">14</span></div>
+
+          <div style="font-size:11px; color:var(--muted); margin:14px 4px 4px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600;">Vendor type</div>
+          <div class="filter"><span class="check on"></span>Tier 1<span class="count">9</span></div>
+          <div class="filter"><span class="check on"></span>Tier 2<span class="count">21</span></div>
+          <div class="filter"><span class="check"></span>Tier 3<span class="count">34</span></div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map">
+        <div class="grid"></div>
+
+        <!-- Floating toolbar -->
+        <div class="toolbar">
+          <span class="chip active">Network view <span class="x">×</span></span>
+          <span class="chip">Group by risk</span>
+          <span class="chip">All connections</span>
+          <span class="chip" style="margin-left:auto;">Layout: Force</span>
+          <span class="chip">⌕ Search</span>
+        </div>
+
+        <svg class="canvas" viewBox="0 0 800 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- edges -->
+          <g stroke="#C7C5D8" stroke-width="1.2" fill="none">
+            <!-- core hub connections -->
+            <line x1="400" y1="270" x2="260" y2="170" />
+            <line x1="400" y1="270" x2="180" y2="280" />
+            <line x1="400" y1="270" x2="260" y2="380" />
+            <line x1="400" y1="270" x2="380" y2="420" />
+            <line x1="400" y1="270" x2="540" y2="200" />
+            <line x1="400" y1="270" x2="620" y2="280" />
+            <line x1="400" y1="270" x2="560" y2="380" />
+            <line x1="400" y1="270" x2="500" y2="100" />
+            <!-- outer relationships -->
+            <line x1="260" y1="170" x2="160" y2="100" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="260" y1="170" x2="120" y2="180" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="180" y1="280" x2="100" y2="360" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="260" y1="380" x2="170" y2="450" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="380" y1="420" x2="320" y2="490" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="540" y1="200" x2="650" y2="120" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="620" y1="280" x2="720" y2="240" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="620" y1="280" x2="740" y2="340" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="560" y1="380" x2="640" y2="450" stroke="#D7CDEC" stroke-dasharray="3 4" />
+            <line x1="500" y1="100" x2="600" y2="60"  stroke="#D7CDEC" stroke-dasharray="3 4" />
+          </g>
+
+          <!-- soft halos for risk nodes -->
+          <circle cx="260" cy="170" r="28" fill="#F6E1E1" opacity="0.6" />
+          <circle cx="540" cy="200" r="24" fill="#F6ECD9" opacity="0.6" />
+          <circle cx="380" cy="420" r="22" fill="#F6ECD9" opacity="0.6" />
+
+          <!-- center selected node -->
+          <circle cx="400" cy="270" r="34" fill="#FFFFFF" stroke="#5B4E91" stroke-width="3" />
+          <circle cx="400" cy="270" r="11" fill="#5B4E91" />
+          <text x="400" y="320" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="#1F1B36" class="node-label">Asset Group · Core</text>
+
+          <!-- inner vendor / asset nodes -->
+          <g font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="#1F1B36" class="node-label">
+            <!-- left cluster -->
+            <circle cx="260" cy="170" r="13" fill="#FFFFFF" stroke="#B6494A" stroke-width="2" />
+            <circle cx="260" cy="170" r="5" fill="#B6494A" />
+            <text x="260" y="148" text-anchor="middle">Vendor A · High</text>
+
+            <circle cx="180" cy="280" r="11" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.6" />
+            <circle cx="180" cy="280" r="4" fill="#2F2A50" />
+            <text x="180" y="302" text-anchor="middle">Asset Group 2</text>
+
+            <circle cx="260" cy="380" r="11" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.6" />
+            <circle cx="260" cy="380" r="4" fill="#2F2A50" />
+            <text x="260" y="402" text-anchor="middle">Vendor B</text>
+
+            <circle cx="380" cy="420" r="12" fill="#FFFFFF" stroke="#C48A4A" stroke-width="2" />
+            <circle cx="380" cy="420" r="5" fill="#C48A4A" />
+            <text x="380" y="446" text-anchor="middle">Vendor C · Medium</text>
+
+            <!-- right cluster -->
+            <circle cx="540" cy="200" r="13" fill="#FFFFFF" stroke="#C48A4A" stroke-width="2" />
+            <circle cx="540" cy="200" r="5" fill="#C48A4A" />
+            <text x="540" y="178" text-anchor="middle">Vendor D · Medium</text>
+
+            <circle cx="620" cy="280" r="11" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.6" />
+            <circle cx="620" cy="280" r="4" fill="#2F2A50" />
+            <text x="620" y="302" text-anchor="middle">Asset Group 3</text>
+
+            <circle cx="560" cy="380" r="11" fill="#FFFFFF" stroke="#6E8E6E" stroke-width="1.6" />
+            <circle cx="560" cy="380" r="4" fill="#6E8E6E" />
+            <text x="560" y="402" text-anchor="middle">Vendor E</text>
+
+            <circle cx="500" cy="100" r="11" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.6" />
+            <circle cx="500" cy="100" r="4" fill="#2F2A50" />
+            <text x="500" y="78" text-anchor="middle">Asset Group 4</text>
+          </g>
+
+          <!-- leaf nodes -->
+          <g>
+            <circle cx="160" cy="100" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="120" cy="180" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="100" cy="360" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="170" cy="450" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="320" cy="490" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="650" cy="120" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="720" cy="240" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="740" cy="340" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="640" cy="450" r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+            <circle cx="600" cy="60"  r="6" fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4" />
+          </g>
+        </svg>
+
+        <!-- legend -->
+        <div class="legend">
+          <div class="row"><span class="dot high"></span>High exposure</div>
+          <div class="row"><span class="dot med"></span>Review needed</div>
+          <div class="row"><span class="dot low"></span>Stable</div>
+          <div class="row" style="border-top:1px solid var(--border); padding-top:6px; margin-top:2px;">
+            <span style="width:8px;height:8px;border:1.4px solid var(--muted-soft);border-radius:50%;display:inline-block;"></span>
+            Connected entity
+          </div>
+        </div>
+
+        <!-- zoom -->
+        <div class="zoom">
+          <button>+</button>
+          <button>−</button>
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div class="detail">
+        <h4>Selected</h4>
+        <div class="title-row">
+          <div>
+            <div class="name">Asset Group · Core</div>
+            <div class="sub">12 assets · 7 connected vendors</div>
+          </div>
+          <span class="badge info"><span class="dot info"></span>In review</span>
+        </div>
+
+        <div class="metric-tile">
+          <div class="lbl">Exposure score</div>
+          <div class="val">68 <span style="font-size:13px;color:var(--muted);font-weight:600;">/ 100</span></div>
+          <div class="delta">Trending up across last 14 days</div>
+        </div>
+
+        <div class="connections">
+          <div class="head">Connected vendors</div>
+          <div class="conn-row">
+            <span class="dot high"></span>
+            <span class="name-col">Vendor A</span>
+            <span class="meta-col">Tier 1</span>
+          </div>
+          <div class="conn-row">
+            <span class="dot med"></span>
+            <span class="name-col">Vendor C</span>
+            <span class="meta-col">Tier 1</span>
+          </div>
+          <div class="conn-row">
+            <span class="dot med"></span>
+            <span class="name-col">Vendor D</span>
+            <span class="meta-col">Tier 2</span>
+          </div>
+          <div class="conn-row">
+            <span class="dot low"></span>
+            <span class="name-col">Vendor E</span>
+            <span class="meta-col">Tier 2</span>
+          </div>
+          <div class="conn-row">
+            <span class="dot low"></span>
+            <span class="name-col">Vendor B</span>
+            <span class="meta-col">Tier 3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     2. A2V Network Map — focused close-up
+     ============================================================ -->
+<section id="a2v" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">F</span>
+        <span>A2V Network · Relationship Map</span>
+      </div>
+      <div class="actions">
+        <span class="pill">View: Force</span>
+        <span class="pill">Density: Medium</span>
+        <span class="pill">Reset</span>
+      </div>
+    </div>
+    <div class="map map-full">
+      <div class="grid"></div>
+
+      <div class="toolbar">
+        <span class="chip active">High exposure <span class="x">×</span></span>
+        <span class="chip active">Review needed <span class="x">×</span></span>
+        <span class="chip">Asset Group · Core</span>
+        <span class="chip">Tier 1 vendors</span>
+        <span class="chip" style="margin-left:auto;">12 of 41 entities</span>
+      </div>
+
+      <svg class="canvas" viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g stroke="#C7C5D8" stroke-width="1.3" fill="none">
+          <line x1="540" y1="290" x2="320" y2="180" />
+          <line x1="540" y1="290" x2="220" y2="320" />
+          <line x1="540" y1="290" x2="320" y2="420" />
+          <line x1="540" y1="290" x2="540" y2="460" />
+          <line x1="540" y1="290" x2="780" y2="180" />
+          <line x1="540" y1="290" x2="860" y2="300" />
+          <line x1="540" y1="290" x2="780" y2="420" />
+          <line x1="540" y1="290" x2="640" y2="120" />
+          <line x1="540" y1="290" x2="420" y2="120" />
+          <!-- secondary edges -->
+          <line x1="320" y1="180" x2="200" y2="100" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="320" y1="180" x2="130" y2="220" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="220" y1="320" x2="100" y2="380" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="320" y1="420" x2="200" y2="490" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="540" y1="460" x2="450" y2="520" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="540" y1="460" x2="640" y2="520" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="780" y1="180" x2="900" y2="110" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="860" y1="300" x2="980" y2="260" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="860" y1="300" x2="1000" y2="360" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="780" y1="420" x2="900" y2="480" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="640" y1="120" x2="780" y2="80" stroke="#D7CDEC" stroke-dasharray="3 4" />
+          <line x1="420" y1="120" x2="320" y2="60" stroke="#D7CDEC" stroke-dasharray="3 4" />
+        </g>
+
+        <!-- soft halos -->
+        <circle cx="320" cy="180" r="36" fill="#F6E1E1" opacity="0.65" />
+        <circle cx="780" cy="180" r="32" fill="#F6E1E1" opacity="0.6" />
+        <circle cx="320" cy="420" r="30" fill="#F6ECD9" opacity="0.6" />
+        <circle cx="780" cy="420" r="28" fill="#F6ECD9" opacity="0.55" />
+        <circle cx="640" cy="120" r="22" fill="#E3EFE0" opacity="0.6" />
+
+        <!-- center selected -->
+        <circle cx="540" cy="290" r="40" fill="#FFFFFF" stroke="#5B4E91" stroke-width="3" />
+        <circle cx="540" cy="290" r="13" fill="#5B4E91" />
+
+        <g font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#1F1B36">
+          <text x="540" y="346" text-anchor="middle">Asset Group · Core</text>
+        </g>
+
+        <!-- primary nodes -->
+        <g font-family="Inter, sans-serif" font-size="11.5" font-weight="600" fill="#1F1B36">
+          <circle cx="320" cy="180" r="15" fill="#FFFFFF" stroke="#B6494A" stroke-width="2.2" />
+          <circle cx="320" cy="180" r="6" fill="#B6494A" />
+          <text x="320" y="156" text-anchor="middle">Vendor A · High</text>
+
+          <circle cx="220" cy="320" r="13" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.8" />
+          <circle cx="220" cy="320" r="5" fill="#2F2A50" />
+          <text x="220" y="345" text-anchor="middle">Asset Group 2</text>
+
+          <circle cx="320" cy="420" r="13" fill="#FFFFFF" stroke="#C48A4A" stroke-width="2" />
+          <circle cx="320" cy="420" r="5" fill="#C48A4A" />
+          <text x="320" y="450" text-anchor="middle">Vendor C · Review</text>
+
+          <circle cx="540" cy="460" r="13" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.8" />
+          <circle cx="540" cy="460" r="5" fill="#2F2A50" />
+          <text x="540" y="490" text-anchor="middle">Vendor B</text>
+
+          <circle cx="780" cy="180" r="15" fill="#FFFFFF" stroke="#B6494A" stroke-width="2.2" />
+          <circle cx="780" cy="180" r="6" fill="#B6494A" />
+          <text x="780" y="156" text-anchor="middle">Vendor F · High</text>
+
+          <circle cx="860" cy="300" r="13" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.8" />
+          <circle cx="860" cy="300" r="5" fill="#2F2A50" />
+          <text x="860" y="324" text-anchor="middle">Asset Group 3</text>
+
+          <circle cx="780" cy="420" r="13" fill="#FFFFFF" stroke="#C48A4A" stroke-width="2" />
+          <circle cx="780" cy="420" r="5" fill="#C48A4A" />
+          <text x="780" y="450" text-anchor="middle">Vendor D · Review</text>
+
+          <circle cx="640" cy="120" r="13" fill="#FFFFFF" stroke="#6E8E6E" stroke-width="1.8" />
+          <circle cx="640" cy="120" r="5" fill="#6E8E6E" />
+          <text x="640" y="96" text-anchor="middle">Vendor E · Stable</text>
+
+          <circle cx="420" cy="120" r="13" fill="#FFFFFF" stroke="#2F2A50" stroke-width="1.8" />
+          <circle cx="420" cy="120" r="5" fill="#2F2A50" />
+          <text x="420" y="96" text-anchor="middle">Asset Group 1</text>
+        </g>
+
+        <!-- leaves -->
+        <g fill="#FFFFFF" stroke="#C7C5D8" stroke-width="1.4">
+          <circle cx="200" cy="100" r="7" />
+          <circle cx="130" cy="220" r="7" />
+          <circle cx="100" cy="380" r="7" />
+          <circle cx="200" cy="490" r="7" />
+          <circle cx="450" cy="520" r="7" />
+          <circle cx="640" cy="520" r="7" />
+          <circle cx="900" cy="110" r="7" />
+          <circle cx="980" cy="260" r="7" />
+          <circle cx="1000" cy="360" r="7" />
+          <circle cx="900" cy="480" r="7" />
+          <circle cx="780" cy="80" r="7" />
+          <circle cx="320" cy="60" r="7" />
+        </g>
+      </svg>
+
+      <div class="legend">
+        <div class="row"><span class="dot high"></span>High exposure</div>
+        <div class="row"><span class="dot med"></span>Review needed</div>
+        <div class="row"><span class="dot low"></span>Stable</div>
+        <div class="row"><span style="width:8px;height:8px;border-radius:50%;background:#2F2A50;"></span>Asset</div>
+      </div>
+
+      <div class="zoom">
+        <button>+</button>
+        <button>−</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3. Risk Visualization — layered dashboard
+     ============================================================ -->
+<section id="risk" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">F</span>
+        <span>Risk Visualization</span>
+        <span class="crumbs" style="margin-left:14px;">
+          <span>Exposure</span><span class="sep">/</span><span>Layered view</span>
+        </span>
+      </div>
+      <div class="actions">
+        <span class="pill">Severity · All</span>
+        <span class="pill">Last 30 days</span>
+        <span class="pill">Group: Vendor</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <!-- left: severity + trend -->
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="title">Severity distribution</div>
+            <div class="sub">Across 168 monitored signals</div>
+          </div>
+          <span class="badge neutral">Live</span>
+        </div>
+
+        <div class="severity-stack">
+          <div class="bar high" style="flex:1.4;">14 High</div>
+          <div class="bar med"  style="flex:3.7;">37 Medium</div>
+          <div class="bar low"  style="flex:8.2;">82 Low</div>
+        </div>
+
+        <div class="severity-keys">
+          <div class="row"><span class="dot high"></span>High exposure<span class="meta">requires response</span></div>
+          <div class="row"><span class="dot med"></span>Review needed<span class="meta">monitor closely</span></div>
+          <div class="row"><span class="dot low"></span>Stable<span class="meta">no action</span></div>
+        </div>
+
+        <div class="trend">
+          <svg viewBox="0 0 460 140" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="ga" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#5B4E91" stop-opacity="0.22" />
+                <stop offset="100%" stop-color="#5B4E91" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <!-- axis baseline -->
+            <line x1="20" y1="120" x2="450" y2="120" stroke="#E4E3ED" stroke-width="1" />
+            <line x1="20" y1="80"  x2="450" y2="80"  stroke="#E4E3ED" stroke-width="1" stroke-dasharray="2 3" />
+            <line x1="20" y1="40"  x2="450" y2="40"  stroke="#E4E3ED" stroke-width="1" stroke-dasharray="2 3" />
+            <!-- area -->
+            <path
+              d="M20 100 L60 88 L100 96 L140 70 L180 82 L220 60 L260 68 L300 48 L340 56 L380 36 L420 44 L450 28 L450 120 L20 120 Z"
+              fill="url(#ga)"
+            />
+            <polyline
+              points="20,100 60,88 100,96 140,70 180,82 220,60 260,68 300,48 340,56 380,36 420,44 450,28"
+              stroke="#5B4E91"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <!-- markers -->
+            <circle cx="220" cy="60" r="3.5" fill="#5B4E91" />
+            <circle cx="380" cy="36" r="3.5" fill="#5B4E91" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- right: events + heatmap -->
+      <div style="display:grid; grid-template-rows: 1fr 1fr; gap: 18px;">
+        <div class="panel" style="padding:0;">
+          <div style="padding:14px 18px 6px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="title" style="font-size:14px; font-weight:700;">Active risk events</div>
+              <div class="sub" style="font-size:11.5px; color:var(--muted);">By exposure</div>
+            </div>
+            <span class="badge info">Live</span>
+          </div>
+          <div style="padding: 0 8px 8px;">
+            <div class="event-row high">
+              <span class="sev"></span>
+              <div>
+                <div class="name">Vendor A · disclosure window opened</div>
+                <div class="meta">Tier 1 · Core asset group · 14h ago</div>
+              </div>
+              <div class="right">High<br>Exposure +6</div>
+            </div>
+            <div class="event-row high">
+              <span class="sev"></span>
+              <div>
+                <div class="name">Vendor F · expired attestation</div>
+                <div class="meta">Tier 1 · 22h ago</div>
+              </div>
+              <div class="right">High<br>Exposure +4</div>
+            </div>
+            <div class="event-row med">
+              <span class="sev"></span>
+              <div>
+                <div class="name">Vendor C · scope change</div>
+                <div class="meta">Tier 1 · 2d ago</div>
+              </div>
+              <div class="right">Medium<br>Review</div>
+            </div>
+            <div class="event-row med">
+              <span class="sev"></span>
+              <div>
+                <div class="name">Vendor D · new finding</div>
+                <div class="meta">Tier 2 · 3d ago</div>
+              </div>
+              <div class="right">Medium<br>Review</div>
+            </div>
+            <div class="event-row low">
+              <span class="sev"></span>
+              <div>
+                <div class="name">Vendor E · attestation refreshed</div>
+                <div class="meta">Tier 2 · 4d ago</div>
+              </div>
+              <div class="right">Low<br>Stable</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="title">Exposure heatmap</div>
+              <div class="sub">Vendors × weeks</div>
+            </div>
+            <span class="badge neutral">12w</span>
+          </div>
+          <div class="heatmap">
+            <div class="lbl">Vendor A</div>
+            <div class="cell l3"></div><div class="cell l3"></div><div class="cell l4"></div>
+            <div class="cell l4"></div><div class="cell l4"></div><div class="cell l3"></div>
+            <div class="cell l3"></div><div class="cell l4"></div><div class="cell l4"></div>
+            <div class="cell l4"></div><div class="cell l3"></div><div class="cell l4"></div>
+
+            <div class="lbl">Vendor B</div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l2"></div>
+            <div class="cell l1"></div><div class="cell l2"></div><div class="cell l2"></div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l2"></div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l1"></div>
+
+            <div class="lbl">Vendor C</div>
+            <div class="cell l2"></div><div class="cell l2"></div><div class="cell l3"></div>
+            <div class="cell l2"></div><div class="cell l3"></div><div class="cell l3"></div>
+            <div class="cell l2"></div><div class="cell l2"></div><div class="cell l3"></div>
+            <div class="cell l3"></div><div class="cell l3"></div><div class="cell l2"></div>
+
+            <div class="lbl">Vendor D</div>
+            <div class="cell l1"></div><div class="cell l2"></div><div class="cell l2"></div>
+            <div class="cell l3"></div><div class="cell l2"></div><div class="cell l2"></div>
+            <div class="cell l3"></div><div class="cell l3"></div><div class="cell l2"></div>
+            <div class="cell l2"></div><div class="cell l2"></div><div class="cell l3"></div>
+
+            <div class="lbl">Vendor E</div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l1"></div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l2"></div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l1"></div>
+            <div class="cell l1"></div><div class="cell l1"></div><div class="cell l2"></div>
+
+            <div class="legend-row">
+              <span class="swatch"><span class="sw" style="background:#ECE8F5;"></span>Low</span>
+              <span class="swatch"><span class="sw" style="background:#D7CDEC;"></span></span>
+              <span class="swatch"><span class="sw" style="background:#B5A4D7;"></span></span>
+              <span class="swatch"><span class="sw" style="background:#5B4E91;"></span>High</span>
+              <span style="margin-left:auto;">Trailing 12 weeks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4. Dashboard Usability — overview + table
+     ============================================================ -->
+<section id="dash" class="mockup">
+  <div class="frame">
+    <div class="topbar">
+      <div class="brand">
+        <span class="glyph">F</span>
+        <span>Risk Posture · Overview</span>
+        <span class="crumbs" style="margin-left:14px;">
+          <span>Dashboards</span><span class="sep">/</span><span>Operations</span>
+        </span>
+      </div>
+      <div class="actions">
+        <span class="pill">Saved view: Default</span>
+        <span class="pill">Filter</span>
+        <span class="avatar">GM</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="kpi">
+        <div class="lbl">Monitored vendors</div>
+        <div class="val">412</div>
+        <div class="delta">Tier 1 · 64 active</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">High exposure</div>
+        <div class="val">14</div>
+        <div class="delta up">↑ 3 this week</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Open reviews</div>
+        <div class="val">37</div>
+        <div class="delta">8 due this week</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Avg time to triage</div>
+        <div class="val">3.2d</div>
+        <div class="delta down">↓ vs prior period</div>
+      </div>
+
+      <div class="row-2">
+        <div class="panel">
+          <div class="head">
+            <div class="title">Top vendor exposure</div>
+            <div class="chips">
+              <span class="badge neutral">Sort: Exposure</span>
+              <span class="badge neutral">Tier · All</span>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Tier</th>
+                <th>Assets</th>
+                <th>Last event</th>
+                <th>Exposure</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="vendor"><span class="av">VA</span>Vendor A</div></td>
+                <td>Tier 1</td>
+                <td>18</td>
+                <td>14h ago</td>
+                <td><strong>72</strong></td>
+                <td><span class="badge high"><span class="dot high"></span>High</span></td>
+              </tr>
+              <tr>
+                <td><div class="vendor"><span class="av">VF</span>Vendor F</div></td>
+                <td>Tier 1</td>
+                <td>11</td>
+                <td>22h ago</td>
+                <td><strong>68</strong></td>
+                <td><span class="badge high"><span class="dot high"></span>High</span></td>
+              </tr>
+              <tr>
+                <td><div class="vendor"><span class="av">VC</span>Vendor C</div></td>
+                <td>Tier 1</td>
+                <td>9</td>
+                <td>2d ago</td>
+                <td><strong>54</strong></td>
+                <td><span class="badge med"><span class="dot med"></span>Review</span></td>
+              </tr>
+              <tr>
+                <td><div class="vendor"><span class="av">VD</span>Vendor D</div></td>
+                <td>Tier 2</td>
+                <td>14</td>
+                <td>3d ago</td>
+                <td><strong>48</strong></td>
+                <td><span class="badge med"><span class="dot med"></span>Review</span></td>
+              </tr>
+              <tr>
+                <td><div class="vendor"><span class="av">VE</span>Vendor E</div></td>
+                <td>Tier 2</td>
+                <td>22</td>
+                <td>4d ago</td>
+                <td><strong>21</strong></td>
+                <td><span class="badge low"><span class="dot low"></span>Stable</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="head">
+            <div class="title">Investigation queue</div>
+            <div class="chips">
+              <span class="badge neutral">Owner · me</span>
+            </div>
+          </div>
+          <ul class="queue">
+            <li>
+              <span class="num">1</span>
+              <div>
+                <div class="name">Disclosure window — Vendor A</div>
+                <div class="meta">Tier 1 · Core asset group</div>
+              </div>
+              <span class="age">14h</span>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <div>
+                <div class="name">Expired attestation — Vendor F</div>
+                <div class="meta">Tier 1</div>
+              </div>
+              <span class="age">22h</span>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <div>
+                <div class="name">Scope change — Vendor C</div>
+                <div class="meta">Tier 1 · Review</div>
+              </div>
+              <span class="age">2d</span>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <div>
+                <div class="name">New finding — Vendor D</div>
+                <div class="meta">Tier 2 · Review</div>
+              </div>
+              <span class="age">3d</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. System Patterns — design system component sheet
+     ============================================================ -->
+<section id="sys" class="mockup">
+  <div class="frame">
+    <div class="head">
+      <div>
+        <div class="title">Asset-to-Vendor · Pattern Library</div>
+        <div class="sub">Shared design tokens, components, and navigation patterns used across A2V and the broader Fortress platform</div>
+      </div>
+      <span class="badge neutral">v1.4</span>
+    </div>
+
+    <div class="layout">
+      <!-- Row 1: Brand + Color System -->
+      <div class="row-1">
+        <div class="tile">
+          <div class="name">Brand</div>
+          <div class="desc">A2V Network identity inside the Fortress platform.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/logos.png"
+              alt=""
+              style="width: 1240px; left: -10px; top: -70px;
+                     clip-path: inset(80px 0 400px 0);"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Color system</div>
+          <div class="desc">Ramped tokens — blue for primary &amp; states, semantic colors for success, error, warning, and info, plus a grey scale used for surfaces and text.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/color-system.png"
+              alt=""
+              style="width: 1400px; left: -8px; top: -68px;
+                     clip-path: inset(60px 0 0 0);"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Buttons (Outlined + Contained) -->
+      <div class="row-2">
+        <div class="tile">
+          <div class="name">Outlined buttons</div>
+          <div class="desc">Resting, hover, and disabled states across primary, secondary, and semantic colors.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/button-outlined.png"
+              alt=""
+              style="width: 1180px; left: -40px; top: -190px;"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Contained buttons</div>
+          <div class="desc">Resting, hover, and disabled states across the same six color tokens — used wherever the action is the primary surface affordance.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/button-contained.png"
+              alt=""
+              style="width: 1180px; left: -40px; top: -190px;"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Alerts + Navigation -->
+      <div class="row-3">
+        <div class="tile">
+          <div class="name">Alerts</div>
+          <div class="desc">Filled, outlined, and standard variants across error, warning, info, and success states.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/alert.png"
+              alt=""
+              style="width: 1500px; left: -440px; top: -350px;"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Navigation patterns</div>
+          <div class="desc">Page-title helpers and tab groups shared across product surfaces, with consistent active and resting states.</div>
+          <div class="clip" style="background:#FFFFFF;">
+            <img
+              src="source/page-title-helpers.png"
+              alt=""
+              style="width: 1020px; left: -10px; top: -800px;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

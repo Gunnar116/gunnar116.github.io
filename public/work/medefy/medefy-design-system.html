@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Medefy — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --black:#202035; --off-white:#F5F5F5;
+    --ocean:#005DC9; --high-blue:#008CE9; --blue:#2882FA; --sky:#1ECBF0; --pink:#FF1EA0;
+    --dark-grey:#676771; --grey:#AEB2B9; --silver:#D7DCDF; --dust:#E9EBEE; --offw:#F8F9FC;
+    --board:#eef2f8; --tile:#fff; --line:#e7ebf2;
+    --ink:#202035; --muted:#5c6373; --faint:#8a93a3;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --display:'Poppins','Inter',sans-serif; /* Galano Grotesque stand-in */
+    --sf:-apple-system,'SF Pro Display','Segoe UI',Inter,sans-serif;
+    --rust:#C2410C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .board{width:1600px;background:var(--board);padding:44px 46px 48px}
+
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px}
+  .head img.wm{height:34px;display:block}
+  .head h1{font-family:var(--display);font-size:23px;font-weight:600;letter-spacing:-0.01em;color:var(--ink);margin-top:14px}
+  .head .sub{margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--muted);max-width:640px}
+  .head .src{font-family:var(--mono);font-size:10.5px;color:var(--faint);text-align:right;line-height:1.7;white-space:nowrap}
+  .head .src b{color:var(--muted);font-weight:500}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+  .tile{background:var(--tile);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 1px 2px rgba(32,32,53,.03)}
+  .col5{grid-column:span 5}.col7{grid-column:span 7}.col12{grid-column:span 12}
+  .label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+  .label .k{font-family:var(--mono);color:var(--high-blue);font-weight:500}
+  .label .note{font-weight:600;letter-spacing:0;text-transform:none;color:var(--faint);font-size:11px}
+  .csub{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+
+  /* A — Logo variations */
+  .lv-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);margin:0 0 13px}
+  .lv-eyebrow.second{margin-top:20px}
+  .lv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .lv-card{cursor:default}
+  .lv-stage{height:108px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:#fff;margin-bottom:12px;transition:box-shadow .16s,transform .16s,border-color .16s}
+  .lv-stage.gray{background:var(--dust);border-color:transparent}
+  .lv-stage img.wm{height:30px}.lv-stage img.mk{height:50px}.lv-stage img.vert{height:80px}
+  .lv-card:hover .lv-stage{box-shadow:0 12px 26px -14px rgba(32,32,53,.3);transform:translateY(-2px);border-color:#d8def0}
+  .lv-t{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-0.01em}
+  .lv-d{font-size:11px;line-height:1.5;color:var(--muted);margin-top:5px;max-width:430px}
+  .lv-brand{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+  .lv-brand .bc{display:flex;align-items:center;gap:8px}
+  .lv-brand .sw{width:24px;height:24px;border-radius:6px;border:1px solid rgba(32,32,53,.08)}
+  .lv-brand .nm{font-size:11.5px;font-weight:600;color:var(--ink)}
+  .lv-brand .hx{font-family:var(--mono);font-size:10px;color:var(--faint)}
+  .lv-brand .lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+
+  /* B — Color system */
+  .ramp-title{font-size:13px;font-weight:600;color:var(--ink)}
+  .ramp-desc{font-size:11px;color:var(--muted);max-width:440px;margin:6px 0 13px;line-height:1.5}
+  .ramp{display:grid;grid-template-columns:repeat(11,1fr);gap:5px;margin-bottom:18px}
+  .stop{position:relative;cursor:default}
+  .stop .chip{height:48px;border-radius:7px;border:1px solid rgba(32,32,53,.06)}
+  .stop .st{font-family:var(--mono);font-size:9.5px;color:var(--ink);margin-top:6px;font-weight:500}
+  .stop .hx{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:-0.03em}
+  .stop.anchor .chip{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--blue)}
+  .tip{position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);background:var(--black);color:#fff;border-radius:8px;padding:8px 11px;font-size:10.5px;line-height:1.45;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:40;box-shadow:0 10px 24px -8px rgba(0,0,0,.55)}
+  .tip b{font-family:var(--mono);font-weight:500}.tip .role{color:#aeb8d6}
+  .tip::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--black)}
+  .stop:hover .tip,.stop:focus-visible .tip,.core:hover .tip,.core:focus-visible .tip,.rem-row:hover .tip,.rem-row:focus-visible .tip{opacity:1}
+  .stop .chip,.core .chip{transition:transform .14s ease, box-shadow .14s ease}
+  .stop:hover .chip,.stop:focus-visible .chip,.core:hover .chip,.core:focus-visible .chip{transform:translateY(-3px)}
+  .stop:focus-visible,.core:focus-visible,.vrow .b:focus-visible,.state:focus-visible{outline:none}
+  .stop:focus-visible .chip,.core:focus-visible .chip{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--blue)}
+  /* edge clamp so tooltips near the card edges are never cut off (mirrors Kindness :first-of-type handling) */
+  .ramp .stop:first-child .tip,.cores .core:first-child .tip{left:0;transform:none}
+  .ramp .stop:first-child .tip::after,.cores .core:first-child .tip::after{left:22px;transform:none}
+  .ramp .stop:last-child .tip,.cores .core:last-child .tip{left:auto;right:0;transform:none}
+  .ramp .stop:last-child .tip::after,.cores .core:last-child .tip::after{left:auto;right:22px;transform:none}
+  .cores{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .core{position:relative;cursor:default}
+  .core .chip{height:34px;border-radius:9px;border:1px solid rgba(32,32,53,.07)}
+  .core .nm{font-size:10px;font-weight:600;color:var(--ink);margin-top:6px;line-height:1.2}
+  .core .hx{font-family:var(--mono);font-size:8.5px;color:var(--faint)}
+
+  /* C — Typography */
+  .ty-font{font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink)}
+  .ty-note{font-size:11px;color:var(--muted);margin:3px 0 14px;line-height:1.5}
+  .ty-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+  .ty-row .spec{font-family:var(--mono);font-size:9px;color:var(--faint);text-align:right;white-space:nowrap;flex:none}
+  .ty-sample{font-family:var(--display);color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ty-d{font-size:27px;font-weight:600;letter-spacing:-0.02em}
+  .ty-h{font-size:19px;font-weight:600;letter-spacing:-0.01em}
+  .ty-s{font-size:15px;font-weight:500}
+  .ty-b{font-size:13px;font-weight:400;color:var(--dark-grey)}
+  .ty-l{font-size:10.5px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--dark-grey)}
+  .ty-cta{font-size:13px;font-weight:500;color:var(--pink)}
+
+  /* D — Buttons & anatomy */
+  .d-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:18px}
+  .stage{position:relative;background:var(--offw);border:1px solid var(--line);border-radius:13px;height:236px;display:flex;align-items:center;justify-content:center}
+  .abtn{position:relative;font-family:var(--sf);display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:#fff;background:var(--blue);border-radius:10px;padding:12px 16px;transition:box-shadow .15s}
+  .abtn .ico{width:18px;height:18px;display:grid;place-items:center;border-radius:4px}
+  .abtn .lbl{position:relative;border-radius:3px;padding:0 1px;transition:background .15s,box-shadow .15s}
+  .abtn .inset{position:absolute;inset:12px 16px;border:1px dashed rgba(255,255,255,.6);border-radius:4px;pointer-events:none;transition:border-color .15s}
+  .pad{position:absolute;font-family:var(--mono);font-size:10px;font-weight:600;color:#0b8a4f;transform:translate(-50%,-50%);transition:all .15s;z-index:3}
+  .pad::before{content:'';position:absolute;background:rgba(11,138,79,.45)}
+  .pad.t::before,.pad.b::before{left:50%;transform:translateX(-50%);width:1px;height:9px}
+  .pad.t::before{top:14px}.pad.b::before{bottom:14px}
+  .pad.l::before,.pad.r::before{top:50%;transform:translateY(-50%);height:1px;width:9px}
+  .pad.l::before{left:13px}.pad.r::before{right:13px}
+  .rad{position:absolute;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--rust);z-index:3;transition:opacity .15s}
+  .stage.hl-radius .abtn{box-shadow:0 0 0 3px var(--pink)}.stage.hl-radius .rad{color:var(--pink)}
+  .stage.hl-label .abtn .lbl{background:rgba(255,30,160,.2);box-shadow:0 0 0 2px var(--pink)}
+  .stage.hl-icon .abtn .ico{box-shadow:0 0 0 2px var(--pink)}
+  .stage.hl-pad .abtn .inset{border-color:#0b8a4f;border-style:solid}.stage.hl-pad .pad{color:#067a44}.stage.hl-pad .pad::before{background:#0b8a4f}
+  .spec{display:flex;flex-direction:column}
+  .srow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 8px;border-radius:8px;font-size:12px;color:var(--ink);cursor:default;transition:background .12s}
+  .srow:hover{background:#f1f5fb}
+  .srow .nm{color:var(--muted)}.srow .v{font-family:var(--mono);font-size:11px;color:var(--ink)}
+  .srow .num{width:16px;height:16px;border-radius:50%;background:var(--rust);color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;margin-right:8px;flex:none;opacity:.85}
+  .srow .nmwrap{display:flex;align-items:center}
+  .vrow{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:16px}
+  .b{font-family:var(--sf);display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:9px 15px;border-radius:10px;border:1.5px solid transparent}
+  .b-primary{background:var(--blue);color:#fff}.b-secondary{background:#fff;color:var(--blue);border-color:var(--blue)}
+  .b-tertiary{background:#EBF5FF;color:var(--ocean)}.b-text{background:none;color:var(--blue);padding-left:6px;padding-right:6px}
+  .b-icon{background:var(--blue);color:#fff;padding:9px;border-radius:10px}
+  .states{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .state{position:relative;text-align:center;cursor:default}
+  .state .sl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  .sbtn{font-family:var(--sf);font-size:11px;font-weight:600;color:#fff;border-radius:8px;padding:8px 4px;display:block}
+  .state:hover .tip,.state:focus-visible .tip{opacity:1}.state .tip{font-size:10px}
+  .state:first-child .tip{left:0;transform:none}.state:first-child .tip::after{left:22px;transform:none}
+  .state:last-child .tip{left:auto;right:0;transform:none}.state:last-child .tip::after{left:auto;right:22px;transform:none}
+
+  /* E — Accessibility / states (col5, stacked) */
+  .esub{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+  .e-blk{margin-bottom:16px}
+  .rem-row{position:relative;display:flex;align-items:center;gap:8px;font-size:11px;padding:7px 0;border-top:1px solid var(--line);cursor:default}
+  .rem-row:first-of-type{border-top:none}
+  .rem-row .tok{font-family:var(--mono);font-size:10px;color:var(--ink);width:112px;flex:none}
+  .hexc{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;color:var(--muted)}
+  .hexc .c{width:13px;height:13px;border-radius:4px;border:1px solid rgba(32,32,53,.1)}
+  .arrow{color:var(--faint)}
+  .badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:auto}.badge.pass{background:#e6f6ec;color:#0b6e27}
+  .e-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fld{font-size:11px;border-radius:9px;padding:9px 11px;margin-bottom:9px}
+  .fld.focus{border:1.5px solid var(--blue);box-shadow:0 0 0 3px rgba(40,130,250,.22);color:var(--ink)}
+  .fld.error{border:1.5px solid #CE2727;background:#fef6f6;color:#CE2727}
+  .pair{display:flex;gap:8px}
+  .pc{flex:1;border-radius:9px;padding:13px;text-align:center;font-weight:700;font-size:15px}
+  .pc .r{font-family:var(--mono);font-size:8.5px;font-weight:400;display:block;margin-top:3px}
+  .pc.l{background:var(--off-white);color:var(--black)}.pc.d{background:var(--black);color:var(--off-white)}
+  /* button tooltips (token · hex · WCAG) */
+  .vrow .b{position:relative}
+  .vrow .b .tip,.state .tip{font-size:10px;font-weight:500;white-space:nowrap}
+  .vrow .b{cursor:default}
+  .vrow .b:hover,.vrow .b:focus-visible{transform:translateY(-2px)}
+  .vrow .b{transition:transform .14s ease}
+  .vrow .b:hover .tip,.vrow .b:focus-visible .tip{opacity:1}
+  .vrow .b:first-child .tip{left:0;transform:none}
+  .vrow .b:first-child .tip::after{left:22px;transform:none}
+  .state{cursor:default}
+  .state:hover .sbtn,.state:focus-visible .sbtn{transform:translateY(-2px)}
+  .state .sbtn{transition:transform .14s ease}
+  .tip .tk{color:#fff}.tip .wc{color:#8fe3b0}
+  /* input states (search field) */
+  .inp-wrap{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+  .inp-row{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:12px}
+  .inp-row .il{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .field2{display:flex;align-items:center;gap:8px;border:1.5px solid #949494;border-radius:10px;padding:8px 11px;font-size:12px;font-family:var(--sf);background:#fff;color:#707070;min-width:0}
+  .field2 svg{flex:none}
+  .field2 .val{color:#202035;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .field2 .clear{margin-left:auto;color:#949494;flex:none}
+  .field2 .cur{color:var(--blue);margin-left:1px}
+  .field2.active{border-color:#676771;color:#202035}
+  .field2.focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(40,130,250,.2);color:#202035}
+  .field2.disabled{background:#E9EBEE;border-color:#D7DCDF;color:#AEB2B9}
+  .field2.disabled svg circle,.field2.disabled svg path{stroke:#AEB2B9}
+</style>
+</head>
+<body>
+  <div class="board" id="board">
+    <div class="head">
+      <div>
+        <img class="wm" src="medefy-logo-wordmark.png" alt="Medefy" />
+        <h1>Medefy Design System</h1>
+        <p class="sub">The product foundation behind Medefy’s healthcare experience — logo variations, a WCAG-rated color system, type, and the button system shared across the member app and the care-guide workspace.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- A — Logo variations -->
+      <div class="tile col12">
+        <div class="label"><span class="k">A</span> Logo &amp; brand <span class="note">· logo variations · hover a lockup</span></div>
+        <div class="lv-eyebrow">Primary logos</div>
+        <div class="lv-grid">
+          <div class="lv-card">
+            <div class="lv-stage gray"><img class="wm" src="medefy-logo-wordmark.png" alt="Medefy full logo on gray background" /></div>
+            <div class="lv-t">Full logo · gray background</div>
+            <div class="lv-d">Shows movement and progression — for cover/title pages, decks, and 1-pagers. Takes up more space, so not for small-scale items, merch, or social.</div>
+          </div>
+          <div class="lv-card">
+            <div class="lv-stage"><img class="wm" src="medefy-logo-wordmark.png" alt="Medefy horizontal lockup" /></div>
+            <div class="lv-t">Full lockup · horizontal</div>
+            <div class="lv-d">The primary logo in use. Use it on anything with a larger audience, or viewers who may not be familiar with the brand.</div>
+          </div>
+          <div class="lv-card">
+            <div class="lv-stage"><img class="mk" src="medefy-logo-mark.png" alt="Medefy logo mark" /></div>
+            <div class="lv-t">Logo mark · no text</div>
+            <div class="lv-d">For use cases where viewers already know the brand and don’t need to see the name alongside it.</div>
+          </div>
+        </div>
+        <div class="lv-eyebrow second">Secondary logos</div>
+        <div class="lv-grid">
+          <div class="lv-card">
+            <div class="lv-stage"><img class="vert" src="medefy-logo-vertical.png" alt="Medefy vertical lockup" /></div>
+            <div class="lv-t">Full lockup · vertical</div>
+            <div class="lv-d">Rarely used. For anything that needs a more centered or square logo treatment.</div>
+          </div>
+          <div class="lv-card">
+            <div class="lv-stage"><img class="mk" src="medefy-logo-mark-grayscale.png" alt="Medefy logo mark in grayscale" /></div>
+            <div class="lv-t">Logo mark · grayscale</div>
+            <div class="lv-d">Only if grayscale is truly needed; the tonal split preserves the mark’s signature color variety.</div>
+          </div>
+          <div class="lv-card">
+            <div class="lv-stage"><img class="mk" src="medefy-logo-mark-onecolor.png" alt="Medefy logo mark in one color" /></div>
+            <div class="lv-t">Logo mark · one color</div>
+            <div class="lv-d">For print, or colorful / brand-color backgrounds where a piece of the full-color mark would be illegible.</div>
+          </div>
+        </div>
+        <div class="lv-brand">
+          <span class="lbl">Brand colors</span>
+          <div class="bc"><span class="sw" style="background:var(--black)"></span><span class="nm">Medefy Black</span><span class="hx">#202035</span></div>
+          <div class="bc"><span class="sw" style="background:var(--off-white)"></span><span class="nm">Off White</span><span class="hx">#F5F5F5</span></div>
+        </div>
+      </div>
+
+      <!-- B — Color system -->
+      <div class="tile col7">
+        <div class="label"><span class="k">B</span> Color system <span class="note">· 50–950 ramps, WCAG-rated · hover a swatch</span></div>
+        <div class="ramp-title">Medefy Blue · Brand</div>
+        <p class="ramp-desc">The primary brand color — primary actions, buttons, links, and key brand elements. 500 is the brand anchor; every stop carries a WCAG contrast rating.</p>
+        <div class="ramp" id="ramp"></div>
+        <div class="csub">Core tokens</div>
+        <div class="cores" id="cores"></div>
+      </div>
+
+      <!-- C — Typography -->
+      <div class="tile col5">
+        <div class="label"><span class="k">C</span> Typography</div>
+        <div class="ty-font">Galano Grotesque</div>
+        <p class="ty-note">The brand typeface. Roles below carry real weights and colors from the brand guidelines.</p>
+        <div class="ty-row"><span class="ty-sample ty-d">Aa</span><span class="spec">Display · Semibold</span></div>
+        <div class="ty-row"><span class="ty-sample ty-h">Your benefits, clear</span><span class="spec">Heading · Semibold · #2B2C44</span></div>
+        <div class="ty-row"><span class="ty-sample ty-s">Section subhead</span><span class="spec">Subhead · Medium</span></div>
+        <div class="ty-row"><span class="ty-sample ty-b">Calm, legible body copy.</span><span class="spec">Body · Regular · #676771</span></div>
+        <div class="ty-row"><span class="ty-sample ty-l">Employers</span><span class="spec">Label · +20% · #676771</span></div>
+        <div class="ty-row"><span class="ty-sample ty-cta">Get a free demo →</span><span class="spec">CTA · Medefy Pink</span></div>
+      </div>
+
+      <!-- D — Buttons & anatomy -->
+      <div class="tile col7">
+        <div class="label"><span class="k">D</span> Buttons &amp; anatomy <span class="note">· hover a spec to highlight the part</span></div>
+        <div class="d-grid">
+          <div>
+            <div class="csub">Primary button · anatomy</div>
+            <div class="stage" id="stage">
+              <span class="abtn" id="abtn">
+                <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+                <span class="lbl">Primary Button</span>
+                <span class="inset" aria-hidden></span>
+              </span>
+              <span class="pad t" data-pad>12</span>
+              <span class="pad b" data-pad>12</span>
+              <span class="pad l" data-pad>16</span>
+              <span class="pad r" data-pad>16</span>
+              <span class="rad" id="rad">R&nbsp;10</span>
+            </div>
+          </div>
+          <div>
+            <div class="csub">Specification</div>
+            <div class="spec">
+              <div class="srow" data-hl="radius"><span class="nmwrap"><span class="num">1</span><span class="nm">Container · radius</span></span><span class="v">10</span></div>
+              <div class="srow" data-hl="label"><span class="nmwrap"><span class="num">2</span><span class="nm">Label · SF Pro Display</span></span><span class="v">Semibold 16</span></div>
+              <div class="srow" data-hl="icon"><span class="nmwrap"><span class="num">3</span><span class="nm">Leading icon · gap</span></span><span class="v">10</span></div>
+              <div class="srow" data-hl="pad"><span class="nmwrap"><span class="nm">Padding · y / x</span></span><span class="v">12 / 16</span></div>
+              <div class="srow"><span class="nmwrap"><span class="nm">Resizing</span></span><span class="v">Hug · middle</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="csub">Variants <span style="font-weight:600;letter-spacing:0;text-transform:none;color:var(--faint)">· hover for token</span></div>
+        <div class="vrow">
+          <span class="b b-primary" tabindex="0">Primary<span class="tip"><span class="tk">Medefy Blue 500</span> · #2882FA · <span class="wc">3.71:1</span></span></span>
+          <span class="b b-secondary" tabindex="0">Secondary<span class="tip"><span class="tk">Medefy Blue 500 on white</span> · #2882FA · <span class="wc">3.71:1</span></span></span>
+          <span class="b b-tertiary" tabindex="0">Tertiary<span class="tip"><span class="tk">Medefy Blue 50</span> · #EBF5FF · <span class="wc">WCAG: not specified</span></span></span>
+          <span class="b b-text" tabindex="0">Text<span class="tip"><span class="tk">Medefy Blue 500</span> · #2882FA · <span class="wc">3.71:1</span></span></span>
+          <span class="b b-icon" tabindex="0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg><span class="tip"><span class="tk">Medefy Blue 500</span> · #2882FA · <span class="wc">3.71:1</span></span></span>
+        </div>
+        <div class="csub">Primary states <span style="font-weight:600;letter-spacing:0;text-transform:none;color:var(--faint)">· hover for token · hex · WCAG</span></div>
+        <div class="states">
+          <div class="state" tabindex="0"><div class="sl">Default</div><span class="sbtn" style="background:#2882FA">Button</span><div class="tip"><span class="tk">Medefy Blue 500</span> · #2882FA · <span class="wc">3.71:1</span></div></div>
+          <div class="state" tabindex="0"><div class="sl">Hover</div><span class="sbtn" style="background:#0668E0">Button</span><div class="tip"><span class="tk">Medefy Blue 600</span> · #0668E0 · <span class="wc">AA 5.2:1</span></div></div>
+          <div class="state" tabindex="0"><div class="sl">Pressed</div><span class="sbtn" style="background:#0557C2">Button</span><div class="tip"><span class="tk">Medefy Blue 700</span> · #0557C2 · <span class="wc">AA 6.7:1</span></div></div>
+          <div class="state" tabindex="0"><div class="sl">Focused</div><span class="sbtn" style="background:#2882FA;box-shadow:0 0 0 3px rgba(40,130,250,.45)">Button</span><div class="tip"><span class="tk">Medefy Blue 500</span> · #2882FA · 4px ring · <span class="wc">3.71:1</span></div></div>
+          <div class="state" tabindex="0"><div class="sl">Disabled</div><span class="sbtn" style="background:#D7DCDF;color:#AEB2B9">Button</span><div class="tip"><span class="tk">Silver</span> · #D7DCDF · <span class="wc">WCAG: not specified</span></div></div>
+        </div>
+      </div>
+
+      <!-- E — Accessibility / states -->
+      <div class="tile col5">
+        <div class="label"><span class="k">E</span> Accessibility &amp; states <span class="note">· search input · WCAG remediation</span></div>
+        <div class="csub">Input states · search field</div>
+        <div class="inp-wrap">
+          <div class="inp-row"><span class="il">Default</span>
+            <div class="field2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#707070" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#707070" stroke-width="2" stroke-linecap="round"/></svg>Search benefits, doctors, claims…</div>
+          </div>
+          <div class="inp-row"><span class="il">Active</span>
+            <div class="field2 active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#676771" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#676771" stroke-width="2" stroke-linecap="round"/></svg><span class="val">Dental</span><span class="cur">|</span></div>
+          </div>
+          <div class="inp-row"><span class="il">Searched</span>
+            <div class="field2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#676771" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#676771" stroke-width="2" stroke-linecap="round"/></svg><span class="val">Dental coverage</span><span class="clear"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="#949494" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          </div>
+          <div class="inp-row"><span class="il">Focused</span>
+            <div class="field2 focus"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#2882FA" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#2882FA" stroke-width="2" stroke-linecap="round"/></svg><span class="val">Pharmacy</span><span class="cur">|</span></div>
+          </div>
+          <div class="inp-row"><span class="il">Disabled</span>
+            <div class="field2 disabled"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#AEB2B9" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#AEB2B9" stroke-width="2" stroke-linecap="round"/></svg>Search unavailable</div>
+          </div>
+        </div>
+        <div class="csub">Color remediation · MyBenefitsFlorida <span style="font-weight:600;letter-spacing:0;text-transform:none;color:var(--faint)">· hover a row</span></div>
+        <div class="e-blk">
+          <div class="rem-row"><span class="tok">PRIMARY</span><span class="hexc"><span class="c" style="background:#2D8DFD"></span>#2D8DFD</span><span class="arrow">→</span><span class="hexc"><span class="c" style="background:#026BE6"></span>#026BE6</span><span class="badge pass">AA 4.95:1</span><span class="tip">Bumped for 4.5:1 text contrast</span></div>
+          <div class="rem-row"><span class="tok">INPUT_BORDER</span><span class="hexc"><span class="c" style="background:#DDDDDD"></span>#DDDDDD</span><span class="arrow">→</span><span class="hexc"><span class="c" style="background:#949494"></span>#949494</span><span class="badge pass">3.0:1</span><span class="tip">Non-text contrast for the input borders above</span></div>
+          <div class="rem-row"><span class="tok">PLACEHOLDER</span><span class="hexc"><span class="c" style="background:#989898"></span>#989898</span><span class="arrow">→</span><span class="hexc"><span class="c" style="background:#707070"></span>#707070</span><span class="badge pass">AA 4.5:1</span><span class="tip">Placeholder & hint text</span></div>
+        </div>
+        <div class="csub">Contrast pairing</div>
+        <div class="pair">
+          <div class="pc l">Aa<span class="r">#F5F5F5 / #202035</span></div>
+          <div class="pc d">Aa<span class="r">14.8:1 · AAA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const RAMP=[
+    {st:'50',hx:'#EBF5FF',wcag:'15.3:1 · dark text'},{st:'100',hx:'#D6EAFF',wcag:'13.7:1 · dark text'},
+    {st:'200',hx:'#AED6FF',wcag:'11.1:1 · dark text'},{st:'300',hx:'#85C1FF',wcag:'8.9:1 · dark text'},
+    {st:'400',hx:'#5DACFF',wcag:'2.38:1 · white'},{st:'500',hx:'#2882FA',wcag:'3.71:1 · white',role:'Brand anchor',anchor:true},
+    {st:'600',hx:'#0668E0',wcag:'AA 5.2:1 · white',role:'Links · primary'},{st:'700',hx:'#0557C2',wcag:'AA 6.7:1 · white'},
+    {st:'800',hx:'#04469E',wcag:'AAA 8.8:1 · white'},{st:'900',hx:'#033570',wcag:'AAA 12.0:1 · white'},
+    {st:'950',hx:'#021E42',wcag:'AAA 16.6:1 · white'},
+  ];
+  const CORES=[
+    {nm:'Sky Blue',hx:'#1ECBF0',role:'Accent · highlights'},{nm:'Medefy Pink',hx:'#FF1EA0',role:'CTA emphasis'},
+    {nm:'Dark Grey',hx:'#676771',role:'Body & label text'},{nm:'Silver',hx:'#D7DCDF',role:'Dividers · disabled'},
+    {nm:'Green · Success',hx:'#0B6E27',role:'Success'},{nm:'Red · Error',hx:'#CE2727',role:'Error · destructive'},
+  ];
+  const ramp=document.getElementById('ramp');
+  RAMP.forEach(s=>{const d=document.createElement('div');d.className='stop'+(s.anchor?' anchor':'');
+    d.tabIndex=0; d.setAttribute('aria-label',`Medefy Blue ${s.st}, ${s.hx}, WCAG ${s.wcag}`);
+    d.innerHTML=`<div class="chip" style="background:${s.hx}"></div><div class="st">${s.st}</div><div class="hx">${s.hx}</div>
+      <div class="tip"><b>Medefy Blue ${s.st}</b> · <b>${s.hx}</b><br><span class="role">${s.role?s.role+' · ':''}${s.wcag}</span></div>`;
+    ramp.appendChild(d);});
+  const cores=document.getElementById('cores');
+  CORES.forEach(c=>{const d=document.createElement('div');d.className='core';
+    d.tabIndex=0; d.setAttribute('aria-label',`${c.nm}, ${c.hx}, ${c.role}`);
+    d.innerHTML=`<div class="chip" style="background:${c.hx}"></div><div class="nm">${c.nm}</div><div class="hx">${c.hx}</div>
+      <div class="tip"><b>${c.hx}</b> · ${c.role}</div>`;
+    cores.appendChild(d);});
+
+  const stage=document.getElementById('stage');
+  document.querySelectorAll('.srow[data-hl]').forEach(r=>{
+    r.addEventListener('mouseenter',()=>stage.classList.add('hl-'+r.dataset.hl));
+    r.addEventListener('mouseleave',()=>stage.classList.remove('hl-'+r.dataset.hl));
+  });
+  function placeAnatomy(){
+    const sb=stage.getBoundingClientRect(), bb=document.getElementById('abtn').getBoundingClientRect();
+    const cx=bb.left-sb.left+bb.width/2, cy=bb.top-sb.top+bb.height/2;
+    const set=(id,x,y)=>{const e=document.querySelector('.pad.'+id);e.style.left=x+'px';e.style.top=y+'px';};
+    set('t',cx, bb.top-sb.top-15); set('b',cx, bb.bottom-sb.top+15);
+    set('l',bb.left-sb.left-20, cy); set('r',bb.right-sb.left+20, cy);
+    const rad=document.getElementById('rad'); rad.style.left=(bb.left-sb.left-2)+'px'; rad.style.top=(bb.top-sb.top-20)+'px';
+  }
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(placeAnatomy);}
+  window.addEventListener('load',placeAnatomy); setTimeout(placeAnatomy,400);
+</script>
+</body>
+</html>

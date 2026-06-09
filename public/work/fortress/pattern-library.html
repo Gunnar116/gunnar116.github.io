@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortress A2V — Pattern Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:         #1F1B36;
+  --ink-soft:    #2F2A50;
+  --muted:       #8B8AA5;
+  --muted-soft:  #C7C5D8;
+  --border:      #E4E3ED;
+  --bg-cream:    #F8F7FB;
+  --surface:     #FFFFFF;
+  --surface-mute:#F5F4FA;
+  --accent:      #5B4E91;
+  --accent-soft: #E1DBEF;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #FBFAFD;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mockup {
+  width: max-content;
+  margin: 0;
+  background: var(--bg-cream);
+}
+.frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow:
+    0 24px 50px -28px rgba(31, 27, 54, 0.18),
+    0 10px 22px -12px rgba(31, 27, 54, 0.08);
+  overflow: hidden;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  background: var(--surface-mute); color: var(--ink-soft);
+  border-color: var(--border);
+}
+
+#sys { padding: 48px; }
+#sys .frame {
+  width: 2000px; height: 1180px;
+  background: var(--bg-cream);
+  padding: 32px 30px;
+}
+#sys .head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+#sys .head .title {
+  font-size: 24px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.015em;
+}
+#sys .head .sub {
+  font-size: 14px; line-height: 1.5; color: var(--muted);
+  margin-top: 6px; max-width: 680px;
+}
+#sys .layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 320px 380px 280px;
+  gap: 22px;
+}
+#sys .row-1 {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 560px 1fr;
+  gap: 22px;
+}
+#sys .row-2,
+#sys .row-3 {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+#sys .tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px 16px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+#sys .tile .name {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--accent);
+  margin-bottom: 4px;
+}
+#sys .tile .desc {
+  font-size: 13px; color: var(--muted); margin-bottom: 14px;
+  line-height: 1.5;
+}
+#sys .clip {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #FFFFFF;
+}
+#sys .clip img {
+  position: absolute;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+</style>
+</head>
+<body>
+
+<section id="sys" class="mockup">
+  <div class="frame">
+    <div class="head">
+      <div>
+        <div class="title">Asset-to-Vendor · Pattern Library</div>
+        <div class="sub">Shared design tokens, components, and navigation patterns used across A2V and the broader Fortress platform</div>
+      </div>
+      <span class="badge">v1.4</span>
+    </div>
+
+    <div class="layout">
+      <!-- Row 1: Brand + Color System -->
+      <div class="row-1">
+        <div class="tile">
+          <div class="name">Brand</div>
+          <div class="desc">A2V Network identity inside the Fortress platform.</div>
+          <div class="clip">
+            <img
+              src="source/logos.png"
+              alt="A2V Network brand mark"
+              style="width: 1240px; left: -10px; top: -70px;
+                     clip-path: inset(80px 0 400px 0);"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Color system</div>
+          <div class="desc">Ramped tokens — blue for primary &amp; states, semantic colors for success, error, warning, and info, plus a grey scale used for surfaces and text.</div>
+          <div class="clip">
+            <img
+              src="source/color-system.png"
+              alt="Ramped color palette"
+              style="width: 1400px; left: -8px; top: -68px;
+                     clip-path: inset(60px 0 0 0);"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Buttons (Outlined + Contained) -->
+      <div class="row-2">
+        <div class="tile">
+          <div class="name">Outlined buttons</div>
+          <div class="desc">Resting, hover, and disabled states across primary, secondary, and semantic colors.</div>
+          <div class="clip">
+            <img
+              src="source/button-outlined.png"
+              alt="Outlined button variants"
+              style="width: 1180px; left: -40px; top: -190px;"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Contained buttons</div>
+          <div class="desc">Resting, hover, and disabled states across the same six color tokens — used wherever the action is the primary surface affordance.</div>
+          <div class="clip">
+            <img
+              src="source/button-contained.png"
+              alt="Contained button variants"
+              style="width: 1180px; left: -40px; top: -190px;"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Alerts + Navigation -->
+      <div class="row-3">
+        <div class="tile">
+          <div class="name">Alerts</div>
+          <div class="desc">Filled, outlined, and standard variants across error, warning, info, and success states.</div>
+          <div class="clip">
+            <img
+              src="source/alert.png"
+              alt="Alert variants"
+              style="width: 1500px; left: -440px; top: -350px;"
+            />
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="name">Navigation patterns</div>
+          <div class="desc">Page-title helpers and tab groups shared across product surfaces, with consistent active and resting states.</div>
+          <div class="clip">
+            <img
+              src="source/page-title-helpers.png"
+              alt="Navigation tab patterns"
+              style="width: 1020px; left: -10px; top: -800px;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

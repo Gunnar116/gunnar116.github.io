@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medefy – Accessibility Color Token Reference</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      --font-mono: "Menlo", "Consolas", "Courier New", monospace;
+
+      /* Table chrome */
+      --c-bg-page:        #f3f4f6;
+      --c-bg-header:      #f3f4f6;
+      --c-bg-row-odd:     #ffffff;
+      --c-bg-row-even:    #f9fafb;
+      --c-border:         #e5e7eb;
+      --c-shadow-1:       rgba(0,0,0,0.10);
+      --c-shadow-2:       rgba(0,0,0,0.10);
+
+      /* Text */
+      --c-text-header:    #101828;
+      --c-text-cell:      #364153;
+      --c-text-reason:    #4a5565;
+      --c-text-code:      #1447e6;
+      --c-text-keep:      #00a63e;
+      --c-text-hex-old:   #364153;
+      --c-text-hex-new:   #008236;
+
+      /* Code badge background */
+      --c-code-bg:        #f3f4f6;
+
+      /* Swatch border */
+      --c-swatch-border:  #d1d5dc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--c-bg-page);
+      min-height: 100vh;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      width: 100%;
+      max-width: 1104px;
+    }
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--c-text-header);
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: var(--c-text-reason);
+      line-height: 1.6;
+    }
+    .page-header p strong {
+      font-weight: 600;
+      color: var(--c-text-cell);
+    }
+
+    /* ── Table card ── */
+    .table-card {
+      width: 100%;
+      max-width: 1104px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px var(--c-shadow-1), 0 1px 2px var(--c-shadow-2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* ── Column widths ── */
+    col.col-token   { width: 149px; }
+    col.col-current { width: 143px; }
+    col.col-rec     { width: 336px; }
+    col.col-usage   { width: 196px; }
+    col.col-reason  { width: auto; }
+
+    /* ── Header row ── */
+    thead tr {
+      background: var(--c-bg-header);
+    }
+    thead th {
+      padding: 16px 16px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c-text-header);
+      text-align: left;
+      letter-spacing: -0.3125px;
+      border-bottom: 1px solid var(--c-border);
+      white-space: nowrap;
+    }
+
+    /* ── Body rows ── */
+    tbody tr:nth-child(odd)  { background: var(--c-bg-row-odd); }
+    tbody tr:nth-child(even) { background: var(--c-bg-row-even); }
+
+    tbody td {
+      padding: 16.5px 16px;
+      border-bottom: 1px solid var(--c-border);
+      vertical-align: middle;
+      height: 73px;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ── Code badge (token name) ── */
+    .token-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--c-code-bg);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .token-badge span {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--c-text-code);
+      white-space: nowrap;
+    }
+
+    /* ── Swatch + hex container ── */
+    .swatch-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid var(--c-swatch-border);
+      box-shadow: 0 1px 3px var(--c-shadow-1), 0 1px 2px var(--c-shadow-2);
+      flex-shrink: 0;
+    }
+    .swatch.swatch--white {
+      background: #ffffff;
+    }
+
+    /* Hex values */
+    .hex-old {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--c-text-hex-old);
+      white-space: nowrap;
+    }
+    .hex-new {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c-text-hex-new);
+      white-space: nowrap;
+    }
+    .hex-keep {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-text-keep);
+      white-space: nowrap;
+    }
+    .hex-split {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c-text-hex-new);
+      line-height: 1.5;
+    }
+
+    /* Usage + reason text */
+    .cell-usage,
+    .cell-reason {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--c-text-cell);
+      line-height: 1.5;
+      letter-spacing: -0.15px;
+    }
+    .cell-reason {
+      color: var(--c-text-reason);
+      max-width: 240px;
+    }
+
+    /* ── Note banner ── */
+    .note {
+      width: 100%;
+      max-width: 1104px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: #92400e;
+      line-height: 1.6;
+    }
+    .note strong { font-weight: 600; }
+  </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Accessibility Color Token Reference</h1>
+    <p>Medefy onboarding screen — WCAG 2.1 remediation. Green values in <strong>Recommended Hex</strong> are applied in <code>medefy-onboarding.html</code>.</p>
+  </div>
+
+  <div class="note">
+    <strong>Note on PRIMARY:</strong> The Figma table recommends <code>#026BE6</code> (AA, 4.95:1 contrast with white). The implementation uses <code>#004FBF</code> (AAA, 7.22:1) to meet the stricter AAA threshold for interactive buttons. All other tokens match exactly.
+  </div>
+
+  <div class="table-card">
+    <table>
+      <colgroup>
+        <col class="col-token" />
+        <col class="col-current" />
+        <col class="col-rec" />
+        <col class="col-usage" />
+        <col class="col-reason" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Current Hex</th>
+          <th>Recommended Hex</th>
+          <th>Usage</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- GRAY_TEXT -->
+        <tr>
+          <td><div class="token-badge"><span>GRAY_TEXT</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#8F9BB3;"></div>
+              <span class="hex-old">#8F9BB3</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#61718F;"></div>
+              <span class="hex-new">#61718F</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Secondary body text</span></td>
+          <td><span class="cell-reason">Current value too light on white/light surfaces</span></td>
+        </tr>
+
+        <!-- PLACEHOLDER -->
+        <tr>
+          <td><div class="token-badge"><span>PLACEHOLDER</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#989898;"></div>
+              <span class="hex-old">#989898</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#707070;"></div>
+              <span class="hex-new">#707070</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Placeholder and hint text</span></td>
+          <td><span class="cell-reason">Too faint for small text</span></td>
+        </tr>
+
+        <!-- DETAILS_GRAY -->
+        <tr>
+          <td><div class="token-badge"><span>DETAILS_GRAY</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#98989F;"></div>
+              <span class="hex-old">#98989F</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#6F6F78;"></div>
+              <span class="hex-new">#6F6F78</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Metadata and timestamps</span></td>
+          <td><span class="cell-reason">Too light for small text</span></td>
+        </tr>
+
+        <!-- INPUT_BORDER -->
+        <tr>
+          <td><div class="token-badge"><span>INPUT_BORDER</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#DDDDDD;"></div>
+              <span class="hex-old">#DDDDDD</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#949494;"></div>
+              <span class="hex-new">#949494</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Text field borders</span></td>
+          <td><span class="cell-reason">Fails non-text contrast</span></td>
+        </tr>
+
+        <!-- LIGHT_GRAY -->
+        <tr>
+          <td><div class="token-badge"><span>LIGHT_GRAY</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#ACACAC;"></div>
+              <span class="hex-old">#ACACAC</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch swatch--white"></div>
+              <span class="hex-split">#949494 for borders<br>#707070 for text</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Dividers and inactive UI</span></td>
+          <td><span class="cell-reason">Too light for informative use</span></td>
+        </tr>
+
+        <!-- LINK -->
+        <tr>
+          <td><div class="token-badge"><span>LINK</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#2E80FA;"></div>
+              <span class="hex-old">#2E80FA</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#0666F6;"></div>
+              <span class="hex-new">#0666F6</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Inline and body links</span></td>
+          <td><span class="cell-reason">Too light for normal text</span></td>
+        </tr>
+
+        <!-- PRIMARY -->
+        <tr>
+          <td><div class="token-badge"><span>PRIMARY</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#2D8DFD;"></div>
+              <span class="hex-old">#2D8DFD</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#026BE6;"></div>
+              <span class="hex-new">#026BE6</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Primary blue</span></td>
+          <td><span class="cell-reason">Needs darker accessible version for text/actions</span></td>
+        </tr>
+
+        <!-- MAIN_BLUE -->
+        <tr>
+          <td><div class="token-badge"><span>MAIN_BLUE</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#2882FA;"></div>
+              <span class="hex-old">#2882FA</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#0669EE;"></div>
+              <span class="hex-new">#0669EE</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">CTA and selected state</span></td>
+          <td><span class="cell-reason">Needs darker accessible version</span></td>
+        </tr>
+
+        <!-- STAR_COLOR -->
+        <tr>
+          <td><div class="token-badge"><span>STAR_COLOR</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#FF8730;"></div>
+              <span class="hex-old">#FF8730</span>
+            </div>
+          </td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#BC4F00;"></div>
+              <span class="hex-new">#BC4F00</span>
+            </div>
+          </td>
+          <td><span class="cell-usage">Orange semantic/accent use</span></td>
+          <td><span class="cell-reason">Too light for small informative use</span></td>
+        </tr>
+
+        <!-- HEADER_BG -->
+        <tr>
+          <td><div class="token-badge"><span>HEADER_BG</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch" style="background:#243872;"></div>
+              <span class="hex-old">#243872</span>
+            </div>
+          </td>
+          <td>
+            <span class="hex-keep">✓ keep</span>
+          </td>
+          <td><span class="cell-usage">Header background</span></td>
+          <td><span class="cell-reason">Accessible with white text</span></td>
+        </tr>
+
+        <!-- HEADER_TEXT -->
+        <tr>
+          <td><div class="token-badge"><span>HEADER_TEXT</span></div></td>
+          <td>
+            <div class="swatch-group">
+              <div class="swatch swatch--white"></div>
+              <span class="hex-old">#FFFFFF</span>
+            </div>
+          </td>
+          <td>
+            <span class="hex-keep">✓ keep</span>
+          </td>
+          <td><span class="cell-usage">Header text</span></td>
+          <td><span class="cell-reason">Good on header background</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

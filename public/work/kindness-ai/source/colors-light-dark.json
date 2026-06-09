@@ -1,0 +1,186 @@
+{
+  "kindigo": {
+    "50": {
+      "light": "#e4e8fa",
+      "dark": "#111d55"
+    },
+    "100": {
+      "light": "#d1d8f6",
+      "dark": "#1a2e86"
+    },
+    "200": {
+      "light": "#b6c1f1",
+      "dark": "#243fb6"
+    },
+    "300": {
+      "light": "#a3b1ed",
+      "dark": "#304ed6"
+    },
+    "400": {
+      "light": "#6d82e2",
+      "dark": "#4863db"
+    },
+    "500": {
+      "light": "#5a73df",
+      "dark": "#5a73df"
+    },
+    "600": {
+      "light": "#4863db",
+      "dark": "#6d82e2"
+    },
+    "700": {
+      "light": "#304ed6",
+      "dark": "#a3b1ed"
+    },
+    "800": {
+      "light": "#243fb6",
+      "dark": "#b6c1f1"
+    },
+    "900": {
+      "light": "#1a2e86",
+      "dark": "#d1d8f6"
+    },
+    "950": {
+      "light": "#111d55",
+      "dark": "#e4e8fa"
+    }
+  },
+  "kindle": {
+    "50": {
+      "light": "#fcede4",
+      "dark": "#612b0c"
+    },
+    "100": {
+      "light": "#f9e1d2",
+      "dark": "#984413"
+    },
+    "200": {
+      "light": "#f6cfb8",
+      "dark": "#cf5d1a"
+    },
+    "300": {
+      "light": "#f4c3a6",
+      "dark": "#e67431"
+    },
+    "400": {
+      "light": "#ed9f71",
+      "dark": "#e9874d"
+    },
+    "500": {
+      "light": "#eb935f",
+      "dark": "#eb935f"
+    },
+    "600": {
+      "light": "#e9874d",
+      "dark": "#ed9f71"
+    },
+    "700": {
+      "light": "#e67431",
+      "dark": "#f4c3a6"
+    },
+    "800": {
+      "light": "#cf5d1a",
+      "dark": "#f6cfb8"
+    },
+    "900": {
+      "light": "#984413",
+      "dark": "#f9e1d2"
+    },
+    "950": {
+      "light": "#612b0c",
+      "dark": "#fcede4"
+    }
+  },
+  "kindness": {
+    "50": {
+      "light": "#fae4e8",
+      "dark": "#55111d"
+    },
+    "100": {
+      "light": "#f6d1d8",
+      "dark": "#861a2e"
+    },
+    "200": {
+      "light": "#f1b6c1",
+      "dark": "#b6243f"
+    },
+    "300": {
+      "light": "#eda3b1",
+      "dark": "#d6304e"
+    },
+    "400": {
+      "light": "#e26d82",
+      "dark": "#db4863"
+    },
+    "500": {
+      "light": "#df5a73",
+      "dark": "#df5a73"
+    },
+    "600": {
+      "light": "#db4863",
+      "dark": "#e26d82"
+    },
+    "700": {
+      "light": "#d6304e",
+      "dark": "#eda3b1"
+    },
+    "800": {
+      "light": "#b6243f",
+      "dark": "#f1b6c1"
+    },
+    "900": {
+      "light": "#861a2e",
+      "dark": "#f6d1d8"
+    },
+    "950": {
+      "light": "#55111d",
+      "dark": "#fae4e8"
+    }
+  },
+  "kindred": {
+    "50": {
+      "light": "#f6f6fa",
+      "dark": "#09090c"
+    },
+    "100": {
+      "light": "#edeef4",
+      "dark": "#18181c"
+    },
+    "200": {
+      "light": "#dbdde9",
+      "dark": "#27272b"
+    },
+    "300": {
+      "light": "#cacddc",
+      "dark": "#3f3f4b"
+    },
+    "400": {
+      "light": "#9c9eb0",
+      "dark": "#525360"
+    },
+    "500": {
+      "light": "#6f7183",
+      "dark": "#6f7183"
+    },
+    "600": {
+      "light": "#525360",
+      "dark": "#9c9eb0"
+    },
+    "700": {
+      "light": "#3f3f4b",
+      "dark": "#cacddc"
+    },
+    "800": {
+      "light": "#27272b",
+      "dark": "#dbdde9"
+    },
+    "900": {
+      "light": "#18181c",
+      "dark": "#edeef4"
+    },
+    "950": {
+      "light": "#09090c",
+      "dark": "#f6f6fa"
+    }
+  }
+}

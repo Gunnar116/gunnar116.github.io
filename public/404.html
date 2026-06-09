@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Gunnar Morgan</title>
+    <!--
+      Single-page-app redirect for GitHub Pages.
+      Sister script in index.html decodes the URL and replaces history.
+      Set pathSegmentsToKeep to 1 if deploying to a project page (e.g. /repo-name/).
+    -->
+    <script>
+      var pathSegmentsToKeep = 0
+      var l = window.location
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') +
+          '/?/' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash,
+      )
+    </script>
+  </head>
+  <body></body>
+</html>

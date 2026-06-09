@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>Medefy — Case Study Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2EC;
+    --tint-sage: #E8EEE8;
+    --surface: #FFFFFF;
+    --ink: #1A2A22;
+    --ink-soft: #2A3F33;
+    --body: #4A5C50;
+    --muted: #7A8B7F;
+    --muted-soft: #9AABA0;
+    --border: #DDE5DD;
+    --border-soft: #ECF1EC;
+    --accent: #5C8A75;
+    --accent-soft: #C5D2C8;
+    --pass: #3F7E5A;
+    --pass-bg: #E1ECDF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    min-width: 1440px;
+  }
+  .mockup {
+    width: 1440px;
+    background: var(--bg);
+    padding: 64px 80px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  /* faint grain for visual richness */
+  .mockup::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .mockup > * { position: relative; z-index: 1; }
+
+  .label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-align: center; margin-top: 18px;
+  }
+
+  /* ============================================================
+     1. HERO — Use the real Medefy Triptych directly.
+     ============================================================ */
+  #hero { padding: 64px 80px; }
+  #hero .stage {
+    width: 1280px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  #hero .triptych {
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow:
+      0 30px 60px -22px rgba(26, 42, 34, 0.16),
+      0 14px 32px -10px rgba(26, 42, 34, 0.08);
+  }
+  #hero .triptych img { display: block; width: 100%; height: auto; }
+  #hero .stage-label {
+    margin-top: 22px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  #hero .stage-label .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* ============================================================
+     2. TEXOMA — Real iPad chat workflow + supporting workflow card.
+     ============================================================ */
+  #texoma { padding: 64px 80px; }
+  #texoma .stage {
+    width: 1360px;
+    display: grid;
+    grid-template-columns: 440px 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  /* left: workflow card explaining the care guide loop */
+  #texoma .card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-soft);
+    border-radius: 22px;
+    padding: 36px 36px 30px;
+    box-shadow:
+      0 18px 40px -22px rgba(26, 42, 34, 0.12),
+      0 8px 20px -10px rgba(26, 42, 34, 0.06);
+  }
+  #texoma .eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent);
+  }
+  #texoma .heading {
+    margin-top: 14px;
+    font-size: 28px; font-weight: 700; line-height: 1.18;
+    letter-spacing: -0.018em; color: var(--ink);
+  }
+  #texoma .lede {
+    margin-top: 14px;
+    font-size: 15px; line-height: 1.55; color: var(--body);
+  }
+  #texoma .steps {
+    margin-top: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  #texoma .step {
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  #texoma .step .idx {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--tint-sage);
+    color: var(--ink-soft);
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  #texoma .step .body {
+    font-size: 13.5px; line-height: 1.5; color: var(--ink);
+  }
+  #texoma .step .body strong { font-weight: 600; }
+  #texoma .step .body .sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+
+  #texoma .meta-row {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-soft);
+    display: flex; gap: 40px;
+  }
+  #texoma .meta-row .meta-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 4px;
+  }
+  #texoma .meta-row .meta-value { font-size: 13px; color: var(--ink); font-weight: 600; }
+
+  /* right: real iPad chat workflow slide, clean frame */
+  #texoma .device-frame {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow:
+      0 30px 60px -22px rgba(26, 42, 34, 0.22),
+      0 14px 32px -10px rgba(26, 42, 34, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.04);
+    justify-self: center;
+  }
+  #texoma .device-frame img { display: block; width: 100%; height: auto; }
+
+  /* ============================================================
+     3. MEMBER MOBILE APP — 2-up real Figma marketing slides.
+     Two distinct, polished member surfaces. iPhone Pro Max format.
+       figma-01: "Superhuman benefits navigation"  (home / welcome)
+       figma-05: "Track spending"                   (My Health Benefits)
+     ============================================================ */
+  #mobile { padding: 80px 80px 88px; }
+  #mobile .stage {
+    width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  #mobile .slide {
+    border-radius: 22px;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow:
+      0 28px 52px -22px rgba(26, 42, 34, 0.22),
+      0 12px 24px -10px rgba(26, 42, 34, 0.10);
+  }
+  #mobile .slide img { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<!-- ===========================================================
+     1. HERO — Real Triptych used directly. No redactions.
+     =========================================================== -->
+<section id="hero" class="mockup">
+  <div class="stage">
+    <div class="triptych">
+      <img src="raw/triptych.png" alt="Medefy Triptych — login, welcome, and benefits screens" />
+    </div>
+    <div class="stage-label">
+      <span class="dot"></span>
+      <span>MEDEFY PRODUCT EXPERIENCE · MEMBER MOBILE APP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================================================
+     2. TEXOMA — Real chat phone (no redactions) + workflow card.
+     =========================================================== -->
+<section id="texoma" class="mockup">
+  <div class="stage">
+    <div class="card">
+      <div class="eyebrow">Care guide chat workflow</div>
+      <div class="heading">Members reach a real person, with AI doing the warm-up.</div>
+      <div class="lede">
+        Texoma connects members with their care guides through chat — AI handles the first
+        moments of a conversation, then hands off cleanly to a human when judgment is needed.
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="idx">1</div>
+          <div class="body"><strong>Member opens a chat.</strong>
+            <div class="sub">AI greets, listens, and frames the question.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="idx">2</div>
+          <div class="body"><strong>AI hands off to a human care guide.</strong>
+            <div class="sub">Context, signals, and history travel with the conversation.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="idx">3</div>
+          <div class="body"><strong>Care guide resolves and follows up.</strong>
+            <div class="sub">Status is visible to the member at every step.</div>
+          </div>
+        </div>
+      </div>
+      <div class="meta-row">
+        <div>
+          <div class="meta-label">Surfaces</div>
+          <div class="meta-value">iOS · Android</div>
+        </div>
+        <div>
+          <div class="meta-label">Modes</div>
+          <div class="meta-value">AI · Hybrid · Human</div>
+        </div>
+      </div>
+    </div>
+    <div class="device-frame">
+      <img src="texoma-care-guide-interface.png" alt="Texoma care guide internal interface — active chats list, conversation thread, and AI response suggestions" />
+    </div>
+  </div>
+</section>
+
+<!-- ===========================================================
+     3. MEMBER MOBILE APP — 2 distinct member surfaces side by side.
+     Home greeting → My Health Benefits spending tracker.
+     =========================================================== -->
+<section id="mobile" class="mockup">
+  <div class="stage">
+    <div class="slide">
+      <img src="figma/figma-01.png" alt="Medefy member home — Superhuman benefits navigation" />
+    </div>
+    <div class="slide">
+      <img src="figma/figma-05.png" alt="Medefy My Health Benefits — Track spending, deductible and out-of-pocket" />
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

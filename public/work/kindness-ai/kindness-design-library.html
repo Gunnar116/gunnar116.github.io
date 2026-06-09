@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kindness Design Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Verified Kindness design tokens (Figma file LUMLr9tcOIXHx0yhPXZiwi) */
+:root {
+  /* Kindigo (Primary) */
+  --kindigo-50:  #e4e8fa;
+  --kindigo-100: #d1d8f6;
+  --kindigo-200: #b6c1f1;
+  --kindigo-300: #a3b1ed;
+  --kindigo-400: #6d82e2;
+  --kindigo-500: #5a73df;
+  --kindigo-600: #4863db;
+  --kindigo-700: #304ed6;
+  --kindigo-800: #243fb6;
+  --kindigo-900: #1a2e86;
+  --kindigo-950: #111d55;
+
+  /* Kindle (Accent) */
+  --kindle-50:  #fcede4;
+  --kindle-100: #f9e1d2;
+  --kindle-200: #f6cfb8;
+  --kindle-300: #f4c3a6;
+  --kindle-400: #ed9f71;
+  --kindle-500: #eb935f;
+  --kindle-600: #e9874d;
+  --kindle-700: #e67431;
+  --kindle-800: #cf5d1a;
+  --kindle-900: #984413;
+  --kindle-950: #612b0c;
+
+  /* Kindness (Attention) */
+  --kindness-50:  #fae4e8;
+  --kindness-100: #f6d1d8;
+  --kindness-200: #f1b6c1;
+  --kindness-300: #eda3b1;
+  --kindness-400: #e26d82;
+  --kindness-500: #df5a73;
+  --kindness-600: #db4863;
+  --kindness-700: #d6304e;
+  --kindness-800: #b6243f;
+  --kindness-900: #861a2e;
+  --kindness-950: #55111d;
+
+  /* Kindred (Neutral) */
+  --kindred-50:  #f6f6fa;
+  --kindred-100: #edeef4;
+  --kindred-200: #dbdde9;
+  --kindred-300: #cacddc;
+  --kindred-400: #9c9eb0;
+  --kindred-500: #6f7183;
+  --kindred-600: #525360;
+  --kindred-700: #3f3f4b;
+  --kindred-800: #27272b;
+  --kindred-900: #18181c;
+  --kindred-950: #09090c;
+
+  --text-primary:   #18181c;
+  --text-secondary: #525360;
+  --text-tertiary:  #6f7183;
+  --text-error:     #d6304e;
+
+  /* Board chrome */
+  --board-bg:        #faf8f4;     /* warm off-white */
+  --tile-bg:         #ffffff;
+  --tile-border:     #ededee;
+  --tile-shadow:     0 1px 0 rgba(24,24,28,0.02), 0 1px 2px rgba(24,24,28,0.04);
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--board-bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.board {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 24px 28px;
+}
+
+/* ───────── Header ───────── */
+.head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--kindred-200);
+  margin-bottom: 18px;
+}
+.head .title { font-size: 20px; font-weight: 700; letter-spacing: -0.015em; }
+.head .sub {
+  font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;
+  max-width: 760px; line-height: 1.5;
+}
+.head .source-link {
+  margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 500;
+  color: var(--kindred-400);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+/* Segmented light/dark toggle */
+.mode-seg {
+  display: inline-flex; padding: 3px; border-radius: 999px;
+  background: var(--kindred-100);
+  border: 1px solid var(--kindred-200);
+  gap: 2px;
+  flex-shrink: 0;
+}
+.mode-seg__btn {
+  appearance: none; -webkit-appearance: none;
+  border: 0; cursor: pointer;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-tertiary);
+  background: transparent;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease;
+}
+.mode-seg__btn:hover { color: var(--text-primary); }
+.mode-seg__btn.is-active {
+  background: var(--tile-bg);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(24,24,28,0.08);
+}
+
+/* ───────── Grid ───────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.col-4 { grid-column: span 4; }
+.col-5 { grid-column: span 5; }
+.col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+.tile {
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex; flex-direction: column;
+  box-shadow: var(--tile-shadow);
+}
+.tile-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px;
+}
+.tile-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-secondary);
+}
+.tile-meta {
+  font-size: 10.5px; font-weight: 500;
+  color: var(--kindred-400);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.tile-foot {
+  margin-top: 14px;
+  font-size: 10.5px; color: var(--kindred-400);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+/* Optional inner wrapper used by tiles whose content should sit vertically
+   centered when the row is taller than they need (Brand, Buttons, Icons). */
+.tile-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ───────── A. Brand ───────── */
+.brand {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px;
+  padding: 20px 8px 24px;
+  background: var(--kindred-50);
+  border: 1px solid var(--kindred-100);
+  border-radius: 12px;
+  min-height: 180px;
+}
+.brand .wordmark { width: 168px; height: auto; display: block; }
+.brand .heart-only { width: 36px; height: auto; display: block; }
+.brand .meta {
+  display: flex; gap: 14px;
+  font-size: 11px; color: var(--text-tertiary);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ───────── B. Color Tokens ───────── */
+.fams {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.fam {
+  background: var(--kindred-50);
+  border: 1px solid var(--kindred-100);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.fam .name-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.fam .name {
+  font-size: 13px; font-weight: 700;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.fam .role {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--kindred-400);
+}
+.fam.kindigo  .name { color: var(--kindigo-800); }
+.fam.kindle   .name { color: var(--kindle-800); }
+.fam.kindness .name { color: var(--kindness-900); }
+.fam.kindred  .name { color: var(--kindred-800); }
+
+.fan-row {
+  position: relative; height: 56px; margin-bottom: 8px;
+}
+.fan-swatch {
+  position: absolute; top: 0;
+  width: 32px; height: 50px; border-radius: 9px;
+  border: 1.5px solid rgba(255,255,255,0.32);
+  box-shadow: 0 1px 3px rgba(24,24,28,0.10);
+  transition: transform 140ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 140ms ease;
+}
+.fan-swatch.light-border { border: 1px solid var(--kindred-200); }
+.fan-swatch:hover {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 10px 18px rgba(24,24,28,0.20);
+  z-index: 40;
+}
+.fan-swatch::before {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--kindred-900); color: #fff;
+  padding: 7px 10px; border-radius: 7px;
+  font-size: 10.5px; font-weight: 500; white-space: pre;
+  pointer-events: none; opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 50;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  min-width: 110px; text-align: center; line-height: 1.4;
+}
+.fan-swatch::after {
+  content: ''; position: absolute;
+  bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent; border-right: 5px solid transparent;
+  border-top: 5px solid var(--kindred-900); opacity: 0;
+  transition: opacity 120ms ease; z-index: 50;
+}
+.fan-swatch:hover::before, .fan-swatch:hover::after { opacity: 1; }
+.fan-swatch:first-of-type:hover::before { left: 0; transform: translateX(0); }
+.fan-swatch:first-of-type:hover::after { left: 16px; }
+
+.stop-labels {
+  display: flex; gap: 0; font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px; color: var(--kindred-400);
+}
+.stop-labels span { width: 15px; text-align: left; }
+
+/* ───────── C. Buttons (rebuilt from Figma specs) ───────── */
+.button-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 16px;
+  align-items: end;
+}
+.button-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.button-cell .cell-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--kindred-400);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Base button (Type=Primary, Size=Medium, Mode=Light from Figma) */
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 96px;
+}
+/* Primary — Initial */
+.btn--primary {
+  background: linear-gradient(to bottom, var(--kindigo-600), var(--kindigo-700));
+  border-color: rgba(36, 63, 182, 0.4);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+/* Primary — Hover (solid kindigo-600, no gradient) */
+.btn--primary-hover {
+  background: var(--kindigo-600);
+  border-color: rgba(36, 63, 182, 0.4);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+/* Primary — Disabled (kindigo-700 @ 30% opacity) */
+.btn--primary-disabled {
+  background: var(--kindigo-700);
+  border-color: rgba(36, 63, 182, 0.4);
+  color: #fff;
+  opacity: 0.3;
+  box-shadow: none;
+}
+/* Secondary — Initial (white→kindred-50 gradient) */
+.btn--secondary {
+  background: linear-gradient(to bottom, #fff, var(--kindred-50));
+  border-color: rgba(111, 113, 131, 0.3);
+  color: var(--kindred-800);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+/* Secondary — Hover (solid kindred-50) */
+.btn--secondary-hover {
+  background: var(--kindred-50);
+  border-color: rgba(111, 113, 131, 0.3);
+  color: var(--kindred-800);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+/* Secondary — Disabled */
+.btn--secondary-disabled {
+  background: var(--kindred-50);
+  border-color: rgba(111, 113, 131, 0.3);
+  color: var(--kindred-800);
+  opacity: 0.3;
+  box-shadow: none;
+}
+
+/* ───────── D. Inputs (rebuilt from Figma specs) ───────── */
+.input-stack {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.field {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.field-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 16px;
+}
+.input {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  height: 32px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+  width: 100%;
+  outline: none;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+}
+.input--default {
+  background: var(--kindred-50);
+  border-color: var(--kindred-100);
+  color: var(--text-tertiary);
+}
+.input--typing {
+  background: #fff;
+  border-color: var(--kindigo-500);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 2px var(--kindigo-200);
+  filter: none;
+}
+.field--error .field-label { color: var(--text-error); }
+.input--error {
+  background: #fff;
+  border-color: var(--kindness-300);
+  color: var(--text-error);
+}
+
+/* ───────── E. Icons ───────── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px 4px;
+}
+.icon-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 10px 4px;
+  border-radius: 8px;
+  background: var(--kindred-50);
+  border: 1px solid var(--kindred-100);
+}
+.icon-cell svg {
+  width: 22px; height: 22px;
+  color: var(--kindred-800);
+  display: block;
+}
+.icon-cell .icon-name {
+  font-size: 9px;
+  color: var(--kindred-500);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ───────── F. Inbox rows ───────── */
+.inbox-list {
+  display: flex; flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--kindred-100);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.inbox-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--kindred-100);
+}
+.inbox-row:last-child { border-bottom: 0; }
+.inbox-row.unread { background: #fff; }
+.inbox-row.read { background: var(--kindred-50); }
+.unread-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--kindigo-600);
+  flex-shrink: 0;
+}
+.row-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+.row-body {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.row-line {
+  display: flex; align-items: center; gap: 8px;
+}
+.row-from {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary);
+}
+.row-from.dim { color: var(--text-tertiary); font-weight: 500; }
+.row-preview {
+  font-size: 12px; color: var(--text-tertiary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10.5px; font-weight: 600;
+  padding: 2px 8px; border-radius: 999px;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  line-height: 14px;
+}
+.chip--needs   { background: var(--kindness-50);  color: var(--kindness-800); }
+.chip--billing { background: var(--kindle-50);    color: var(--kindle-900); }
+.chip--ai      { background: var(--kindigo-50);   color: var(--kindigo-800); }
+.chip--waiting { background: var(--kindred-100);  color: var(--kindred-700); }
+.chip--done    { background: var(--kindred-100);  color: var(--kindred-500); text-decoration: line-through; }
+.row-time {
+  font-size: 11px; color: var(--kindred-400);
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.row-icon {
+  width: 16px; height: 16px;
+  color: var(--kindred-400);
+  flex-shrink: 0;
+}
+
+/* ───────── Footer ───────── */
+.token-summary {
+  margin-top: 18px;
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 11.5px; color: var(--text-tertiary);
+  line-height: 1.55;
+  box-shadow: var(--tile-shadow);
+}
+.token-summary .row {
+  display: flex; gap: 22px; flex-wrap: wrap; align-items: baseline;
+}
+.token-summary .row strong { color: var(--text-primary); font-weight: 600; }
+.token-summary code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px; color: var(--kindigo-800);
+  background: var(--kindigo-50);
+  padding: 1px 6px; border-radius: 4px;
+}
+
+/* ════════════════════════════════════════════════
+   DARK MODE
+   Derived from real Figma dark variants (buttons
+   from Mode=Dark variants 15397:7720/7784/7848,
+   15397:4138/4714/5290; surfaces + chips composed
+   from the verified inverted Kindness color tokens)
+   ════════════════════════════════════════════════ */
+.board[data-mode="dark"] {
+  background: var(--kindred-900);
+  color: var(--kindred-50);
+}
+.board[data-mode="dark"] body,
+body:has(.board[data-mode="dark"]) {
+  background: var(--kindred-900);
+}
+.board[data-mode="dark"] .head { border-bottom-color: var(--kindred-700); }
+.board[data-mode="dark"] .head .title { color: var(--kindred-50); }
+.board[data-mode="dark"] .head .sub   { color: var(--kindred-400); }
+.board[data-mode="dark"] .mode-seg {
+  background: var(--kindred-800);
+  border-color: var(--kindred-700);
+}
+.board[data-mode="dark"] .mode-seg__btn { color: var(--kindred-400); }
+.board[data-mode="dark"] .mode-seg__btn:hover { color: var(--kindred-50); }
+.board[data-mode="dark"] .mode-seg__btn.is-active {
+  background: var(--kindred-700);
+  color: var(--kindred-50);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Tiles */
+.board[data-mode="dark"] .tile {
+  background: var(--kindred-800);
+  border-color: var(--kindred-700);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.25);
+}
+.board[data-mode="dark"] .tile-label { color: var(--kindred-300); }
+.board[data-mode="dark"] .tile-meta,
+.board[data-mode="dark"] .tile-foot  { color: var(--kindred-500); }
+
+/* Brand */
+.board[data-mode="dark"] .brand {
+  background: var(--kindred-900);
+  border-color: var(--kindred-700);
+}
+.board[data-mode="dark"] .brand .meta { color: var(--kindred-500); }
+
+/* Color family cards */
+.board[data-mode="dark"] .fam {
+  background: var(--kindred-900);
+  border-color: var(--kindred-700);
+}
+.board[data-mode="dark"] .fam .role { color: var(--kindred-500); }
+.board[data-mode="dark"] .fam.kindigo  .name { color: var(--kindigo-300); }
+.board[data-mode="dark"] .fam.kindle   .name { color: var(--kindle-300); }
+.board[data-mode="dark"] .fam.kindness .name { color: var(--kindness-300); }
+.board[data-mode="dark"] .fam.kindred  .name { color: var(--kindred-200); }
+.board[data-mode="dark"] .stop-labels { color: var(--kindred-500); }
+.board[data-mode="dark"] .fan-swatch { border-color: rgba(0,0,0,0.35); }
+.board[data-mode="dark"] .fan-swatch.light-border { border-color: var(--kindred-700); }
+.board[data-mode="dark"] .fan-swatch::before {
+  background: var(--kindred-50); color: var(--kindred-900);
+}
+.board[data-mode="dark"] .fan-swatch::after { border-top-color: var(--kindred-50); }
+
+/* Buttons — dark variants (from Figma Mode=Dark) */
+.board[data-mode="dark"] .btn--primary {
+  background: linear-gradient(to bottom, var(--kindigo-500), var(--kindigo-600));
+  border-color: rgba(109, 130, 226, 0.4);
+  color: #fff;
+}
+.board[data-mode="dark"] .btn--primary-hover {
+  background: var(--kindigo-500);
+  border-color: rgba(109, 130, 226, 0.4);
+  color: #fff;
+}
+.board[data-mode="dark"] .btn--primary-disabled {
+  background: var(--kindigo-500);
+  border-color: rgba(109, 130, 226, 0.4);
+  color: #fff;
+  opacity: 0.5;
+}
+.board[data-mode="dark"] .btn--secondary {
+  background: linear-gradient(180deg, rgba(63,63,75,0.8), rgba(39,39,43,0.6)), var(--kindred-600);
+  border-color: rgba(156, 158, 176, 0.1);
+  color: var(--kindred-50);
+}
+.board[data-mode="dark"] .btn--secondary-hover {
+  background: var(--kindred-600);
+  border-color: rgba(156, 158, 176, 0.1);
+  color: var(--kindred-50);
+}
+.board[data-mode="dark"] .btn--secondary-disabled {
+  background: var(--kindred-600);
+  border-color: rgba(156, 158, 176, 0.1);
+  color: var(--kindred-50);
+  opacity: 0.5;
+}
+.board[data-mode="dark"] .button-cell .cell-label { color: var(--kindred-500); }
+
+/* Inputs — dark (composed from Kindred dark + Kindigo focus + Kindness error) */
+.board[data-mode="dark"] .field-label { color: var(--kindred-300); }
+.board[data-mode="dark"] .input--default {
+  background: var(--kindred-900);
+  border-color: var(--kindred-700);
+  color: var(--kindred-500);
+}
+.board[data-mode="dark"] .input--typing {
+  background: var(--kindred-950);
+  border-color: var(--kindigo-400);
+  color: var(--kindred-50);
+  box-shadow: 0 0 0 2px rgba(109,130,226,0.35);
+  filter: none;
+}
+.board[data-mode="dark"] .field--error .field-label { color: var(--kindness-300); }
+.board[data-mode="dark"] .input--error {
+  background: var(--kindred-950);
+  border-color: var(--kindness-700);
+  color: var(--kindness-300);
+}
+
+/* Icons — dark */
+.board[data-mode="dark"] .icon-cell {
+  background: var(--kindred-900);
+  border-color: var(--kindred-700);
+}
+.board[data-mode="dark"] .icon-cell svg { color: var(--kindred-200); }
+.board[data-mode="dark"] .icon-cell .icon-name { color: var(--kindred-500); }
+
+/* Inbox rows — dark */
+.board[data-mode="dark"] .inbox-list {
+  background: var(--kindred-800);
+  border-color: var(--kindred-700);
+}
+.board[data-mode="dark"] .inbox-row { border-bottom-color: var(--kindred-700); }
+.board[data-mode="dark"] .inbox-row.unread { background: var(--kindred-800); }
+.board[data-mode="dark"] .inbox-row.read   { background: var(--kindred-900); }
+.board[data-mode="dark"] .unread-dot { background: var(--kindigo-400); }
+.board[data-mode="dark"] .row-from { color: var(--kindred-50); }
+.board[data-mode="dark"] .row-from.dim { color: var(--kindred-400); }
+.board[data-mode="dark"] .row-preview { color: var(--kindred-400); }
+.board[data-mode="dark"] .row-time { color: var(--kindred-500); }
+.board[data-mode="dark"] .chip--needs   { background: var(--kindness-950); color: var(--kindness-200); }
+.board[data-mode="dark"] .chip--billing { background: var(--kindle-950);   color: var(--kindle-200); }
+.board[data-mode="dark"] .chip--ai      { background: var(--kindigo-950);  color: var(--kindigo-200); }
+.board[data-mode="dark"] .chip--waiting { background: var(--kindred-700);  color: var(--kindred-300); }
+.board[data-mode="dark"] .chip--done    { background: var(--kindred-700);  color: var(--kindred-500); }
+
+/* Token summary footer */
+.board[data-mode="dark"] .token-summary {
+  background: var(--kindred-800);
+  border-color: var(--kindred-700);
+  color: var(--kindred-400);
+}
+.board[data-mode="dark"] .token-summary .row strong { color: var(--kindred-50); }
+.board[data-mode="dark"] .token-summary code {
+  color: var(--kindigo-200);
+  background: var(--kindigo-950);
+}
+</style>
+</head>
+<body>
+
+<div class="board" data-mode="light">
+
+  <!-- Header -->
+  <div class="head">
+    <div>
+      <div class="title">Kindness.ai Design System</div>
+      <div class="sub">Design system and Figma library created from scratch for Kindness.ai — including brand foundations, color tokens, button states, input states, iconography, and inbox row patterns.</div>
+    </div>
+    <div class="mode-seg" role="tablist" aria-label="Color mode">
+      <button type="button" class="mode-seg__btn is-active" role="tab" aria-selected="true" data-mode="light">Light mode</button>
+      <button type="button" class="mode-seg__btn" role="tab" aria-selected="false" data-mode="dark">Dark mode</button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- ── A. Brand ───────────────────────────── -->
+    <div class="tile col-5">
+      <div class="tile-head">
+        <span class="tile-label">A · Brand</span>
+        <span class="tile-meta">Brand system</span>
+      </div>
+      <div class="tile-body">
+        <div class="brand">
+          <img class="wordmark" src="source/figma/kindness-logo.svg" alt="Kindness wordmark" />
+          <img class="heart-only" src="source/figma/kindness-heart.svg" alt="Kindness heart mark" />
+          <div class="meta"><span>wordmark</span><span>·</span><span>heart mark</span></div>
+        </div>
+      </div>
+      <div class="tile-foot">From Kindness Figma — SVG exports</div>
+    </div>
+
+    <!-- ── B. Color tokens ────────────────────── -->
+    <div class="tile col-7">
+      <div class="tile-head">
+        <span class="tile-label">B · Color tokens</span>
+        <span class="tile-meta">4 families × 11 stops</span>
+      </div>
+      <div class="fams" id="fams"></div>
+      <div class="tile-foot">From Kindness Figma — hover any swatch for token + hex</div>
+    </div>
+
+    <!-- ── C. Buttons ─────────────────────────── -->
+    <div class="tile col-7">
+      <div class="tile-head">
+        <span class="tile-label">C · Buttons · 6 states</span>
+        <span class="tile-meta">size=md · light</span>
+      </div>
+      <div class="tile-body">
+        <div class="button-row">
+        <div class="button-cell">
+          <button class="btn btn--primary" type="button">Button</button>
+          <span class="cell-label">Primary · Initial</span>
+        </div>
+        <div class="button-cell">
+          <button class="btn btn--primary-hover" type="button">Button</button>
+          <span class="cell-label">Primary · Hover</span>
+        </div>
+        <div class="button-cell">
+          <button class="btn btn--primary-disabled" type="button" disabled>Button</button>
+          <span class="cell-label">Primary · Disabled</span>
+        </div>
+        <div class="button-cell">
+          <button class="btn btn--secondary" type="button">Button</button>
+          <span class="cell-label">Secondary · Initial</span>
+        </div>
+        <div class="button-cell">
+          <button class="btn btn--secondary-hover" type="button">Button</button>
+          <span class="cell-label">Secondary · Hover</span>
+        </div>
+        <div class="button-cell">
+          <button class="btn btn--secondary-disabled" type="button" disabled>Button</button>
+          <span class="cell-label">Secondary · Disabled</span>
+        </div>
+        </div>
+      </div>
+      <div class="tile-foot">Rebuilt from Figma — Type=Primary/Secondary, Size=Medium, Mode=Light</div>
+    </div>
+
+    <!-- ── D. Inputs ──────────────────────────── -->
+    <div class="tile col-5">
+      <div class="tile-head">
+        <span class="tile-label">D · Inputs · 3 states</span>
+        <span class="tile-meta">size=md</span>
+      </div>
+      <div class="input-stack">
+        <div class="field">
+          <label class="field-label">Label Text</label>
+          <input type="text" class="input input--default" placeholder="Content" disabled />
+        </div>
+        <div class="field">
+          <label class="field-label">Label Text</label>
+          <input type="text" class="input input--typing" value="Customer name" />
+        </div>
+        <div class="field field--error">
+          <label class="field-label">Label Text</label>
+          <input type="text" class="input input--error" value="Invalid value" />
+        </div>
+      </div>
+      <div class="tile-foot">Rebuilt from Figma — State=Default, Typing, Error</div>
+    </div>
+
+    <!-- ── E. Icons ───────────────────────────── -->
+    <div class="tile col-5">
+      <div class="tile-head">
+        <span class="tile-label">E · Icon set · 16 of 1000+</span>
+        <span class="tile-meta">stroke · regular</span>
+      </div>
+      <div class="tile-body">
+        <div class="icon-grid" id="icons"></div>
+      </div>
+      <div class="tile-foot">Phosphor icon set (used by the Kindness library)</div>
+    </div>
+
+    <!-- ── F. Inbox rows ──────────────────────── -->
+    <div class="tile col-7">
+      <div class="tile-head">
+        <span class="tile-label">F · Inbox row patterns · 3</span>
+        <span class="tile-meta">composed from Kindness tokens</span>
+      </div>
+      <div class="inbox-list">
+        <!-- Row 1: unread, needs follow-up -->
+        <div class="inbox-row unread">
+          <span class="unread-dot" aria-hidden="true"></span>
+          <span class="row-avatar" style="background: var(--kindigo-600);">CI</span>
+          <div class="row-body">
+            <div class="row-line">
+              <span class="row-from">Customer inquiry</span>
+              <span class="chip chip--needs">Needs follow-up</span>
+            </div>
+            <span class="row-preview">Quick scheduling question about onboarding next week — wanted to see when you have time…</span>
+          </div>
+          <span class="row-time">2m</span>
+        </div>
+
+        <!-- Row 2: AI suggested, billing -->
+        <div class="inbox-row unread">
+          <span class="unread-dot" aria-hidden="true"></span>
+          <span class="row-avatar" style="background: var(--kindle-600);">BI</span>
+          <div class="row-body">
+            <div class="row-line">
+              <span class="row-from">Billing</span>
+              <span class="chip chip--billing">Billing</span>
+              <span class="chip chip--ai">AI suggested</span>
+            </div>
+            <span class="row-preview">Hey — looking at last month's invoice, the line item for additional users looks different than usual…</span>
+          </div>
+          <span class="row-time">18m</span>
+        </div>
+
+        <!-- Row 3: read, resolved -->
+        <div class="inbox-row read">
+          <span class="row-avatar" style="background: var(--kindred-400);">SC</span>
+          <div class="row-body">
+            <div class="row-line">
+              <span class="row-from dim">Scheduling</span>
+              <span class="chip chip--waiting">Waiting</span>
+              <span class="chip chip--done">Resolved</span>
+            </div>
+            <span class="row-preview">Confirmed Thursday 2:00 PT for the kickoff. Calendar invite sent — thanks for the quick turnaround.</span>
+          </div>
+          <span class="row-time">Yesterday</span>
+        </div>
+      </div>
+      <div class="tile-foot">Rebuilt from Kindness tokens — chips use kindness/kindle/kindigo/kindred ramps</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="token-summary">
+    <div class="row">
+      <span><strong>Token naming:</strong> <code>{family}-{stop}</code> — e.g. <code>kindigo-600</code></span>
+      <span><strong>Type scale:</strong> Inter 500 · sm 14/20 · xs 12/16</span>
+      <span><strong>Radius:</strong> <code>md</code> 6 px</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ───────── Inline Phosphor SVG icons (24×24 viewBox, stroke=16, line cap=round, fill=none) ───────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-bell" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><path d="M56.2 104a72 72 0 1 1 144 0c0 35.8 7.5 56.5 14 67.9a8 8 0 0 1-6.9 12H49.1a8 8 0 0 1-6.9-12c6.5-11.4 14-32.1 14-67.9Z"/><path d="M96 184a32 32 0 0 0 64 0"/></g></symbol>
+    <symbol id="i-envelope" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><rect x="32" y="48" width="192" height="160" rx="8"/><polyline points="224 56 128 144 32 56"/></g></symbol>
+    <symbol id="i-user" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><circle cx="128" cy="96" r="56"/><path d="M30.8 216a112 112 0 0 1 194.4 0"/></g></symbol>
+    <symbol id="i-star" viewBox="0 0 256 256"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M132.4 190.6 196.3 232l-19-69.5L233 119.4l-71-3.7L135.7 48a8 8 0 0 0-15.4 0l-26.3 67.7-71 3.7 55.7 43.1L59.7 232l63.9-41.4a8 8 0 0 1 8.8 0Z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><path d="M120 32H40a8 8 0 0 0-8 8v80a8 8 0 0 0 2.3 5.7l104 104a8 8 0 0 0 11.4 0l80-80a8 8 0 0 0 0-11.4l-104-104A8 8 0 0 0 120 32Z"/><circle cx="84" cy="84" r="12" fill="currentColor"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><line x1="40" y1="128" x2="216" y2="128"/><line x1="128" y1="40" x2="128" y2="216"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><circle cx="112" cy="112" r="80"/><line x1="168.6" y1="168.6" x2="224" y2="224"/></g></symbol>
+    <symbol id="i-calendar" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><rect x="32" y="48" width="192" height="160" rx="8"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="32" y1="88" x2="224" y2="88"/></g></symbol>
+    <symbol id="i-gear" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><circle cx="128" cy="128" r="40"/><path d="M130 24a103.9 103.9 0 0 1 26 3.5l16 28.5a78.4 78.4 0 0 1 17.2 9.9l32.6 3.4a103.9 103.9 0 0 1 13.3 22.5l-16.5 28.6a78 78 0 0 1 0 19.2l16.5 28.6a103.9 103.9 0 0 1-13.3 22.5l-32.6 3.4a78.4 78.4 0 0 1-17.2 9.9l-16 28.5a104.5 104.5 0 0 1-52 0l-16-28.5a78.4 78.4 0 0 1-17.2-9.9l-32.6-3.4a103.9 103.9 0 0 1-13.3-22.5l16.5-28.6a78 78 0 0 1 0-19.2L23.9 92a103.9 103.9 0 0 1 13.3-22.5l32.6-3.4A78.4 78.4 0 0 1 87 56.1l16-28.5A103.9 103.9 0 0 1 130 24Z"/></g></symbol>
+    <symbol id="i-trash" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><line x1="216" y1="56" x2="40" y2="56"/><line x1="104" y1="104" x2="104" y2="168"/><line x1="152" y1="104" x2="152" y2="168"/><path d="m200 56-9 145a8 8 0 0 1-8 7H73a8 8 0 0 1-8-7L56 56"/><path d="M168 56V40a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v16"/></g></symbol>
+    <symbol id="i-pencil" viewBox="0 0 256 256"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M96 216H48a8 8 0 0 1-8-8v-46a8 8 0 0 1 2.3-5.7L160 38.6a8 8 0 0 1 11.3 0L228 95.3a8 8 0 0 1 0 11.4Zm32-128 72 72M136 216l80-80"/></symbol>
+    <symbol id="i-archive" viewBox="0 0 256 256"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><rect x="32" y="48" width="192" height="40" rx="8"/><path d="M48 88v120a8 8 0 0 0 8 8h144a8 8 0 0 0 8-8V88"/><line x1="104" y1="136" x2="152" y2="136"/></g></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 256 256"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M192 224 128 184 64 224V48a8 8 0 0 1 8-8h112a8 8 0 0 1 8 8Z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 256 256"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M128 224S24 168 24 102a54 54 0 0 1 54-54c20 0 36.7 10.9 50 28 13.3-17.1 30-28 50-28a54 54 0 0 1 54 54c0 66-104 122-104 122Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 256 256"><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="216 72 104 184 48 128"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 256 256"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M48 232 80 200H208a16 16 0 0 0 16-16V72a16 16 0 0 0-16-16H48a16 16 0 0 0-16 16V224a8 8 0 0 0 16 8Z"/></symbol>
+  </defs>
+</svg>
+
+<script>
+// ────── Color tokens — verified from Figma (88 hex values: 44 light + 44 dark)
+//  Dark mode inverts each ramp around the 500 anchor (kindigo-50 light ↔ kindigo-950 dark).
+const TOKENS = {
+  kindigo:  {role: 'Primary',   stops: {
+    50:  {l:'#e4e8fa', d:'#111d55'}, 100: {l:'#d1d8f6', d:'#1a2e86'},
+    200: {l:'#b6c1f1', d:'#243fb6'}, 300: {l:'#a3b1ed', d:'#304ed6'},
+    400: {l:'#6d82e2', d:'#4863db'}, 500: {l:'#5a73df', d:'#5a73df'},
+    600: {l:'#4863db', d:'#6d82e2'}, 700: {l:'#304ed6', d:'#a3b1ed'},
+    800: {l:'#243fb6', d:'#b6c1f1'}, 900: {l:'#1a2e86', d:'#d1d8f6'},
+    950: {l:'#111d55', d:'#e4e8fa'},
+  }},
+  kindle:   {role: 'Accent',    stops: {
+    50:  {l:'#fcede4', d:'#612b0c'}, 100: {l:'#f9e1d2', d:'#984413'},
+    200: {l:'#f6cfb8', d:'#cf5d1a'}, 300: {l:'#f4c3a6', d:'#e67431'},
+    400: {l:'#ed9f71', d:'#e9874d'}, 500: {l:'#eb935f', d:'#eb935f'},
+    600: {l:'#e9874d', d:'#ed9f71'}, 700: {l:'#e67431', d:'#f4c3a6'},
+    800: {l:'#cf5d1a', d:'#f6cfb8'}, 900: {l:'#984413', d:'#f9e1d2'},
+    950: {l:'#612b0c', d:'#fcede4'},
+  }},
+  kindness: {role: 'Attention', stops: {
+    50:  {l:'#fae4e8', d:'#55111d'}, 100: {l:'#f6d1d8', d:'#861a2e'},
+    200: {l:'#f1b6c1', d:'#b6243f'}, 300: {l:'#eda3b1', d:'#d6304e'},
+    400: {l:'#e26d82', d:'#db4863'}, 500: {l:'#df5a73', d:'#df5a73'},
+    600: {l:'#db4863', d:'#e26d82'}, 700: {l:'#d6304e', d:'#eda3b1'},
+    800: {l:'#b6243f', d:'#f1b6c1'}, 900: {l:'#861a2e', d:'#f6d1d8'},
+    950: {l:'#55111d', d:'#fae4e8'},
+  }},
+  kindred:  {role: 'Neutral',   stops: {
+    50:  {l:'#f6f6fa', d:'#09090c'}, 100: {l:'#edeef4', d:'#18181c'},
+    200: {l:'#dbdde9', d:'#27272b'}, 300: {l:'#cacddc', d:'#3f3f4b'},
+    400: {l:'#9c9eb0', d:'#525360'}, 500: {l:'#6f7183', d:'#6f7183'},
+    600: {l:'#525360', d:'#9c9eb0'}, 700: {l:'#3f3f4b', d:'#cacddc'},
+    800: {l:'#27272b', d:'#dbdde9'}, 900: {l:'#18181c', d:'#edeef4'},
+    950: {l:'#09090c', d:'#f6f6fa'},
+  }},
+};
+const STOPS = ['50','100','200','300','400','500','600','700','800','900','950'];
+
+function luminance(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 0.299*r + 0.587*g + 0.114*b;
+}
+
+function renderFamilies(mode) {
+  const root = document.getElementById('fams');
+  root.innerHTML = '';
+  for (const [family, info] of Object.entries(TOKENS)) {
+    const card = document.createElement('div');
+    card.className = `fam ${family}`;
+    card.innerHTML = `
+      <div class="name-row">
+        <span class="name">${family}</span>
+        <span class="role">${info.role}</span>
+      </div>
+      <div class="fan-row"></div>
+      <div class="stop-labels">${STOPS.map(s => `<span>${s}</span>`).join('')}</div>
+    `;
+    const fan = card.querySelector('.fan-row');
+    STOPS.forEach((stop, i) => {
+      const v = info.stops[stop];
+      const color = mode === 'dark' ? v.d : v.l;
+      const limitForBorder = mode === 'dark' ? 60 : 220;
+      const needsBorder = mode === 'dark' ? luminance(color) < limitForBorder : luminance(color) > limitForBorder;
+      const sw = document.createElement('div');
+      sw.className = 'fan-swatch' + (needsBorder ? ' light-border' : '');
+      sw.style.left = `${i * 15}px`;
+      sw.style.background = color;
+      sw.style.zIndex = String(i + 1);
+      sw.setAttribute('data-tip', `${family}-${stop}\n${mode} ${color}`);
+      fan.appendChild(sw);
+    });
+    root.appendChild(card);
+  }
+}
+
+// ────── Icon grid ──────
+const ICONS = [
+  ['i-envelope','Envelope'], ['i-chat','Chat'], ['i-bell','Bell'], ['i-user','User'],
+  ['i-search','Search'], ['i-tag','Tag'], ['i-bookmark','Bookmark'], ['i-star','Star'],
+  ['i-check','Check'], ['i-plus','Plus'], ['i-pencil','Pencil'], ['i-archive','Archive'],
+  ['i-trash','Trash'], ['i-calendar','Calendar'], ['i-gear','Gear'], ['i-heart','Heart'],
+];
+
+function renderIcons() {
+  const root = document.getElementById('icons');
+  root.innerHTML = ICONS.map(([id, name]) =>
+    `<div class="icon-cell"><svg><use href="#${id}"/></svg><span class="icon-name">${name}</span></div>`
+  ).join('');
+}
+
+// ────── Mode toggle ──────
+const board = document.querySelector('.board');
+function setMode(mode) {
+  board.dataset.mode = mode;
+  document.body.style.background = mode === 'dark' ? '#18181c' : '#faf8f4';
+  document.querySelectorAll('.mode-seg__btn').forEach((b) => {
+    const active = b.dataset.mode === mode;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  renderFamilies(mode);
+}
+document.querySelectorAll('.mode-seg__btn').forEach((btn) => {
+  btn.addEventListener('click', () => setMode(btn.dataset.mode));
+});
+
+renderIcons();
+setMode('light');
+</script>
+</body>
+</html>
