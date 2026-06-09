@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Container } from './layout/Container'
 import { Reveal } from './Reveal'
 import { Portrait } from './Portrait'
@@ -52,8 +53,8 @@ export function Hero() {
                   />
                 </svg>
               </a>
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="hover-pill focus-ring group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
               >
                 or get in touch
@@ -63,7 +64,7 @@ export function Hero() {
                 >
                   ↗
                 </span>
-              </a>
+              </Link>
             </div>
           </Reveal>
 

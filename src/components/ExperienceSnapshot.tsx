@@ -30,10 +30,10 @@ export function ExperienceSnapshot() {
 
 function ExperienceRow({ item }: { item: ExperienceItem }) {
   return (
-    <li className="group relative grid grid-cols-12 items-baseline gap-x-6 gap-y-1 border-b border-border py-5 transition-colors duration-200 hover:border-border-strong hover:bg-cream-tint/70 sm:py-6">
+    <li className="group relative grid grid-cols-12 items-baseline gap-x-6 gap-y-1 border-b border-border py-5 transition-colors duration-200 hover:border-accent/40 hover:bg-accent-soft sm:py-6">
       <span
         aria-hidden
-        className="absolute left-[-14px] top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-ink transition-all duration-300 ease-out group-hover:h-8"
+        className="absolute left-[-14px] top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-accent transition-all duration-300 ease-out group-hover:h-8"
       />
       <div className="col-span-12 sm:col-span-7 lg:col-span-7">
         <div className="inline-block text-[1rem] sm:text-[1.0625rem] font-semibold tracking-[-0.01em] text-ink transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-1">

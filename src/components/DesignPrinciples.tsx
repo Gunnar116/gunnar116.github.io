@@ -30,10 +30,10 @@ export function DesignPrinciples() {
 
 function PrincipleCard({ principle }: { principle: Principle }) {
   return (
-    <div className="group flex h-full flex-col border-t border-border-strong pt-5 transition-[transform,border-color] duration-300 ease-out hover:border-ink motion-safe:hover:-translate-y-1">
-      <div className="flex items-center gap-2 text-[12px] font-semibold tabular-nums tracking-[0.14em] text-muted-soft transition-colors duration-300 group-hover:text-ink">
+    <div className="hover-pill group flex h-full flex-col border-t border-border-strong pt-5 transition-colors duration-300 ease-out hover:border-accent/50">
+      <div className="flex items-center gap-2 text-[12px] font-semibold tabular-nums tracking-[0.14em] text-muted-soft transition-colors duration-300 group-hover:text-accent-strong">
         {principle.index}
-        <span aria-hidden className="h-px w-0 bg-ink/40 transition-all duration-300 ease-out group-hover:w-6" />
+        <span aria-hidden className="h-px w-0 bg-accent transition-all duration-300 ease-out group-hover:w-6" />
       </div>
       <h3 className="mt-5 text-[1.125rem] sm:text-[1.1875rem] font-semibold tracking-[-0.015em] leading-[1.3] text-ink">
         {principle.title}
