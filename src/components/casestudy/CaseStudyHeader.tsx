@@ -1,6 +1,7 @@
 import type { CaseStudyContent } from '../../data/caseStudyContent'
 import { Container } from '../layout/Container'
 import { CaseStudyNotice } from './CaseStudyNotice'
+import { OutlineLink } from '../OutlineLink'
 
 type Props = {
   content: CaseStudyContent
@@ -26,21 +27,9 @@ export function CaseStudyHeader({ content }: Props) {
           {content.externalLinks && content.externalLinks.length > 0 && (
             <div className="mt-7 flex flex-wrap items-center gap-3">
               {content.externalLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="focus-ring group inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-transparent px-4 py-2 text-[13px] font-medium text-ink transition-colors hover:border-ink hover:bg-cream-tint"
-                >
+                <OutlineLink key={link.href} href={link.href} arrow="↗" size="sm" external>
                   {link.label}
-                  <span
-                    aria-hidden
-                    className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
-                  >
-                    ↗
-                  </span>
-                </a>
+                </OutlineLink>
               ))}
             </div>
           )}

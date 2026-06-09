@@ -273,6 +273,34 @@
   }
 }
 
+/* ── Outlined secondary button — accent system ──────────────────
+   Single source of truth for the site's secondary CTA. Composes with the
+   same layout utilities as .btn-primary (rounded-full, px/py, inline-flex).
+   Transparent ground, accent-strong text (~7.8:1 on cream/accent-soft),
+   soft accent border. Hover deepens the border and adds a subtle accent
+   wash; focus-visible draws the same cream-gapped accent ring as the
+   primary so the two read as a matched pair. */
+@layer utilities {
+  .btn-outline {
+    background-color: transparent;
+    color: var(--color-accent-strong);
+    border: 1px solid rgba(184, 111, 75, 0.4);
+    transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .btn-outline:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-accent);
+  }
+  .btn-outline:active { background-color: rgba(184, 111, 75, 0.16); }
+  @media (hover: hover) {
+    .btn-outline:hover {
+      background-color: rgba(184, 111, 75, 0.1);
+      border-color: rgba(184, 111, 75, 0.6);
+    }
+  }
+}
+
 /* ── Editorial accent underline (hero phrase highlight) ──────────
    A thin accent rule sitting just below the baseline, drawn with a
    background gradient so it wraps cleanly across lines. Slightly offset

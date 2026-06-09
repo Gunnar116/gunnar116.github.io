@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Container } from '../layout/Container'
 import { ClickableImage } from '../Lightbox'
+import { OutlineLink } from '../OutlineLink'
 import { ChapterImageCarousel } from './ChapterImageCarousel'
 import { ProductScreenFrame } from './ProductScreenFrame'
 
@@ -164,20 +165,9 @@ export function CaseStudyChapters({ chapters }: Props) {
               {(c.liveUrl || c.note) && (
                 <div className="col-span-12 sm:col-span-9 sm:col-start-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-muted">
                   {c.liveUrl && (
-                    <a
-                      href={c.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover-pill focus-ring group inline-flex items-center gap-1.5 font-medium text-ink underline decoration-border-strong underline-offset-[5px] transition-colors hover:decoration-ink"
-                    >
+                    <OutlineLink href={c.liveUrl} arrow="↗" size="sm" external>
                       {c.liveLabel ?? 'View live prototype'}
-                      <span
-                        aria-hidden
-                        className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
-                      >
-                        ↗
-                      </span>
-                    </a>
+                    </OutlineLink>
                   )}
                   {c.note && <span className="italic">{c.note}</span>}
                 </div>
@@ -217,15 +207,9 @@ function ChapterEmbed({ embed }: { embed: NonNullable<Chapter['embed']> }) {
             {badgeLabel}
           </span>
         </div>
-        <a
-          href={embed.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-pill focus-ring group inline-flex items-center gap-1 text-[12px] font-medium text-muted transition-colors hover:text-ink"
-        >
+        <OutlineLink href={embed.url} arrow="↗" size="xs" external>
           {openLabel}
-          <span aria-hidden className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5">↗</span>
-        </a>
+        </OutlineLink>
       </div>
 
       {kind === 'document' ? (

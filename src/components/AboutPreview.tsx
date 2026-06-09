@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
 import { Section } from './layout/Section'
 import { Container } from './layout/Container'
+import { OutlineLink } from './OutlineLink'
 
 export function AboutPreview() {
   return (
@@ -22,18 +22,9 @@ export function AboutPreview() {
           high-growth product environments.
         </p>
 
-        <Link
-          to="/about"
-          className="hover-pill focus-ring group mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
-        >
+        <OutlineLink href="/about" className="mt-8">
           More about me
-          <span
-            className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
-            aria-hidden
-          >
-            →
-          </span>
-        </Link>
+        </OutlineLink>
       </Container>
     </Section>
   )

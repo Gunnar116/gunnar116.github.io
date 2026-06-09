@@ -4,6 +4,7 @@ import { Container } from './layout/Container'
 import { CaseVisual } from './CaseVisual'
 import { Reveal } from './Reveal'
 import { InteractiveCard } from './InteractiveCard'
+import { OutlineLink } from './OutlineLink'
 import { caseStudies, type CaseStudy } from '../data/caseStudies'
 
 export function SelectedWork() {
@@ -82,18 +83,9 @@ function CaseRow({ caseStudy, reverse }: { caseStudy: CaseStudy; reverse: boolea
 
           <p className="mt-5 text-[14px] text-muted">{caseStudy.role}</p>
 
-          <Link
-            to={caseStudy.href}
-            className="hover-pill focus-ring mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
-          >
+          <OutlineLink href={caseStudy.href} className="mt-6">
             {caseStudy.cta ?? 'Read case study'}
-            <span
-              className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-1"
-              aria-hidden
-            >
-              →
-            </span>
-          </Link>
+          </OutlineLink>
         </div>
       </div>
     </article>

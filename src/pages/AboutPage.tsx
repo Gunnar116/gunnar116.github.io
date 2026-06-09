@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Section } from '../components/layout/Section'
 import { Container } from '../components/layout/Container'
 import { Portrait } from '../components/Portrait'
 import { Reveal } from '../components/Reveal'
+import { SiteCTA } from '../components/SiteCTA'
+import { OutlineLink } from '../components/OutlineLink'
 
 type JourneyEntry = {
   period: string
@@ -155,31 +156,14 @@ export function AboutPage() {
                 and what needs to become clearer before the interface can feel simple.
               </p>
 
-              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-[14px] font-medium">
-                <Link
-                  to="/#work"
-                  className="hover-pill focus-ring group inline-flex items-center gap-1.5 text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
-                >
-                  View selected work
-                  <span
-                    aria-hidden
-                    className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
-                  >
-                    →
-                  </span>
-                </Link>
-                <a
-                  href="/resume/Gunnar-Morgan-Resume-2026.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover-pill focus-ring group inline-flex items-center gap-1.5 text-muted transition-colors hover:text-ink"
-                >
+              <div className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-3 text-[14px] font-medium">
+                <OutlineLink href="/#work">View selected work</OutlineLink>
+                <OutlineLink href="/resume/Gunnar-Morgan-Resume-2026.pdf" arrow="↗">
                   Download resume
-                  <span aria-hidden className="text-[11px] transition-colors group-hover:text-accent">↗</span>
-                </a>
+                </OutlineLink>
                 <a
                   href="mailto:grmconcepts@gmail.com"
-                  className="hover-pill focus-ring inline-flex items-center text-muted transition-colors hover:text-ink"
+                  className="hover-pill focus-ring inline-flex items-center px-1 text-muted transition-colors hover:text-ink"
                 >
                   Email me
                 </a>
@@ -334,41 +318,16 @@ export function AboutPage() {
       </Section>
 
       {/* CTA */}
-      <Section tone="charcoal" spacing="default">
-        <Container size="narrow">
-          <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] font-semibold tracking-[-0.02em] leading-[1.1] text-cream">
-            Let’s make complex products easier to use.
-          </h2>
-          <p className="mt-6 text-[17px] sm:text-[18px] leading-[1.6] text-cream/70 max-w-2xl">
-            I’m open to senior product design roles, contract work, and teams building products
-            that need more clarity, structure, and momentum.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-1.5 rounded-full bg-cream px-5 py-2.5 text-[14px] font-semibold text-ink transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
-            >
-              Get in touch
-              <span aria-hidden className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5">→</span>
-            </Link>
-            <a
-              href="/resume/Gunnar-Morgan-Resume-2026.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-cream/30 px-5 py-2.5 text-[14px] font-medium text-cream transition-colors hover:border-cream/60 hover:bg-cream/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
-            >
-              Download resume
-              <span aria-hidden className="text-[11px]">↗</span>
-            </a>
-            <a
-              href="mailto:grmconcepts@gmail.com"
-              className="inline-flex items-center gap-1.5 rounded-full border border-cream/30 px-5 py-2.5 text-[14px] font-medium text-cream transition-colors hover:border-cream/60 hover:bg-cream/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
-            >
-              Email me
-            </a>
-          </div>
-        </Container>
-      </Section>
+      <SiteCTA
+        eyebrow="Next step"
+        title="Let’s make complex products easier to use."
+        description="I’m open to senior product design roles, contract work, and teams building products that need more clarity, structure, and momentum."
+        primaryLabel="Get in touch"
+        primaryHref="/contact"
+        secondaryLabel="View selected work"
+        secondaryHref="/"
+        variant="compact"
+      />
     </main>
   )
 }

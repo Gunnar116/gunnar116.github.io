@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { Section } from '../layout/Section'
 import { Container } from '../layout/Container'
 import { Reveal } from '../Reveal'
+import { OutlineLink } from '../OutlineLink'
 import { medefyChapters } from '../../data/medefyChapters'
 import { MedefyChapterCard } from './MedefyChapterCard'
 
@@ -35,18 +35,7 @@ export function MedefySpotlight() {
 
           {/* Quiet CTA */}
           <div className="mt-12 sm:mt-14 flex justify-center">
-            <Link
-              to="/work/medefy"
-              className="hover-pill focus-ring group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-border-strong underline-offset-[6px] transition-colors hover:decoration-ink"
-            >
-              Read the Medefy story
-              <span
-                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
-                aria-hidden
-              >
-                →
-              </span>
-            </Link>
+            <OutlineLink href="/work/medefy">Read the Medefy story</OutlineLink>
           </div>
         </div>
       </Container>
