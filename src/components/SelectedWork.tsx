@@ -61,7 +61,7 @@ function CaseRow({ caseStudy, reverse }: { caseStudy: CaseStudy; reverse: boolea
         {/* Text */}
         <div className="w-full lg:flex-[5]">
           <div className="flex items-center gap-3 text-muted-soft">
-            <span className="eyebrow !text-muted-soft">{caseStudy.tag}</span>
+            <span className="eyebrow">{caseStudy.tag}</span>
             <span className="h-[1px] w-6 bg-border-strong" aria-hidden />
             <span className="text-[12px] font-medium tabular-nums tracking-[0.04em] text-muted-soft">
               {caseStudy.year}
@@ -84,7 +84,7 @@ function CaseRow({ caseStudy, reverse }: { caseStudy: CaseStudy; reverse: boolea
           >
             {caseStudy.cta ?? 'Read case study'}
             <span
-              className="transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+              className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-1"
               aria-hidden
             >
               →

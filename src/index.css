@@ -33,6 +33,15 @@
   --color-accent-medefy: #5C8A75;
   --color-accent-fortress: #5B4E91;
 
+  /* Site accent — warm terracotta. Used as subtle editorial polish:
+     labels, dots, borders, arrows, decoration, and hover fills.
+       accent        #B86F4B — decoration / borders / dots / arrows / large labels (~3.7:1 on cream)
+       accent-soft   #F4E7DF — hover & focus background fills
+       accent-strong #7A3F28 — small accent text (~7.7:1 on cream) */
+  --color-accent: #B86F4B;
+  --color-accent-soft: #F4E7DF;
+  --color-accent-strong: #7A3F28;
+
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
@@ -115,7 +124,8 @@
     font-weight: 600;
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--color-muted);
+    /* Warm terracotta section labels — accent-strong clears AA on cream (~7.7:1). */
+    color: var(--color-accent-strong);
   }
 
   .reveal {
@@ -195,10 +205,11 @@
     .group:hover .glow-soft::after { opacity: 1; }
   }
 
-  /* Clear keyboard focus for interactive surfaces */
+  /* Clear keyboard focus for interactive surfaces — warm accent ring with a
+     cream gap. Accent on cream is ~3.7:1, clearing the 3:1 non-text minimum. */
   .focus-ring:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-ink);
+    box-shadow: 0 0 0 2px var(--color-cream), 0 0 0 4px var(--color-accent);
     border-radius: 12px;
   }
 
@@ -220,7 +231,8 @@
     position: absolute;
     inset: -5px -11px;
     border-radius: 9px;
-    background: var(--color-cream-tint);
+    /* Warm accent-soft wash behind text links on hover/focus. */
+    background: var(--color-accent-soft);
     opacity: 0;
     transition: opacity 220ms ease;
     z-index: -1;
@@ -230,10 +242,10 @@
     .hover-pill:hover::before { opacity: 1; }
   }
 
-  /* Gentle background tint for unoutlined buttons (no heavy outline). */
+  /* Gentle accent-soft tint for unoutlined buttons (no heavy outline). */
   .hover-fill { transition: background-color 200ms ease, color 200ms ease; }
-  .hover-fill:focus-visible { background-color: var(--color-cream-tint); }
+  .hover-fill:focus-visible { background-color: var(--color-accent-soft); }
   @media (hover: hover) {
-    .hover-fill:hover { background-color: var(--color-cream-tint); }
+    .hover-fill:hover { background-color: var(--color-accent-soft); }
   }
 }

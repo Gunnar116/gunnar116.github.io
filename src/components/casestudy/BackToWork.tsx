@@ -11,7 +11,7 @@ export function BackToWork() {
         >
           <span
             aria-hidden
-            className="transition-transform duration-200 motion-safe:group-hover:-translate-x-0.5"
+            className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:-translate-x-0.5"
           >
             ←
           </span>

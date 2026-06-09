@@ -34,7 +34,7 @@ export function CaseStudyHeader({ content }: Props) {
                   {link.label}
                   <span
                     aria-hidden
-                    className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                    className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
                   >
                     ↗
                   </span>
@@ -68,7 +68,7 @@ export function CaseStudyHeader({ content }: Props) {
 function MetaItem({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-soft">
+      <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-accent-strong">
         {label}
       </dt>
       <dd className="mt-2 text-[14.5px] leading-[1.55] text-ink">{value}</dd>

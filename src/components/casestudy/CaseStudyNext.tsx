@@ -19,7 +19,7 @@ export function CaseStudyNext({ next }: Props) {
           >
             <span
               aria-hidden
-              className="transition-transform duration-200 motion-safe:group-hover:-translate-x-0.5"
+              className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:-translate-x-0.5"
             >
               ←
             </span>
@@ -34,11 +34,11 @@ export function CaseStudyNext({ next }: Props) {
               <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-soft">
                 Next case study
               </span>
-              <span className="inline-flex items-center gap-2 text-[1.25rem] sm:text-[1.5rem] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:underline decoration-border-strong underline-offset-[6px]">
+              <span className="inline-flex items-center gap-2 text-[1.25rem] sm:text-[1.5rem] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:underline decoration-accent underline-offset-[6px]">
                 {next.title}
                 <span
                   aria-hidden
-                  className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                  className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
                 >
                   →
                 </span>

@@ -74,7 +74,7 @@ export function CaseStudyChapters({ chapters }: Props) {
             >
               {/* Index + label column */}
               <div className="col-span-12 sm:col-span-3">
-                <div className="text-[12px] font-semibold tabular-nums tracking-[0.14em] text-muted-soft">
+                <div className="text-[12px] font-semibold tabular-nums tracking-[0.14em] text-accent-strong">
                   {c.index}
                 </div>
                 <div className="mt-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-muted">
@@ -173,7 +173,7 @@ export function CaseStudyChapters({ chapters }: Props) {
                       {c.liveLabel ?? 'View live prototype'}
                       <span
                         aria-hidden
-                        className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                        className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
                       >
                         ↗
                       </span>
@@ -224,7 +224,7 @@ function ChapterEmbed({ embed }: { embed: NonNullable<Chapter['embed']> }) {
           className="hover-pill focus-ring group inline-flex items-center gap-1 text-[12px] font-medium text-muted transition-colors hover:text-ink"
         >
           {openLabel}
-          <span aria-hidden className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5">↗</span>
+          <span aria-hidden className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5">↗</span>
         </a>
       </div>
 

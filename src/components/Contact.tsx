@@ -50,7 +50,7 @@ export function Contact() {
             >
               LinkedIn
               <span
-                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
                 aria-hidden
               >
                 ↗
@@ -65,7 +65,7 @@ export function Contact() {
             >
               Resume
               <span
-                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+                className="transition-[transform,color] duration-200 group-hover:text-accent motion-safe:group-hover:translate-x-0.5"
                 aria-hidden
               >
                 ↗
