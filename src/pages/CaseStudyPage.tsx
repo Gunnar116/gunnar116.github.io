@@ -7,6 +7,7 @@ import { CaseStudyHero } from '../components/casestudy/CaseStudyHero'
 import { CaseStudySection } from '../components/casestudy/CaseStudySection'
 import { CaseStudyDecisions } from '../components/casestudy/CaseStudyDecisions'
 import { CaseStudyChapters } from '../components/casestudy/CaseStudyChapters'
+import { CaseStudyCTA } from '../components/casestudy/CaseStudyCTA'
 import { CaseStudyNext } from '../components/casestudy/CaseStudyNext'
 import { ConfidentialityNote } from '../components/casestudy/ConfidentialityNote'
 
@@ -88,6 +89,8 @@ export function CaseStudyPage() {
           <p>{content.reflection}</p>
         </CaseStudySection>
       )}
+
+      <CaseStudyCTA />
 
       <CaseStudyNext next={content.next} />
     </main>

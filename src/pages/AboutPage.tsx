@@ -345,10 +345,10 @@ export function AboutPage() {
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
-              to="/"
+              to="/contact"
               className="group inline-flex items-center gap-1.5 rounded-full bg-cream px-5 py-2.5 text-[14px] font-semibold text-ink transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
             >
-              View selected work
+              Get in touch
               <span aria-hidden className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5">→</span>
             </Link>
             <a
