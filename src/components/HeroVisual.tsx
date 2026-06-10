@@ -28,7 +28,7 @@ function CardBody({ label, text }: Card) {
       <div className="text-[8.5px] font-semibold uppercase tracking-[0.16em] text-accent-strong/85">
         {label}
       </div>
-      <div className="mt-1 text-[10.5px] leading-snug text-muted-soft">{text}</div>
+      <div className="mt-1 text-[10.5px] leading-snug text-muted">{text}</div>
     </div>
   )
 }

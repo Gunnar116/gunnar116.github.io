@@ -11,7 +11,7 @@ export function Footer() {
             <a
               href="https://www.linkedin.com/in/gunnarmorgan"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover-pill focus-ring transition-colors hover:text-ink"
             >
               LinkedIn
