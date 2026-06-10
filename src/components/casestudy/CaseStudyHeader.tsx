@@ -9,7 +9,7 @@ type Props = {
 
 export function CaseStudyHeader({ content }: Props) {
   return (
-    <section className="pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-48 lg:pb-24">
+    <section className="pt-[100px] pb-16 sm:pb-20 lg:pb-24">
       <Container>
         <div className="max-w-4xl">
           <span className="eyebrow">{content.eyebrow}</span>

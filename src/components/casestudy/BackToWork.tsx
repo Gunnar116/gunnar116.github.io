@@ -3,7 +3,7 @@ import { Container } from '../layout/Container'
 
 export function BackToWork() {
   return (
-    <div className="pt-28 sm:pt-32">
+    <div className="pt-24">
       <Container>
         <Link
           to="/#work"
