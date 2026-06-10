@@ -1,13 +1,13 @@
 import { Container } from './layout/Container'
 import { Reveal } from './Reveal'
-import { Portrait } from './Portrait'
+import { HeroVisual } from './HeroVisual'
 import { OutlineLink } from './OutlineLink'
 
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative w-full pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-28"
+      className="relative w-full overflow-x-clip pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-28"
     >
       <Container>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
@@ -60,10 +60,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={120} className="lg:col-span-5 lg:justify-self-end">
-            <Portrait
-              eager
-              className="w-full max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]"
-            />
+            <HeroVisual />
           </Reveal>
         </div>
       </Container>

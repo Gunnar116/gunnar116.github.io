@@ -308,22 +308,26 @@
    underline. Draws in once on load when motion is allowed; static
    otherwise. Uses the existing --color-accent token. */
 @layer utilities {
+  /* Organic brush-stroke underline: a single hand-painted clay stroke (SVG)
+     sitting just under the phrase, in the existing accent color. Wraps per
+     line via box-decoration-break, scales to the phrase width, and paints in
+     left-to-right on load when motion is allowed; static otherwise. */
   .accent-underline {
-    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-image: url('/images/brush-underline.svg');
     background-repeat: no-repeat;
     background-position: 0 100%;
-    background-size: 100% 0.07em;
-    padding-bottom: 0.1em;
+    background-size: 100% 0.42em;
+    padding-bottom: 0.2em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
   @media (prefers-reduced-motion: no-preference) {
     .accent-underline {
-      animation: accentDraw 620ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+      animation: accentDraw 700ms cubic-bezier(0.22, 1, 0.36, 1) 240ms both;
     }
     @keyframes accentDraw {
-      from { background-size: 0% 0.07em; }
-      to { background-size: 100% 0.07em; }
+      from { background-size: 0% 0.42em; }
+      to { background-size: 100% 0.42em; }
     }
   }
 }
