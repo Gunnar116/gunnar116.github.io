@@ -48,9 +48,9 @@ const CHANNELS: Channel[] = [
 export function ContactPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-    document.title = 'Contact — Gunnar Morgan'
+    document.title = 'Contact · Gunnar Morgan'
     return () => {
-      document.title = 'Gunnar Morgan — Senior Product Designer'
+      document.title = 'Gunnar Morgan · Senior Product Designer'
     }
   }, [])
 

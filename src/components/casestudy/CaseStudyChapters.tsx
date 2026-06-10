@@ -156,7 +156,7 @@ export function CaseStudyChapters({ chapters }: Props) {
                   <ChapterImageCarousel
                     images={c.images}
                     layout={c.imagesLayout}
-                    label={`${c.title} — image carousel`}
+                    label={`${c.title}, image carousel`}
                   />
                 </div>
               )}

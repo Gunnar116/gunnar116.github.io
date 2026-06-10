@@ -47,7 +47,7 @@ function CaseRow({ caseStudy, reverse }: { caseStudy: CaseStudy; reverse: boolea
         {/* Visual */}
         <Link
           to={caseStudy.href}
-          aria-label={`${caseStudy.title} — view case study`}
+          aria-label={`${caseStudy.title}, view case study`}
           className="focus-ring block w-full lg:flex-[7] rounded-2xl transition-[transform,box-shadow] duration-300 ease-out group-hover:shadow-[0_26px_55px_-32px_rgba(20,20,20,0.4)] motion-safe:group-hover:-translate-y-[3px]"
         >
           <InteractiveCard className="rounded-2xl overflow-hidden">

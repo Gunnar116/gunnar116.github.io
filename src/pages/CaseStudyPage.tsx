@@ -16,9 +16,9 @@ export function CaseStudyPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-    if (content) document.title = `${content.title} — Gunnar Morgan`
+    if (content) document.title = `${content.title} · Gunnar Morgan`
     return () => {
-      document.title = 'Gunnar Morgan — Senior Product Designer'
+      document.title = 'Gunnar Morgan · Senior Product Designer'
     }
   }, [content, slug])
 

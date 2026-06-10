@@ -16,7 +16,7 @@ type JourneyEntry = {
 
 const JOURNEY: JourneyEntry[] = [
   {
-    period: '2026 — Present',
+    period: '2026–Present',
     company: 'Medefy Health',
     title: 'Lead Product Designer',
     summary:
@@ -31,14 +31,14 @@ const JOURNEY: JourneyEntry[] = [
     company: 'Kindness.ai',
     title: 'Lead Product Designer · Contract',
     summary:
-      'Built the design system from scratch and shaped the AI inbox workflows — how messages get labeled, filtered, and searched while keeping the user in control.',
+      'Built the design system from scratch and shaped the AI inbox workflows: how messages get labeled, filtered, and searched while keeping the user in control.',
     points: [
       'Design system created from the ground up',
       'AI-assisted labeling, filtering, and search',
     ],
   },
   {
-    period: '2023 — 2025',
+    period: '2023–2025',
     company: 'TruOps',
     title: 'Senior Product Designer',
     summary:
@@ -49,7 +49,7 @@ const JOURNEY: JourneyEntry[] = [
     ],
   },
   {
-    period: '2021 — 2023',
+    period: '2021–2023',
     company: 'Fortress Information Security',
     title: 'Lead Product Designer',
     summary:
@@ -126,9 +126,9 @@ const OUTSIDE = [
 export function AboutPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-    document.title = 'About — Gunnar Morgan'
+    document.title = 'About · Gunnar Morgan'
     return () => {
-      document.title = 'Gunnar Morgan — Senior Product Designer'
+      document.title = 'Gunnar Morgan · Senior Product Designer'
     }
   }, [])
 
@@ -146,7 +146,7 @@ export function AboutPage() {
               <p className="mt-7 max-w-2xl text-[17px] sm:text-[18px] leading-[1.6] text-body">
                 I’m Gunnar Morgan, a product designer focused on turning complex workflows into
                 clear, usable product experiences. My work sits at the intersection of product
-                strategy, systems thinking, and hands-on interface design — usually in spaces
+                strategy, systems thinking, and hands-on interface design, usually in spaces
                 where the workflows are messy, the product is complex, and clarity matters.
               </p>
               <p className="mt-5 max-w-2xl text-[16px] sm:text-[16.5px] leading-[1.65] text-muted">
@@ -188,7 +188,7 @@ export function AboutPage() {
               <div className="col-span-12 lg:col-span-4">
                 <span className="eyebrow">My journey</span>
                 <p className="mt-4 max-w-xs text-[15px] leading-[1.6] text-muted">
-                  A short version of the path — the industries shift, but the kind of problem
+                  A short version of the path. The industries shift, but the kind of problem
                   stays familiar.
                 </p>
               </div>
@@ -289,7 +289,7 @@ export function AboutPage() {
               <div className="col-span-12 lg:col-span-5">
                 <span className="eyebrow">Outside of design</span>
                 <p className="mt-6 text-[18px] sm:text-[20px] leading-[1.55] tracking-[-0.01em] text-ink">
-                  Outside of design, I’m usually outside — mountain biking, dirt biking, hiking,
+                  Outside of design, I’m usually outside: mountain biking, dirt biking, hiking,
                   snowboarding, climbing, or spending time with my two Border Collies. I like
                   building things, tuning details, and getting better at whatever I’m into, which
                   probably explains why I’m drawn to product design in the first place.

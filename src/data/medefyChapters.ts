@@ -25,11 +25,11 @@ export const medefyChapters: MedefyChapter[] = [
     label: 'Care guide workflows',
     title: 'Texoma Care Guide Chat Platform',
     caption:
-      'Designing the chat experience that connects members with their care guides — including conversation flows, escalation states, and the internal care guide workspace.',
+      'Designing the chat experience that connects members with their care guides, including conversation flows, escalation states, and the internal care guide workspace.',
     visual: 'chat',
     image: {
       src: '/work/medefy/medefy-homepage-texoma-interface-preview.png',
-      alt: 'Texoma care guide chat interface — the active conversation list, a member care-guide chat thread, and the context panel with benefits and AI response suggestions.',
+      alt: 'Texoma care guide chat interface: the active conversation list, a member care-guide chat thread, and the context panel with benefits and AI response suggestions.',
     },
   },
   {
@@ -42,7 +42,7 @@ export const medefyChapters: MedefyChapter[] = [
     visual: 'mobile',
     image: {
       src: '/work/medefy/medefy-homepage-mobile-preview.png',
-      alt: 'Medefy member mobile app — benefits navigation home screen and a health-benefits detail view with plan, deductible, and spending information.',
+      alt: 'Medefy member mobile app: benefits navigation home screen and a health-benefits detail view with plan, deductible, and spending information.',
     },
   },
   {
@@ -55,7 +55,7 @@ export const medefyChapters: MedefyChapter[] = [
     visual: 'accessibility',
     image: {
       src: '/work/medefy/medefy-homepage-accessibility-preview.png',
-      alt: 'MyBenefitsFlorida accessibility remediation — before/after comparison of a Contact Support form showing failing form-field states alongside the remediated states that pass WCAG contrast and focus requirements.',
+      alt: 'MyBenefitsFlorida accessibility remediation: before/after comparison of a Contact Support form showing failing form-field states alongside the remediated states that pass WCAG contrast and focus requirements.',
     },
   },
   {
@@ -68,7 +68,7 @@ export const medefyChapters: MedefyChapter[] = [
     visual: 'system',
     image: {
       src: '/work/medefy/medefy-homepage-system-preview.png',
-      alt: 'Medefy product system — color token reference with token names, color swatches, and recommended hex values that scale across the product.',
+      alt: 'Medefy product system: color token reference with token names, color swatches, and recommended hex values that scale across the product.',
     },
   },
 ]

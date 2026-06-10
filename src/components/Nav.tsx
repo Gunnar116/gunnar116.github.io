@@ -50,11 +50,11 @@ export function Nav() {
               to="/"
               onClick={() => setOpen(false)}
               className="focus-ring inline-flex w-fit items-center rounded-full px-1 py-1"
-              aria-label="Gunnar Morgan — home"
+              aria-label="Gunnar Morgan, home"
             >
               <img
                 src="/images/grm-logo.png"
-                alt="GRM — Gunnar Morgan"
+                alt="Gunnar Morgan"
                 width={807}
                 height={325}
                 className="h-6 w-auto sm:h-[26px]"

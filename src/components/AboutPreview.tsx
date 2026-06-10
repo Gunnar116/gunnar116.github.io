@@ -10,7 +10,7 @@ export function AboutPreview() {
 
         <p className="mt-5 text-[1.375rem] sm:text-[1.5rem] lg:text-[1.75rem] leading-[1.4] tracking-[-0.015em] text-ink font-medium">
           My work usually sits where complex workflows, product systems, and visual clarity
-          meet — helping teams turn dense product experiences into something easier to
+          meet, helping teams turn dense product experiences into something easier to
           understand, use, and ship.
         </p>
 

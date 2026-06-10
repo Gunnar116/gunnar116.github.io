@@ -14,7 +14,7 @@ export function HomePage() {
   const location = useLocation()
 
   useEffect(() => {
-    document.title = 'Gunnar Morgan — Senior Product Designer'
+    document.title = 'Gunnar Morgan · Senior Product Designer'
   }, [])
 
   // Scroll to hash target when arriving with #work, #about, #contact, #medefy, etc.
